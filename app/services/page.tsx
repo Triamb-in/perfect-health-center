@@ -18,11 +18,6 @@ export default async function ServicesPage() {
 
   return (
     <div className="pt-28 pb-20 lg:pt-36 lg:pb-28 bg-[#fafaf7]">
-      <SchemaMarkup
-        clinicData={clinicData}
-        pageUrl="https://perfecthealthcenter.in/services"
-        pageName="Specialties"
-      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         

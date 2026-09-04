@@ -5,6 +5,9 @@ import { FileCheck } from "lucide-react";
 export const metadata: Metadata = {
   title: "Terms of Use — Perfect Health Center",
   description: "Terms of use and clinical disclaimer for Perfect Health Center website.",
+  alternates: {
+    canonical: "/terms-of-use",
+  },
 };
 
 export default function TermsOfUsePage() {

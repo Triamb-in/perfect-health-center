@@ -5,6 +5,9 @@ import { Shield } from "lucide-react";
 export const metadata: Metadata = {
   title: "Privacy Policy — Perfect Health Center",
   description: "Privacy policy regarding patient inquiry and health information handling at Perfect Health Center.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

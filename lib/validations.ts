@@ -46,7 +46,14 @@ export const bookingFormSchema = z.object({
     .trim(),
   preferredDate: z
     .string()
-    .min(1, "Please select your preferred appointment date"),
+    .min(1, "Please select your preferred appointment date")
+    .refine((val) => {
+      if (!val) return false;
+      const selected = new Date(val);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return selected >= today;
+    }, "Appointment date cannot be in the past"),
   consultationType: z.enum(["In-Person", "Online"]),
   specialty: z.string().optional().default("Homeopathy"),
   notes: z.string().max(500, "Notes too long").optional().or(z.literal("")),

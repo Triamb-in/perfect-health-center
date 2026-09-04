@@ -23,12 +23,21 @@ export type ClinicEmailPayload =
       notes?: string;
     };
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function buildHtml(payload: ClinicEmailPayload): string {
   const row = (label: string, value: string | undefined) =>
     value
       ? `<tr>
-          <td style="padding:6px 12px;font-weight:600;color:#134633;white-space:nowrap;vertical-align:top;">${label}</td>
-          <td style="padding:6px 12px;color:#1a1a1a;">${value}</td>
+          <td style="padding:6px 12px;font-weight:600;color:#134633;white-space:nowrap;vertical-align:top;">${escapeHtml(label)}</td>
+          <td style="padding:6px 12px;color:#1a1a1a;">${escapeHtml(value)}</td>
         </tr>`
       : "";
 
@@ -90,10 +99,11 @@ function buildHtml(payload: ClinicEmailPayload): string {
 }
 
 function buildSubject(payload: ClinicEmailPayload): string {
+  const safeName = payload.fullName.replace(/[\r\n\t]/g, " ").trim().slice(0, 80);
   if (payload.type === "booking") {
-    return `New appointment request — ${payload.fullName}`;
+    return `New appointment request — ${safeName}`;
   }
-  return `New contact form submission — ${payload.fullName}`;
+  return `New contact form submission — ${safeName}`;
 }
 
 /**

@@ -27,8 +27,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Parse request body
-    const body = await req.json();
+    // 2. Parse request body safely
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid JSON in request payload" },
+        { status: 400 }
+      );
+    }
 
     // 3. Honeypot check
     if (body.company_honeypot && body.company_honeypot.length > 0) {

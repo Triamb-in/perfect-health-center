@@ -17,11 +17,6 @@ export default async function ContactPage() {
 
   return (
     <div className="pt-24 bg-white">
-      <SchemaMarkup
-        clinicData={clinicData}
-        pageUrl="https://perfecthealthcenter.in/contact"
-        pageName="Contact Us"
-      />
       <ContactSection clinicData={clinicData} />
     </div>
   );
