@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-dark: #134633;
+  --primary-main: #245742;
+  --primary-light: #487252;
+  --primary-subtle: #e8f0e6;
+  --sage-bg: #dce7d9;
+  --sage-border: #c3d6bf;
+
+  --bg-gradient-start: #f6f6f1;
+  --bg-gradient-mid: #ecece4;
+  --bg-gradient-end: #f2f2eb;
+  --bg-white: #ffffff;
+  --bg-card: #ffffff;
+
+  --text-dark: #1a3328;
+  --text-body: #3b5247;
+  --text-muted: #596e62;
+  --text-light: #ffffff;
+
+  --border-light: #e2eae4;
+  --border-focus: #134633;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  color: var(--text-body);
+  background-color: var(--bg-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-dark);
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-main);
+  background-color: var(--primary-subtle);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Dot grid decoration */
+.dot-grid-decor {
+  display: grid;
+  grid-template-columns: repeat(6, 6px);
+  gap: 10px;
+}
+.dot-grid-decor span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--sage-border);
+}
+
+/* Subtle leaf float animation */
+@keyframes leafFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-leaf {
+  animation: leafFloat 8s ease-in-out infinite;
+}
+
+/* Media Protection Shield - Prevents dragging, text selection, and callout menus */
+.protected-media,
+.protected-media img,
+.protected-media video,
+img[draggable="false"] {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
