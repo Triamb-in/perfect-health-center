@@ -4,6 +4,7 @@ import "./globals.css";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { ClientAppShell } from "@/components/ClientAppShell";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
+import { PageLoader } from "@/components/PageLoader";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -105,6 +106,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased bg-white text-text-body selection:bg-primary-subtle selection:text-primary-dark">
+        <PageLoader />
         <SchemaMarkup clinicData={clinicData} />
         <ClientAppShell clinicData={clinicData}>{children}</ClientAppShell>
       </body>
