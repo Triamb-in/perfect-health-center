@@ -46,7 +46,8 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
+            value:
+              'camera=(), microphone=(), geolocation=(), autoplay=(self "https://www.youtube.com" "https://www.youtube-nocookie.com"), encrypted-media=(self "https://www.youtube.com" "https://www.youtube-nocookie.com"), fullscreen=*, picture-in-picture=*',
           },
           {
             key: "Strict-Transport-Security",
