@@ -3,7 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-const SPLASH_SESSION_KEY = "phc_seen_splash_session";
+// Minimum time the loader is visible so the exit animation has something to fade from.
+// Without this, if readyState === 'complete' on mount (cached pages), the transition
+// fires before the first paint, making the loader appear "stuck" at opacity-0.
+const MIN_VISIBLE_MS = 300;
 const MAX_FALLBACK_TIMEOUT_MS = 4000;
 const EXIT_ANIMATION_DURATION_MS = 750;
 
@@ -11,18 +14,8 @@ export function PageLoader() {
   const [status, setStatus] = useState<"loading" | "exiting" | "destroyed">("loading");
 
   useEffect(() => {
-    // 1. Session check: only show full splash on first visit/load per tab session
-    try {
-      if (sessionStorage.getItem(SPLASH_SESSION_KEY)) {
-        setStatus("destroyed");
-        return;
-      }
-      sessionStorage.setItem(SPLASH_SESSION_KEY, "true");
-    } catch {
-      // If sessionStorage is unavailable in strict privacy mode, proceed safely
-    }
-
     let isDone = false;
+    let minVisibleTimer: NodeJS.Timeout | null = null;
     let fallbackTimer: NodeJS.Timeout | null = null;
     let exitTimer: NodeJS.Timeout | null = null;
 
@@ -30,6 +23,7 @@ export function PageLoader() {
       if (isDone) return;
       isDone = true;
       if (fallbackTimer) clearTimeout(fallbackTimer);
+      if (minVisibleTimer) clearTimeout(minVisibleTimer);
 
       setStatus("exiting");
       exitTimer = setTimeout(() => {
@@ -37,16 +31,25 @@ export function PageLoader() {
       }, EXIT_ANIMATION_DURATION_MS);
     };
 
-    // 2. Resource readiness check: listen for window 'load' (images, fonts, stylesheets)
+    // Ensure the loader is visible for at least MIN_VISIBLE_MS before exiting,
+    // so the CSS transition has a painted baseline to animate from.
+    const scheduleExit = () => {
+      minVisibleTimer = setTimeout(startExit, MIN_VISIBLE_MS);
+    };
+
+    // Resource readiness check: listen for window 'load' (images, fonts, stylesheets).
+    // On cached/fast pages readyState is already 'complete' on mount — schedule exit
+    // after the minimum visible time so the animation plays correctly.
     if (document.readyState === "complete") {
-      startExit();
+      scheduleExit();
     } else {
-      window.addEventListener("load", startExit, { once: true });
-      fallbackTimer = setTimeout(startExit, MAX_FALLBACK_TIMEOUT_MS);
+      window.addEventListener("load", scheduleExit, { once: true });
+      fallbackTimer = setTimeout(scheduleExit, MAX_FALLBACK_TIMEOUT_MS);
     }
 
     return () => {
-      window.removeEventListener("load", startExit);
+      window.removeEventListener("load", scheduleExit);
+      if (minVisibleTimer) clearTimeout(minVisibleTimer);
       if (fallbackTimer) clearTimeout(fallbackTimer);
       if (exitTimer) clearTimeout(exitTimer);
     };
