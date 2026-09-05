@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Calendar, Menu, X } from "lucide-react";
 import { ClinicData } from "@/types";
@@ -84,38 +85,15 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
         
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary-subtle border border-primary-light/20 flex items-center justify-center transition-transform group-hover:scale-105 flex-shrink-0">
-            <svg
-              viewBox="0 0 36 44"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 sm:w-6 sm:h-6"
-            >
-              <path
-                d="M18 2C9 12 3 22 18 38C33 22 27 12 18 2Z"
-                stroke="#134633"
-                strokeWidth="2.2"
-                fill="none"
-              />
-              <path
-                d="M18 9V32"
-                stroke="#134633"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-              <path
-                d="M18 16C13 13 8 16 7 21"
-                stroke="#134633"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-              <path
-                d="M18 23C23 20 28 23 29 28"
-                stroke="#134633"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-            </svg>
+          <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 transition-transform group-hover:scale-105">
+            <Image
+              src="/logo.png"
+              alt="Perfect Health Center Logo"
+              width={40}
+              height={40}
+              priority
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="flex flex-col min-w-0">
             <span className="font-serif font-bold text-sm sm:text-base md:text-lg lg:text-xl text-primary-dark tracking-tight leading-tight truncate">

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Youtube, MapPin, Phone, Mail, Sparkles, Instagram } from "lucide-react";
 import { ClinicData } from "@/types";
 
@@ -18,11 +19,14 @@ export function Footer({ clinicData }: FooterProps) {
           {/* Brand & Description */}
           <div className="lg:col-span-4 flex flex-col items-start">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary-dark p-2">
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <path d="M50 10 C30 35 15 60 50 90 C85 60 70 35 50 10 Z" fill="#ebf4ef" stroke="#1b4d3e" strokeWidth="4" />
-                  <path d="M50 25 C38 42 28 60 50 82 C72 60 62 42 50 25 Z" fill="#27624c" />
-                </svg>
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center p-1 flex-shrink-0">
+                <Image
+                  src="/logo.png"
+                  alt="Perfect Health Center Logo"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif font-bold text-xl text-white">
