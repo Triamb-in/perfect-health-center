@@ -97,7 +97,7 @@ export default function SitemapPage() {
     {
       title: "Clinic Timings & Consultation Hours",
       href: "/#patient-info",
-      desc: "Morning (10:30 AM – 1:30 PM) & Evening (6:30 PM – 10:00 PM) schedules.",
+      desc: "Monday – Saturday: 10:30 AM – 10:00 PM (Closed on Sundays).",
       icon: Clock,
     },
     {

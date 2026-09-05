@@ -60,15 +60,12 @@ export async function POST(req: NextRequest) {
     const { fullName, phone, preferredDate, consultationType, specialty, notes } =
       validationResult.data;
 
-    // 5. Log the booking request server-side (visible in Vercel function logs)
-    console.log("=== NEW APPOINTMENT BOOKING REQUEST ===", {
+    // 5. Log operational event (privacy-safe: zero patient health data or PII)
+    console.log("[telemetry] Clinic appointment booking request received", {
       timestamp: new Date().toISOString(),
-      fullName,
-      phone,
-      preferredDate,
       consultationType,
       specialty,
-      notes: notes || "None",
+      hasNotes: Boolean(notes),
     });
 
     // 6. Send email notification to Dr. Pragati (non-blocking failure)

@@ -17,19 +17,24 @@ export function createMediaToken(relativePath: string, exp: number): string {
 
 /**
  * Verify HMAC token and expiration timestamp
+ * When exp === 0, the token is treated as a non-expiring permanent signature
+ * (used for public-facing assets like doctor portraits and verified certificates).
  */
 export function verifyMediaToken(
   relativePath: string,
   token: string,
   exp: number
 ): { valid: boolean; reason?: string } {
-  if (!token || !exp || isNaN(exp)) {
+  if (!token || exp === undefined || isNaN(exp) || exp < 0) {
     return { valid: false, reason: "Missing or invalid token parameters" };
   }
 
-  const currentSeconds = Math.floor(Date.now() / 1000);
-  if (currentSeconds > exp) {
-    return { valid: false, reason: "Media access link has expired" };
+  // Only check expiration if exp is non-zero (exp > 0)
+  if (exp > 0) {
+    const currentSeconds = Math.floor(Date.now() / 1000);
+    if (currentSeconds > exp) {
+      return { valid: false, reason: "Media access link has expired" };
+    }
   }
 
   const cleanPath = relativePath.replace(/^\/+/, "");
@@ -53,18 +58,26 @@ export function verifyMediaToken(
 }
 
 /**
- * Helper to build an expiring signed URL for any protected asset
+ * Helper to build a signed URL for protected clinic media.
+ * Pass expiresInSeconds: 0 (default for public media) for a permanent signature.
  */
 export function getSignedMediaUrl(
   internalPath: string,
   options: { expiresInSeconds?: number } = {}
 ): string {
-  const { expiresInSeconds = 3600 } = options; // Default 1-hour session validity
+  const { expiresInSeconds = 0 } = options; // Default to non-expiring for public media
   const cleanPath = internalPath.replace(/^\/+/, "");
-  const exp = Math.floor(Date.now() / 1000) + expiresInSeconds;
+  const exp = expiresInSeconds > 0 ? Math.floor(Date.now() / 1000) + expiresInSeconds : 0;
   const token = createMediaToken(cleanPath, exp);
 
   return `/api/media/${cleanPath}?token=${token}&exp=${exp}`;
+}
+
+/**
+ * Convenience helper for non-expiring public media assets
+ */
+export function getPermanentMediaUrl(internalPath: string): string {
+  return getSignedMediaUrl(internalPath, { expiresInSeconds: 0 });
 }
 
 /**

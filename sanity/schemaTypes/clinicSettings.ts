@@ -79,5 +79,35 @@ export const clinicSettings = defineType({
       title: "YouTube Channel Name",
       type: "string",
     }),
+    defineField({
+      name: "hours",
+      title: "Clinic Timings & Consultation Hours",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "days",
+              title: "Days (e.g. 'Monday – Saturday')",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "time",
+              title: "Hours (e.g. '10:30 AM – 10:00 PM')",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "isClosed",
+              title: "Mark as Closed",
+              type: "boolean",
+              initialValue: false,
+            }),
+          ],
+        },
+      ],
+    }),
   ],
 });

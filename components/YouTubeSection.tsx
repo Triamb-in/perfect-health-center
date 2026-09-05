@@ -87,7 +87,7 @@ export function YouTubeSection({
               Health &amp; Homeopathy Insights
             </h2>
             <p className="text-sm sm:text-base text-text-muted mt-2 max-w-xl">
-              Watch Dr. Pragati Uplekar explain natural approaches to chronic diseases, pain management, and holistic wellness.
+              Watch Dr. Pragati Khobragade explain natural approaches to chronic diseases, pain management, and holistic wellness.
             </p>
           </div>
 

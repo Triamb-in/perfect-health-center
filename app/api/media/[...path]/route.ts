@@ -123,11 +123,16 @@ export async function GET(
       .webp({ quality: 85, effort: 4 })
       .toBuffer();
 
+    const cacheControlHeader =
+      exp === 0
+        ? "public, max-age=86400, stale-while-revalidate=604800, no-transform"
+        : "private, no-transform, max-age=3600";
+
     return new NextResponse(outputBuffer, {
       status: 200,
       headers: {
         "Content-Type": "image/webp",
-        "Cache-Control": "private, no-transform, max-age=3600",
+        "Cache-Control": cacheControlHeader,
         "Content-Disposition": `inline; filename="preview.webp"`,
         "X-Content-Type-Options": "nosniff",
         "X-Media-Protection": "Protected by Perfect Health Center Vault",

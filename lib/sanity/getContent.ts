@@ -41,6 +41,9 @@ export async function getClinicData(): Promise<ClinicData> {
     const youtubeVideos = await sanityClient.fetch(
       `*[_type == "youtubeVideo"] | order(order asc)`
     );
+    const gallery = await sanityClient.fetch(
+      `*[_type == "galleryItem"] | order(order asc)`
+    );
 
     const s = settings || {};
 
@@ -138,6 +141,26 @@ export async function getClinicData(): Promise<ClinicData> {
               rating: t.rating || 5,
             }))
           : defaultClinicData.testimonials,
+      hours:
+        s.hours && s.hours.length > 0
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            s.hours.map((h: any) => ({
+              days: h.days,
+              time: h.time,
+              isClosed: !!h.isClosed,
+            }))
+          : defaultClinicData.hours,
+      gallery:
+        gallery && gallery.length > 0
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            gallery.map((g: any) => ({
+              id: g._id,
+              title: g.title,
+              subtitle: g.subtitle || "",
+              imageUrl: g.image ? urlFor(g.image) : defaultClinicData.gallery[0]?.imageUrl || "",
+              altText: g.altText || g.title,
+            }))
+          : defaultClinicData.gallery,
     });
   } catch (error) {
     console.error("Failed to fetch from Sanity, falling back to default clinic data:", error);

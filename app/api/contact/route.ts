@@ -61,14 +61,11 @@ export async function POST(req: NextRequest) {
     const { fullName, phone, email, specialty, message } =
       validationResult.data;
 
-    // 5. Log the inquiry server-side (visible in Vercel function logs)
-    console.log("=== NEW CLINIC CONTACT INQUIRY ===", {
+    // 5. Log operational event (privacy-safe: zero patient health data or PII)
+    console.log("[telemetry] Clinic contact inquiry received", {
       timestamp: new Date().toISOString(),
-      fullName,
-      phone,
-      email: email || "Not provided",
       specialty,
-      message: message || "No additional message",
+      hasMessage: Boolean(message),
     });
 
     // 6. Send email notification to Dr. Pragati (non-blocking failure)

@@ -258,7 +258,7 @@ export const defaultClinicData: ClinicData = {
     {
       id: "yt-how-it-works",
       title: "How Homeopathy Medicine Works (Scientific Mechanism)",
-      description: "Dr. Pragati Uplekar explains the scientific mechanism of action behind micro-diluted homeopathic remedies and cellular vital force stimulation.",
+      description: "Dr. Pragati Khobragade explains the scientific mechanism of action behind micro-diluted homeopathic remedies and cellular vital force stimulation.",
       youtubeId: "MEphim0ujWk",
       thumbnailUrl: "https://i.ytimg.com/vi/MEphim0ujWk/hqdefault.jpg",
       uploadDate: "2024-02-10",
@@ -290,7 +290,7 @@ export const defaultClinicData: ClinicData = {
     {
       id: "yt-kidney-health",
       title: "Unlocking Secrets to Optimal Kidney Health: Comprehensive Guide",
-      description: "Dr. Pragati Uplekar shares essential preventative measures, hydration protocols, and holistic renal health maintenance.",
+      description: "Dr. Pragati Khobragade shares essential preventative measures, hydration protocols, and holistic renal health maintenance.",
       youtubeId: "RCYDKOzETO4",
       thumbnailUrl: "https://i.ytimg.com/vi/RCYDKOzETO4/hqdefault.jpg",
       uploadDate: "2024-02-28",

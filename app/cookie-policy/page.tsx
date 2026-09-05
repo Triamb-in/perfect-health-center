@@ -68,16 +68,6 @@ export default function CookiePolicyPage() {
 
               <div className="p-4 rounded-xl bg-[#fafaf7] border border-primary-subtle">
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <strong className="font-serif text-primary-dark text-sm">Appointment Form Temporary State</strong>
-                  <span className="text-[10px] bg-primary-subtle text-primary-dark px-2 py-0.5 rounded font-semibold uppercase">Functional</span>
-                </div>
-                <p className="text-xs sm:text-sm text-text-muted">
-                  Temporarily maintains your appointment inquiry fields during an active form submission to prevent losing entered details if a connection drops.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#fafaf7] border border-primary-subtle">
-                <div className="flex items-center justify-between gap-2 mb-1">
                   <strong className="font-serif text-primary-dark text-sm">Clinic Studio Administration Session</strong>
                   <span className="text-[10px] bg-primary-subtle text-primary-dark px-2 py-0.5 rounded font-semibold uppercase">Admin Only</span>
                 </div>
@@ -94,6 +84,7 @@ export default function CookiePolicyPage() {
               We hold patient trust in the highest regard:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-sm text-text-muted">
+              <li><strong>Zero Browser Storage of Health Inquiries:</strong> We do <strong>not</strong> persist appointment or contact form fields in browser storage (no <code>localStorage</code>, no <code>sessionStorage</code>, and no draft-saving cookies). Form inputs exist exclusively in temporary page memory (React component state) while typing and are destroyed on reload or navigation, protecting private medical details on shared or family devices.</li>
               <li>We do <strong>not</strong> use third-party advertising cookies or cross-site tracking pixels (no Facebook Pixel, no ad network tracking).</li>
               <li>We do <strong>not</strong> build user tracking profiles or sell browsing habits to data brokers.</li>
               <li>Your health inquiry and consultation history remain strictly confidential between you and the doctor.</li>

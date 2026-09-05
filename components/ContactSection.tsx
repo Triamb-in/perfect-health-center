@@ -111,11 +111,13 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                     <h4 className="font-semibold text-sm text-primary-dark mb-1">
                       Working Hours
                     </h4>
-                    <p className="text-xs sm:text-sm text-text-body">
-                      Mon – Sat: 10:30 AM – 10:00 PM
-                      <br />
-                      <span className="text-red-600 font-medium">Sunday: Closed</span>
-                    </p>
+                    <div className="text-xs sm:text-sm text-text-body space-y-0.5">
+                      {clinicData.hours.map((h, i) => (
+                        <p key={i} className={h.isClosed ? "text-red-600 font-medium" : ""}>
+                          {h.days}: {h.time}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -48,6 +48,18 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin-allow-popups",
+          },
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "same-origin",
+          },
         ],
       },
     ];
