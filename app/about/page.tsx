@@ -68,7 +68,8 @@ export default async function AboutPage() {
             </h2>
 
             <p className="leading-relaxed">
-              Dr. Pragati Khobragade is an accomplished homeopath and primary healthcare physician with over two decades of clinical experience serving individuals and families across the Mumbai Metropolitan Region. At Perfect Health Center in Diva East, Thane, she combines time-tested constitutional homeopathy with modern diagnostic evaluation.
+              {clinicData.doctorBio ||
+                "Dr. Pragati Khobragade is an accomplished homeopath and primary healthcare physician with over two decades of clinical experience serving individuals and families across the Mumbai Metropolitan Region. At Perfect Health Center in Diva East, Thane, she combines time-tested constitutional homeopathy with modern diagnostic evaluation."}
             </p>
 
             <p className="leading-relaxed">

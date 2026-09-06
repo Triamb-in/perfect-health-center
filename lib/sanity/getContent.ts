@@ -83,7 +83,14 @@ export async function getClinicData(): Promise<ClinicData> {
               fullDesc: s.fullDesc || "",
               iconName: s.iconName || "Pill",
               conditions: s.conditions || [],
-              benefits: [],
+              benefits:
+                s.benefits && s.benefits.length > 0
+                  ? s.benefits
+                  : (defaultClinicData.specialties.find(
+                      (ds) =>
+                        ds.id === (s.slug?.current || s._id) ||
+                        ds.title.toLowerCase() === s.title?.toLowerCase()
+                    )?.benefits || []),
             }))
           : defaultClinicData.specialties,
       faqs: (() => {

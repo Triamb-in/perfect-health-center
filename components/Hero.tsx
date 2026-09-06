@@ -38,7 +38,7 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
           <div className="col-span-6 sm:col-span-6 md:col-span-7 xl:col-span-4 flex flex-col items-start z-20 pt-1 sm:pt-2 pl-1 sm:pl-3 pb-1 xl:py-4 xl:pl-0 min-w-0 xl:self-center">
             {/* Tagline */}
             <div className="inline-flex items-center gap-1 xl:gap-1.5 text-[10px] sm:text-xs md:text-sm xl:text-base font-semibold text-[#134633] mb-1 xl:mb-3">
-              <span>Compassionate Care, Naturally</span>
+              <span>{clinicData.tagline || "Compassionate Care, Naturally"}</span>
               <svg
                 width="14"
                 height="14"
@@ -62,7 +62,7 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
 
             {/* Sub-heading */}
             <p className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-medium text-[#556b60] mb-2 sm:mb-2.5 xl:mb-6 leading-snug">
-              Skin Care &amp; Asthma Specialist | Homeopathy
+              {clinicData.doctorTitle || "Skin Care & Asthma Specialist | Homeopathy"}
             </p>
 
             {/* Feature Highlights Badges */}

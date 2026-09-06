@@ -45,6 +45,12 @@ export const specialty = defineType({
       of: [{ type: "string" }],
     }),
     defineField({
+      name: "benefits",
+      title: "Therapeutic Advantages / Key Benefits",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",
