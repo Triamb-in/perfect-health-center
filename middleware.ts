@@ -13,11 +13,13 @@ export function middleware(request: NextRequest) {
   const cspHeader = isStudio
     ? `
         default-src 'self';
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.sanity.io https://*.sanity.cdn.io;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.sanity.io https://*.sanity.cdn.io https://cdn.sanity.io;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com data:;
-        img-src 'self' data: blob: https://*.sanity.io https://*.sanity.cdn.io https://images.unsplash.com;
-        connect-src 'self' https://*.sanity.io https://*.sanity.cdn.io https://*.upstash.io https://api.resend.com;
+        img-src 'self' data: blob: https://*.sanity.io https://*.sanity.cdn.io https://cdn.sanity.io https://images.unsplash.com;
+        media-src 'self' blob: https://cdn.sanity.io https://*.sanity.io;
+        connect-src 'self' https://*.sanity.io https://*.sanity.cdn.io https://cdn.sanity.io wss://*.sanity.io https://*.upstash.io https://api.resend.com;
+        worker-src 'self' blob:;
         frame-src 'self' https://*.sanity.io;
         object-src 'none';
         base-uri 'self';
