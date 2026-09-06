@@ -129,7 +129,7 @@ export async function sendClinicEmail(
 
   const fromSender =
     process.env.CLINIC_FROM_EMAIL ||
-    "Perfect Health Center <onboarding@resend.dev>";
+    "Perfect Health Center <appointments@perfecthealthcenter.in>";
 
   try {
     const { error } = await resend.emails.send({
