@@ -107,7 +107,7 @@ export function PageLoader() {
     };
   }, [pathname]);
 
-  if (status === "destroyed") {
+  if (pathname?.startsWith("/studio") || status === "destroyed") {
     return null;
   }
 
