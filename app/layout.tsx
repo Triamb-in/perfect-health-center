@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { headers } from "next/headers";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { ClientAppShell } from "@/components/ClientAppShell";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
@@ -96,11 +97,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Reading headers() enables Next.js to inject the middleware x-nonce into all script tags
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") ?? undefined;
   const clinicData = await getClinicData();
 
   return (

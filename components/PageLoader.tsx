@@ -1,59 +1,111 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-// Minimum time the loader is visible so the exit animation has something to fade from.
-// Without this, if readyState === 'complete' on mount (cached pages), the transition
-// fires before the first paint, making the loader appear "stuck" at opacity-0.
-const MIN_VISIBLE_MS = 300;
-const MAX_FALLBACK_TIMEOUT_MS = 4000;
-const EXIT_ANIMATION_DURATION_MS = 750;
+// Hard initial load timing
+const INITIAL_MIN_VISIBLE_MS = 350; // Ensures clean paint baseline before exit animation
+const INITIAL_MAX_TIMEOUT_MS = 1500; // Emergency failsafe timeout (never hang indefinitely)
+
+// Client-side navigation timing (per spec: ~600-900ms duration)
+const ROUTE_CHANGE_VISIBLE_MS = 650;
+
+// Exit animation timing (matches CSS transitions in globals.css: 700ms)
+const EXIT_ANIMATION_DURATION_MS = 700;
 
 export function PageLoader() {
+  const pathname = usePathname();
   const [status, setStatus] = useState<"loading" | "exiting" | "destroyed">("loading");
 
+  // Track initial mount and active route
+  const isFirstMount = useRef(true);
+  const currentPathname = useRef(pathname);
+
+  // Scoped timer references to prevent cross-cancellation
+  const exitTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const routeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const initialTimersRef = useRef<{
+    min: NodeJS.Timeout | null;
+    max: NodeJS.Timeout | null;
+  }>({
+    min: null,
+    max: null,
+  });
+
+  const runExit = () => {
+    setStatus("exiting");
+    if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+    exitTimerRef.current = setTimeout(() => {
+      setStatus("destroyed");
+      exitTimerRef.current = null;
+    }, EXIT_ANIMATION_DURATION_MS);
+  };
+
+  // 1. Initial Hard Load / Refresh Handler (runs ONCE on mount)
   useEffect(() => {
-    let isDone = false;
-    let minVisibleTimer: NodeJS.Timeout | null = null;
-    let fallbackTimer: NodeJS.Timeout | null = null;
-    let exitTimer: NodeJS.Timeout | null = null;
+    let finished = false;
+    const startTime = Date.now();
 
-    const startExit = () => {
-      if (isDone) return;
-      isDone = true;
-      if (fallbackTimer) clearTimeout(fallbackTimer);
-      if (minVisibleTimer) clearTimeout(minVisibleTimer);
+    const onComplete = () => {
+      if (finished) return;
+      finished = true;
 
-      setStatus("exiting");
-      exitTimer = setTimeout(() => {
-        setStatus("destroyed");
-      }, EXIT_ANIMATION_DURATION_MS);
+      const elapsed = Date.now() - startTime;
+      const delay = Math.max(0, INITIAL_MIN_VISIBLE_MS - elapsed);
+
+      initialTimersRef.current.min = setTimeout(() => {
+        runExit();
+        isFirstMount.current = false;
+      }, delay);
     };
 
-    // Ensure the loader is visible for at least MIN_VISIBLE_MS before exiting,
-    // so the CSS transition has a painted baseline to animate from.
-    const scheduleExit = () => {
-      minVisibleTimer = setTimeout(startExit, MIN_VISIBLE_MS);
-    };
-
-    // Resource readiness check: listen for window 'load' (images, fonts, stylesheets).
-    // On cached/fast pages readyState is already 'complete' on mount — schedule exit
-    // after the minimum visible time so the animation plays correctly.
     if (document.readyState === "complete") {
-      scheduleExit();
+      onComplete();
     } else {
-      window.addEventListener("load", scheduleExit, { once: true });
-      fallbackTimer = setTimeout(scheduleExit, MAX_FALLBACK_TIMEOUT_MS);
+      window.addEventListener("load", onComplete, { once: true });
+      document.addEventListener("DOMContentLoaded", onComplete, { once: true });
+      initialTimersRef.current.max = setTimeout(onComplete, INITIAL_MAX_TIMEOUT_MS);
     }
 
     return () => {
-      window.removeEventListener("load", scheduleExit);
-      if (minVisibleTimer) clearTimeout(minVisibleTimer);
-      if (fallbackTimer) clearTimeout(fallbackTimer);
-      if (exitTimer) clearTimeout(exitTimer);
+      window.removeEventListener("load", onComplete);
+      document.removeEventListener("DOMContentLoaded", onComplete);
+      if (initialTimersRef.current.min) clearTimeout(initialTimersRef.current.min);
+      if (initialTimersRef.current.max) clearTimeout(initialTimersRef.current.max);
     };
   }, []);
+
+  // 2. Client-Side Navigation Handler (Route Changes)
+  useEffect(() => {
+    // Synchronize initial pathname
+    if (isFirstMount.current) {
+      currentPathname.current = pathname;
+      return;
+    }
+
+    // Ignore if pathname is identical
+    if (pathname === currentPathname.current) {
+      return;
+    }
+
+    currentPathname.current = pathname;
+
+    // Reset client-side route timers and show loader immediately
+    if (routeTimerRef.current) clearTimeout(routeTimerRef.current);
+    if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+
+    setStatus("loading");
+
+    routeTimerRef.current = setTimeout(() => {
+      runExit();
+      routeTimerRef.current = null;
+    }, ROUTE_CHANGE_VISIBLE_MS);
+
+    return () => {
+      if (routeTimerRef.current) clearTimeout(routeTimerRef.current);
+    };
+  }, [pathname]);
 
   if (status === "destroyed") {
     return null;
@@ -63,8 +115,8 @@ export function PageLoader() {
 
   return (
     <div
-      className={`page-loader-overlay fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center pointer-events-auto select-none ${
-        isExiting ? "opacity-0 pointer-events-none" : "opacity-100"
+      className={`page-loader-overlay fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center select-none ${
+        isExiting ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
       }`}
       aria-hidden={isExiting}
     >
