@@ -131,8 +131,8 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
                 width={480}
                 height={580}
                 priority
-                className="w-full h-auto object-cover object-top mix-blend-multiply origin-bottom transform scale-[1.46] sm:scale-[1.48] md:scale-[1.51] xl:scale-[1.30] pointer-events-none select-none"
-                sizes="(max-width: 640px) 340px, (max-width: 1024px) 450px, 580px"
+                className="w-full h-auto object-cover object-top mix-blend-multiply origin-bottom transform scale-[1.12] sm:scale-[1.14] md:scale-[1.16] xl:scale-[1.30] pointer-events-none select-none"
+                sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 580px"
                 draggable={false}
               />
               <div className="absolute inset-0 z-20 pointer-events-auto bg-transparent select-none" aria-hidden="true" />
