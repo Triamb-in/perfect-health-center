@@ -69,19 +69,19 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero_doctor.jpg",
-        width: 800,
-        height: 1000,
-        alt: "Dr. Pragati Khobragade - Perfect Health Center Diva East",
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Perfect Health Center — Dr. Pragati Khobragade Diva East",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Perfect Health Center — Dr. Pragati Khobragade",
+    title: "Perfect Health Center — Dr. Pragati Khobragade, Diva East",
     description:
       "Holistic homeopathy & primary general healthcare in Diva East, Thane. Over 20 years clinical experience.",
-    images: ["/images/hero_doctor.jpg"],
+    images: ["/images/og-image.jpg"],
   },
   robots: {
     index: true,

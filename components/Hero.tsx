@@ -126,7 +126,7 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
             {/* Doctor Portrait Image */}
             <div className="relative z-10 w-full max-w-[210px] sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px] text-center -mb-2.5 sm:-mb-4 md:-mb-5 xl:mb-0 flex justify-center protected-media select-none">
               <Image
-                src="/images/hero_doctor.jpg"
+                src="/images/hero_doctor.png"
                 alt="Dr. Pragati Khobragade - Perfect Health Center"
                 width={480}
                 height={580}
