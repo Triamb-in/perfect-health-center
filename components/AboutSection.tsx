@@ -75,9 +75,9 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
               <div className="flex items-start gap-3.5 p-4 rounded-xl bg-primary-subtle/50 border border-primary-subtle">
                 <ShieldCheck className="w-6 h-6 text-primary-main flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-semibold text-sm sm:text-base text-primary-dark mb-1">
+                  <p className="font-semibold text-sm sm:text-base text-primary-dark mb-1">
                     Gentle Formulations
-                  </h3>
+                  </p>
                   <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
                     Ultra-diluted natural remedies selected to support immune recovery with minimal risk of adverse side effects.
                   </p>
@@ -87,9 +87,9 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
               <div className="flex items-start gap-3.5 p-4 rounded-xl bg-primary-subtle/50 border border-primary-subtle">
                 <CheckCircle2 className="w-6 h-6 text-primary-main flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-semibold text-sm sm:text-base text-primary-dark mb-1">
+                  <p className="font-semibold text-sm sm:text-base text-primary-dark mb-1">
                     Root-Cause Focus
-                  </h3>
+                  </p>
                   <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
                     Focusing on constitutional vitality and long-term moderation rather than temporary symptom suppression.
                   </p>

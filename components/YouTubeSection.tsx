@@ -149,9 +149,9 @@ export function YouTubeSection({
           {/* Video Playlist Grid (Right 5 Cols) */}
           <div className="lg:col-span-5 flex flex-col gap-3.5">
             <div className="flex items-center justify-between pb-1">
-              <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-primary-main">
+              <p className="font-sans font-bold text-xs uppercase tracking-wider text-primary-main">
                 Featured Episodes ({normalizedVideos.length})
-              </h4>
+              </p>
               <span className="text-xs text-text-muted">Click episode to play</span>
             </div>
 

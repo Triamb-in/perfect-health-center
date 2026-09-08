@@ -115,9 +115,9 @@ export function PatientInfo({ clinicData }: PatientInfoProps) {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <CreditCard className="w-4 h-4 text-primary-main" />
-                <h4 className="font-sans font-bold text-sm text-primary-dark">
+                <p className="font-sans font-bold text-sm text-primary-dark">
                   Accepted In-Clinic Payment Modes
-                </h4>
+                </p>
               </div>
 
               <div className="flex flex-wrap gap-2">

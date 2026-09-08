@@ -30,9 +30,9 @@ export function FeaturesBottomBar({ pillars }: FeaturesBottomBarProps) {
                 {renderIcon(idx)}
               </div>
               <div>
-                <h4 className="font-serif font-bold text-base text-white mb-1">
+                <p className="font-serif font-bold text-base text-white mb-1">
                   {pillar.title}
-                </h4>
+                </p>
                 <p className="text-xs text-white/75 leading-relaxed">
                   {pillar.desc}
                 </p>

@@ -47,9 +47,9 @@ export function GallerySection({ galleryItems }: GallerySectionProps) {
               {/* Hover Dark Green Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/90 via-primary-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
                 <div className="flex items-center justify-between mb-1">
-                  <h4 className="font-serif font-bold text-base text-white">
+                  <p className="font-serif font-bold text-base text-white">
                     {item.title}
-                  </h4>
+                  </p>
                   <ZoomIn className="w-5 h-5 text-[#a3d9b1]" />
                 </div>
                 <span className="text-xs text-white/80">

@@ -15,9 +15,9 @@ export function SpecialtiesGrid({ specialties }: SpecialtiesGridProps) {
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <div className="section-tag">Clinical Expertise</div>
           <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-primary-dark mb-3 sm:mb-4 flex items-center justify-center gap-2 sm:gap-3">
-            <span className="text-primary-light font-sans opacity-60">→</span>
+            <span className="text-primary-light font-sans opacity-60" aria-hidden="true">→</span>
             <span>Our Specialties</span>
-            <span className="text-primary-light font-sans opacity-60">←</span>
+            <span className="text-primary-light font-sans opacity-60" aria-hidden="true">←</span>
           </h2>
           <p className="text-sm sm:text-base text-text-muted">
             Holistic, personalized healthcare protocols tailored for chronic ailments, pediatric wellness, and primary family medicine.

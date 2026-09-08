@@ -98,10 +98,11 @@ export function SpecialtyCard({ specialty }: SpecialtyCardProps) {
       <div className="pt-3 border-t border-primary-subtle/50">
         <Link
           href={`/services#${specialty.id}`}
+          aria-label={`Explore ${specialty.title} treatments and conditions`}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-main hover:text-primary-dark group-hover:translate-x-1 transition-transform"
         >
-          <span>Learn More &amp; Conditions</span>
-          <span>→</span>
+          <span>Explore {specialty.title}</span>
+          <span aria-hidden="true">→</span>
         </Link>
       </div>
     </div>

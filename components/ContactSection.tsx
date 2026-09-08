@@ -43,9 +43,9 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-primary-dark mb-1">
+                    <p className="font-semibold text-sm text-primary-dark mb-1">
                       Clinic Address
-                    </h4>
+                    </p>
                     <p className="text-xs sm:text-sm text-text-body leading-relaxed">
                       {clinicData.address.fullFormatted}
                     </p>
@@ -58,9 +58,9 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-primary-dark mb-1">
+                    <p className="font-semibold text-sm text-primary-dark mb-1">
                       Phone &amp; WhatsApp
-                    </h4>
+                    </p>
                     <div className="flex flex-col gap-1">
                       <a
                         href={`tel:${clinicData.contact.phone}`}
@@ -86,9 +86,9 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-primary-dark mb-1">
+                    <p className="font-semibold text-sm text-primary-dark mb-1">
                       Email Address
-                    </h4>
+                    </p>
                     <a
                       href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
                       target="_blank"
@@ -108,9 +108,9 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-primary-dark mb-1">
+                    <p className="font-semibold text-sm text-primary-dark mb-1">
                       Working Hours
-                    </h4>
+                    </p>
                     <div className="text-xs sm:text-sm text-text-body space-y-0.5">
                       {clinicData.hours.map((h, i) => (
                         <p key={i} className={h.isClosed ? "text-red-600 font-medium" : ""}>
