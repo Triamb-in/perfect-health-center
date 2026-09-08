@@ -155,82 +155,95 @@ export function YouTubeSection({
               <span className="text-xs text-text-muted">Click episode to play</span>
             </div>
 
-            <div className="space-y-3 max-h-[560px] overflow-y-auto pr-1.5">
+            <ul
+              role="list"
+              aria-label="Featured video episodes playlist"
+              className="space-y-3 max-h-[560px] overflow-y-auto pr-1.5"
+            >
               {normalizedVideos.map((vid, idx) => {
                 const isSelected = activeVideoId === vid.youtubeId;
 
                 return (
-                  <button
-                    type="button"
-                    key={vid.id || vid.youtubeId || idx}
-                    onClick={() => handleSelectVideo(vid.youtubeId)}
-                    className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border transition-all duration-200 flex gap-3.5 sm:gap-4 items-center group relative ${
-                      isSelected
-                        ? "bg-primary-subtle/80 border-primary-main shadow-card ring-2 ring-primary-main/20"
-                        : "bg-white border-primary-subtle hover:border-primary-light/60 hover:bg-cream-50/50 shadow-subtle hover:shadow-card"
-                    }`}
-                  >
-                    {/* Video Thumbnail with Play Badge */}
-                    <div className="relative w-28 sm:w-32 aspect-video rounded-xl overflow-hidden flex-shrink-0 bg-black border border-primary-subtle/40">
-                      <Image
-                        src={vid.thumbnailUrl}
-                        alt={vid.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        sizes="130px"
-                      />
-                      <div
-                        className={`absolute inset-0 flex items-center justify-center transition-opacity ${
-                          isSelected
-                            ? "bg-primary-dark/40 opacity-100"
-                            : "bg-black/30 opacity-90 group-hover:opacity-100"
-                        }`}
-                      >
+                  <li key={vid.id || vid.youtubeId || idx} className="list-none">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectVideo(vid.youtubeId)}
+                      aria-label={`Episode ${idx + 1}: ${vid.title}${isSelected ? " (Currently playing)" : ""}`}
+                      aria-current={isSelected ? "true" : undefined}
+                      className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border transition-all duration-200 flex gap-3.5 sm:gap-4 items-center group relative ${
+                        isSelected
+                          ? "bg-primary-subtle/80 border-primary-main shadow-card ring-2 ring-primary-main/20"
+                          : "bg-white border-primary-subtle hover:border-primary-light/60 hover:bg-cream-50/50 shadow-subtle hover:shadow-card"
+                      }`}
+                    >
+                      {/* Video Thumbnail with Play Badge */}
+                      <div className="relative w-28 sm:w-32 aspect-video rounded-xl overflow-hidden flex-shrink-0 bg-black border border-primary-subtle/40">
+                        <Image
+                          src={vid.thumbnailUrl}
+                          alt={vid.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="130px"
+                        />
                         <div
-                          className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                          className={`absolute inset-0 flex items-center justify-center transition-opacity ${
                             isSelected
-                              ? "bg-white text-primary-dark scale-110 shadow-floating"
-                              : "bg-white/90 text-primary-dark group-hover:scale-110"
+                              ? "bg-primary-dark/40 opacity-100"
+                              : "bg-black/30 opacity-90 group-hover:opacity-100"
                           }`}
                         >
-                          <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                          <div
+                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                              isSelected
+                                ? "bg-white text-primary-dark scale-110 shadow-floating"
+                                : "bg-white/90 text-primary-dark group-hover:scale-110"
+                            }`}
+                          >
+                            <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Video Meta Info */}
-                    <div className="flex-1 min-w-0 pr-1">
-                      <div className="flex items-center gap-1.5 mb-1">
+                      {/* Video Meta Info */}
+                      <div className="flex-1 min-w-0 pr-1">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          {isSelected ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+                              <CheckCircle2 className="w-3 h-3" />
+                              <span>Now Playing</span>
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+                              Episode {idx + 1}
+                            </span>
+                          )}
+                        </div>
+
+                        <span
+                          className={`block font-serif font-bold text-sm line-clamp-2 leading-snug transition-colors ${
+                            isSelected
+                              ? "text-primary-dark"
+                              : "text-text-dark group-hover:text-primary-dark"
+                          }`}
+                        >
+                          {vid.title}
+                        </span>
+
                         {isSelected ? (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
-                            <CheckCircle2 className="w-3 h-3" />
-                            <span>Now Playing</span>
-                          </span>
+                          <p className="text-[11px] text-primary-main font-medium line-clamp-1 mt-1">
+                            Playing in featured player above
+                          </p>
                         ) : (
-                          <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
-                            Episode {idx + 1}
-                          </span>
+                          <p className="text-[11px] text-text-muted line-clamp-1 mt-1">
+                            {vid.description}
+                          </p>
                         )}
                       </div>
-
-                      <h5
-                        className={`font-serif font-bold text-sm line-clamp-2 leading-snug transition-colors ${
-                          isSelected
-                            ? "text-primary-dark"
-                            : "text-text-dark group-hover:text-primary-dark"
-                        }`}
-                      >
-                        {vid.title}
-                      </h5>
-
-                      <p className="text-[11px] text-text-muted line-clamp-1 mt-1">
-                        {vid.description}
-                      </p>
-                    </div>
-                  </button>
+                    </button>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
 
         </div>

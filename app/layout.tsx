@@ -24,12 +24,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://perfecthealthcenter.in"
   ),
   title: {
-    default:
-      "Perfect Health Center — Dr. Pragati Khobragade | Homeopathy & General Practice Diva East",
+    default: "Perfect Health Center — Dr. Pragati Khobragade, Diva East",
     template: "%s | Perfect Health Center Diva East",
   },
   description:
-    "Dr. Pragati Khobragade offers gentle, personalized constitutional homeopathy and general medical care for chronic ailments, women's health, and pediatric wellness in Diva East, Thane.",
+    "Dr. Pragati Khobragade offers gentle constitutional homeopathy and primary healthcare for chronic illness, women's health & pediatrics in Diva East, Thane.",
   keywords: [
     "Perfect Health Center",
     "Dr. Pragati Khobragade",
