@@ -7,6 +7,9 @@ function signClinicMedia(data: ClinicData): ClinicData {
   return {
     ...data,
     certificates: data.certificates.map((c) => {
+      if (c.imageUrl && (c.imageUrl.startsWith("http://") || c.imageUrl.startsWith("https://"))) {
+        return c;
+      }
       const fileName = c.imageUrl.split("/").pop() || "";
       return {
         ...c,
@@ -93,25 +96,16 @@ export async function getClinicData(): Promise<ClinicData> {
                     )?.benefits || []),
             }))
           : defaultClinicData.specialties,
-      faqs: (() => {
-        if (!faqs || faqs.length === 0) return defaultClinicData.faqs;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sanityMapped = faqs.map((f: any) => ({
-          id: f._id,
-          question: f.question,
-          answer: f.answer,
-          category: f.category || "General",
-        }));
-        // Deduplicate so Sanity edits take priority over default questions
-        const sanityQuestionTitles = new Set(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          sanityMapped.map((f: any) => f.question.trim().toLowerCase())
-        );
-        const remainingDefaults = defaultClinicData.faqs.filter(
-          (d) => !sanityQuestionTitles.has(d.question.trim().toLowerCase())
-        );
-        return [...sanityMapped, ...remainingDefaults];
-      })(),
+      faqs:
+        faqs && faqs.length > 0
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            faqs.map((f: any) => ({
+              id: f._id,
+              question: f.question,
+              answer: f.answer,
+              category: f.category || "General",
+            }))
+          : defaultClinicData.faqs,
       certificates:
         certificates && certificates.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
