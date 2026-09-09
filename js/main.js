@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sendToWhatsApp(message) {
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 
   // ── Modal: Book Appointment form ──

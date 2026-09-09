@@ -6,13 +6,13 @@ import Image from "next/image";
 
 // Hard initial load timing
 const INITIAL_MIN_VISIBLE_MS = 350; // Ensures clean paint baseline before exit animation
-const INITIAL_MAX_TIMEOUT_MS = 1500; // Emergency failsafe timeout (never hang indefinitely)
+const INITIAL_MAX_TIMEOUT_MS = 800; // Emergency failsafe timeout
 
-// Client-side navigation timing (per spec: ~600-900ms duration)
-const ROUTE_CHANGE_VISIBLE_MS = 650;
+// Client-side navigation timing (snappy route transition)
+const ROUTE_CHANGE_VISIBLE_MS = 500;
 
-// Exit animation timing (matches CSS transitions in globals.css: 700ms)
-const EXIT_ANIMATION_DURATION_MS = 700;
+// Exit animation timing (matches CSS transitions in globals.css: 400ms)
+const EXIT_ANIMATION_DURATION_MS = 400;
 
 export function PageLoader() {
   const pathname = usePathname();
@@ -42,7 +42,7 @@ export function PageLoader() {
     }, EXIT_ANIMATION_DURATION_MS);
   };
 
-  // 1. Initial Hard Load / Refresh Handler (runs ONCE on mount)
+  // 1. Initial Hard Load / Refresh Handler (runs ONCE on mount based on critical UI readiness)
   useEffect(() => {
     let finished = false;
     const startTime = Date.now();
@@ -60,16 +60,15 @@ export function PageLoader() {
       }, delay);
     };
 
-    if (document.readyState === "complete") {
+    // Trigger on critical DOM readiness; do not wait on window.load (third-party/heavy media)
+    if (document.readyState === "interactive" || document.readyState === "complete") {
       onComplete();
     } else {
-      window.addEventListener("load", onComplete, { once: true });
       document.addEventListener("DOMContentLoaded", onComplete, { once: true });
       initialTimersRef.current.max = setTimeout(onComplete, INITIAL_MAX_TIMEOUT_MS);
     }
 
     return () => {
-      window.removeEventListener("load", onComplete);
       document.removeEventListener("DOMContentLoaded", onComplete);
       if (initialTimersRef.current.min) clearTimeout(initialTimersRef.current.min);
       if (initialTimersRef.current.max) clearTimeout(initialTimersRef.current.max);

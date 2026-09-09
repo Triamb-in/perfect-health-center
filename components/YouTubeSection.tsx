@@ -113,17 +113,46 @@ export function YouTubeSection({
             className="lg:col-span-7 bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-primary-subtle shadow-card"
           >
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-subtle mb-5">
-              {activeVideoId ? (
+              {isPlaying && activeVideoId ? (
                 <iframe
                   key={activeVideoId}
-                  src={`https://www.youtube-nocookie.com/embed/${activeVideoId}?autoplay=${
-                    isPlaying ? 1 : 0
-                  }&rel=0&modestbranding=1`}
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideoId}?autoplay=1&rel=0&modestbranding=1`}
                   title={currentVideo?.title || "Dr. Pragati Health Insights Video"}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   className="w-full h-full border-0"
                 />
+              ) : activeVideoId ? (
+                <button
+                  type="button"
+                  onClick={() => setIsPlaying(true)}
+                  aria-label={`Play featured video: ${currentVideo?.title}`}
+                  className="relative w-full h-full group block text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-main/50"
+                >
+                  <Image
+                    src={currentVideo?.thumbnailUrl || `https://i.ytimg.com/vi/${activeVideoId}/hqdefault.jpg`}
+                    alt={currentVideo?.title || "Dr. Pragati Health Insights Video"}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 700px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Subtle dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10 group-hover:from-black/70 transition-colors" />
+
+                  {/* Centered YouTube-styled Play Button Badge */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#ff0000] text-white flex items-center justify-center shadow-floating transform transition-all duration-300 group-hover:scale-110 group-hover:bg-[#cc0000]">
+                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+                    </div>
+                  </div>
+
+                  {/* Bottom Play Indicator pill */}
+                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10 flex items-center gap-2">
+                    <span className="bg-black/75 backdrop-blur-sm text-white text-[11px] sm:text-xs font-semibold px-2.5 py-1 rounded-md">
+                      Click to Play Video
+                    </span>
+                  </div>
+                </button>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white text-sm">
                   Select a video to play
