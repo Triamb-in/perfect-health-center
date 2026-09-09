@@ -11,12 +11,104 @@ interface YouTubeSectionProps {
   channelName: string;
 }
 
-function extractYouTubeId(raw: string): string {
+export function extractYouTubeId(raw: string): string {
   if (!raw) return "";
-  const match = raw.match(
+  const trimmed = raw.trim();
+
+  // If already standard 11-char ID
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  // Parse URL structures
+  try {
+    const url = trimmed.startsWith("http") ? trimmed : `https://${trimmed}`;
+    const parsed = new URL(url);
+
+    // 1. youtube.com/watch?v=...
+    if (parsed.searchParams.has("v")) {
+      const v = parsed.searchParams.get("v") || "";
+      if (/^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
+    }
+
+    // 2. youtu.be/...
+    if (parsed.hostname === "youtu.be" || parsed.hostname.endsWith(".youtu.be")) {
+      const pathId = parsed.pathname.slice(1).split("/")[0].split("?")[0];
+      if (/^[a-zA-Z0-9_-]{11}$/.test(pathId)) return pathId;
+    }
+
+    // 3. youtube.com/embed/..., /shorts/..., /v/...
+    const segments = parsed.pathname.split("/").filter(Boolean);
+    for (let i = 0; i < segments.length; i++) {
+      if (["embed", "shorts", "v"].includes(segments[i]) && segments[i + 1]) {
+        const segId = segments[i + 1].split("?")[0].substring(0, 11);
+        if (/^[a-zA-Z0-9_-]{11}$/.test(segId)) return segId;
+      }
+    }
+  } catch {
+    // URL parsing failed, proceed to regex
+  }
+
+  // General regex pattern
+  const match = trimmed.match(
     /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/
   );
-  return match ? match[1] : raw.trim();
+  if (match) return match[1];
+
+  return trimmed;
+}
+
+export function getYouTubeThumbnail(youtubeId: string, preferred: "maxres" | "hq" = "hq"): string {
+  const cleanId = extractYouTubeId(youtubeId);
+  if (!cleanId) return "";
+  return preferred === "maxres"
+    ? `https://i.ytimg.com/vi/${cleanId}/maxresdefault.jpg`
+    : `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
+}
+
+function YouTubeFeaturedPoster({ videoId, alt }: { videoId: string; alt: string }) {
+  const cleanId = extractYouTubeId(videoId);
+  const maxResUrl = `https://i.ytimg.com/vi/${cleanId}/maxresdefault.jpg`;
+  const hqUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
+  const [imgSrc, setImgSrc] = useState(maxResUrl);
+
+  React.useEffect(() => {
+    setImgSrc(`https://i.ytimg.com/vi/${cleanId}/maxresdefault.jpg`);
+  }, [cleanId]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="(max-width: 1024px) 100vw, 720px"
+      className="object-cover transition-transform duration-500 group-hover:scale-105"
+      onError={() => {
+        if (imgSrc !== hqUrl) {
+          setImgSrc(hqUrl);
+        }
+      }}
+    />
+  );
+}
+
+function PlaylistThumbnail({ videoId, alt }: { videoId: string; alt: string }) {
+  const cleanId = extractYouTubeId(videoId);
+  const hqUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
+  const [imgSrc, setImgSrc] = useState(hqUrl);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="130px"
+      className="object-cover transition-transform duration-300 group-hover:scale-105"
+      onError={() => {
+        setImgSrc(`https://i.ytimg.com/vi/${cleanId}/mqdefault.jpg`);
+      }}
+    />
+  );
 }
 
 export function YouTubeSection({
@@ -26,10 +118,15 @@ export function YouTubeSection({
 }: YouTubeSectionProps) {
   const normalizedVideos = (videos || []).map((v) => {
     const cleanId = extractYouTubeId(v.youtubeId);
+    const isUnsplash = v.thumbnailUrl?.includes("images.unsplash.com");
+    const realThumbnail = !v.thumbnailUrl || isUnsplash
+      ? getYouTubeThumbnail(cleanId, "hq")
+      : v.thumbnailUrl;
+
     return {
       ...v,
       youtubeId: cleanId,
-      thumbnailUrl: v.thumbnailUrl || `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`,
+      thumbnailUrl: realThumbnail,
     };
   });
 
@@ -129,12 +226,9 @@ export function YouTubeSection({
                   aria-label={`Play featured video: ${currentVideo?.title}`}
                   className="relative w-full h-full group block text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-main/50"
                 >
-                  <Image
-                    src={currentVideo?.thumbnailUrl || `https://i.ytimg.com/vi/${activeVideoId}/hqdefault.jpg`}
+                  <YouTubeFeaturedPoster
+                    videoId={activeVideoId}
                     alt={currentVideo?.title || "Dr. Pragati Health Insights Video"}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 700px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Subtle dark overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10 group-hover:from-black/70 transition-colors" />
@@ -207,12 +301,9 @@ export function YouTubeSection({
                     >
                       {/* Video Thumbnail with Play Badge */}
                       <div className="relative w-28 sm:w-32 aspect-video rounded-xl overflow-hidden flex-shrink-0 bg-black border border-primary-subtle/40">
-                        <Image
-                          src={vid.thumbnailUrl}
+                        <PlaylistThumbnail
+                          videoId={vid.youtubeId}
                           alt={vid.title}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          sizes="130px"
                         />
                         <div
                           className={`absolute inset-0 flex items-center justify-center transition-opacity ${

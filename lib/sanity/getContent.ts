@@ -127,7 +127,9 @@ export async function getClinicData(): Promise<ClinicData> {
               title: y.title,
               description: y.description || "",
               youtubeId: y.youtubeId,
-              thumbnailUrl: y.thumbnail ? urlFor(y.thumbnail) : "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+              thumbnailUrl: y.thumbnail
+                ? urlFor(y.thumbnail)
+                : (y.youtubeId ? `https://i.ytimg.com/vi/${y.youtubeId}/hqdefault.jpg` : ""),
               uploadDate: y.uploadDate || "2026-01-01",
             }))
           : defaultClinicData.youtubeVideos,
