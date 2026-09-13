@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
@@ -117,14 +116,13 @@ export default async function RootLayout({
     <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased bg-white text-text-body selection:bg-primary-subtle selection:text-primary-dark">
         {/* Google Analytics (gtag.js) */}
-        <Script
+        <script
+          async
           src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-          strategy="afterInteractive"
           nonce={nonce}
         />
-        <Script
+        <script
           id="google-analytics"
-          strategy="afterInteractive"
           nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `
