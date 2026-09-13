@@ -29,8 +29,8 @@ export function middleware(request: NextRequest) {
         script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https:;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com data:;
-        img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.ytimg.com https://img.youtube.com https://*.ytimg.com https://*.youtube.com;
-        connect-src 'self' https://*.sanity.io https://*.upstash.io https://api.resend.com;
+        img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.ytimg.com https://img.youtube.com https://*.ytimg.com https://*.youtube.com https://*.google-analytics.com https://*.googletagmanager.com;
+        connect-src 'self' https://*.sanity.io https://*.upstash.io https://api.resend.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
         frame-src 'self' https://www.google.com https://maps.google.com https://www.youtube.com https://www.youtube-nocookie.com https://youtube.com;
         frame-ancestors 'self';
         worker-src 'self' blob:;

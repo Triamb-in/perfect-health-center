@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
@@ -110,10 +111,33 @@ export default async function RootLayout({
   const headersList = await headers();
   const nonce = headersList.get("x-nonce") ?? undefined;
   const clinicData = await getClinicData();
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-PHC2026DIVA";
 
   return (
     <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased bg-white text-text-body selection:bg-primary-subtle selection:text-primary-dark">
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          strategy="afterInteractive"
+          nonce={nonce}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${gaId}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         <PageLoader />
         <SchemaMarkup clinicData={clinicData} />
         <ClientAppShell clinicData={clinicData}>{children}</ClientAppShell>

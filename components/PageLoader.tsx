@@ -163,6 +163,7 @@ export function PageLoader() {
               width={80}
               height={80}
               priority
+              sizes="80px"
               className="w-full h-full object-contain"
             />
           </div>

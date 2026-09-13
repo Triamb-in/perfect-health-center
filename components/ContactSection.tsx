@@ -2,6 +2,7 @@ import React from "react";
 import { MapPin, Phone, Mail, Clock, Youtube } from "lucide-react";
 import { ClinicData } from "@/types";
 import { ContactForm } from "./ContactForm";
+import { ObfuscatedEmail } from "./ObfuscatedEmail";
 
 interface ContactSectionProps {
   clinicData: ClinicData;
@@ -138,30 +139,22 @@ export function ContactSection({ clinicData, isPage = false }: ContactSectionPro
                     <div className="space-y-2 text-xs sm:text-sm">
                       <div>
                         <span className="text-[11px] text-text-muted block">Dr. Pragati Khobragade (Doctor):</span>
-                        <a
-                          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1 font-medium"
-                          title="Compose email in Gmail"
-                        >
-                          <span>{clinicData.contact.email}</span>
-                          <span className="text-[11px] opacity-70">↗</span>
-                        </a>
+                        <ObfuscatedEmail
+                          user="pragativuplekar"
+                          domain="gmail.com"
+                          className="text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1 font-medium text-xs sm:text-sm"
+                          showArrow={true}
+                        />
                       </div>
                       {clinicData.contact.secondaryEmail && (
                         <div className="pt-1.5 border-t border-primary-subtle/40">
                           <span className="text-[11px] text-text-muted block">Dr. Vijay Uplekar (Consultations &amp; Support):</span>
-                          <a
-                            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.secondaryEmail}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1 font-medium"
-                            title="Compose email in Gmail"
-                          >
-                            <span>{clinicData.contact.secondaryEmail}</span>
-                            <span className="text-[11px] opacity-70">↗</span>
-                          </a>
+                          <ObfuscatedEmail
+                            user="Uplekarvijay78"
+                            domain="gmail.com"
+                            className="text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1 font-medium text-xs sm:text-sm"
+                            showArrow={true}
+                          />
                         </div>
                       )}
                     </div>

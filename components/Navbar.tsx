@@ -92,6 +92,7 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
               width={40}
               height={40}
               priority
+              sizes="40px"
               className="w-full h-full object-contain"
             />
           </div>

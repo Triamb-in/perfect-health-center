@@ -42,7 +42,7 @@ export function GallerySection({ galleryItems }: GallerySectionProps) {
                 width={600}
                 height={450}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
               />
 
               {/* Hover Dark Green Overlay */}

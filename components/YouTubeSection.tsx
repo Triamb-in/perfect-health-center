@@ -82,7 +82,7 @@ function YouTubeFeaturedPoster({ videoId, alt }: { videoId: string; alt: string 
       alt={alt}
       width={1280}
       height={720}
-      sizes="(max-width: 1024px) 100vw, 720px"
+      sizes="(max-width: 1024px) 92vw, 680px"
       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       onError={() => {
         if (imgSrc !== hqUrl) {

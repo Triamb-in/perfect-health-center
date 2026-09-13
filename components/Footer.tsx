@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Youtube, MapPin, Phone, Mail, Sparkles, Instagram } from "lucide-react";
 import { ClinicData } from "@/types";
+import { ObfuscatedEmail } from "./ObfuscatedEmail";
 
 interface FooterProps {
   clinicData: ClinicData;
@@ -23,8 +24,9 @@ export function Footer({ clinicData }: FooterProps) {
                 <Image
                   src="/logo.png"
                   alt="Perfect Health Center Logo"
-                  width={36}
-                  height={36}
+                  width={32}
+                  height={32}
+                  sizes="32px"
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -216,27 +218,21 @@ export function Footer({ clinicData }: FooterProps) {
               <div className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-[#a3d9b1] flex-shrink-0 mt-1" />
                 <div className="flex flex-col gap-1">
-                  <a
-                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <ObfuscatedEmail
+                    user="pragativuplekar"
+                    domain="gmail.com"
                     className="hover:text-white transition-colors inline-flex items-center gap-1"
                     title="Compose email to Dr. Pragati in Gmail"
-                  >
-                    <span>{clinicData.contact.email}</span>
-                    <span className="text-[10px] text-[#a3d9b1]">↗</span>
-                  </a>
+                    showArrow={true}
+                  />
                   {clinicData.contact.secondaryEmail && (
-                    <a
-                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.secondaryEmail}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ObfuscatedEmail
+                      user="Uplekarvijay78"
+                      domain="gmail.com"
                       className="hover:text-white transition-colors inline-flex items-center gap-1"
                       title="Compose email to Dr. Vijay in Gmail"
-                    >
-                      <span>{clinicData.contact.secondaryEmail}</span>
-                      <span className="text-[10px] text-[#a3d9b1]">↗</span>
-                    </a>
+                      showArrow={true}
+                    />
                   )}
                 </div>
               </div>

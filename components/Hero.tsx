@@ -20,8 +20,9 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
         <Image
           src="/images/hero_left_leaves.png"
           alt="Natural Herb Leaves Decor"
-          width={400}
-          height={650}
+          width={336}
+          height={599}
+          sizes="256px"
           priority
           className="hero-left-leaves-img w-full h-auto object-contain object-left-top mix-blend-multiply opacity-100 select-none pointer-events-none"
           draggable={false}
@@ -128,11 +129,11 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
               <Image
                 src="/images/hero_doctor.png"
                 alt="Dr. Pragati Khobragade - Perfect Health Center"
-                width={480}
-                height={580}
+                width={600}
+                height={600}
                 priority
                 className="w-full h-auto object-cover object-top mix-blend-multiply origin-bottom transform scale-[1.12] sm:scale-[1.14] md:scale-[1.16] xl:scale-[1.30] pointer-events-none select-none"
-                sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 580px"
+                sizes="(max-width: 640px) 260px, (max-width: 1024px) 340px, 420px"
                 draggable={false}
               />
               <div className="absolute inset-0 z-20 pointer-events-auto bg-transparent select-none" aria-hidden="true" />
