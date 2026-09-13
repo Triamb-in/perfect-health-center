@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Shield, Lock, FileText, CheckCircle2, UserCheck, AlertCircle, Phone, Mail, MapPin } from "lucide-react";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
   title: "Patient Privacy Policy",
@@ -145,9 +146,11 @@ export default function PrivacyPolicyPage() {
             </div>
             <p className="mt-4 text-xs sm:text-sm text-text-body">
               <strong>How to Exercise Your Rights:</strong> Submit an email request to{" "}
-              <a href="mailto:pragativuplekar@gmail.com" className="text-primary-main underline font-medium">
-                pragativuplekar@gmail.com
-              </a>{" "}
+              <ObfuscatedEmail
+                user="pragativuplekar"
+                domain="gmail.com"
+                className="text-primary-main underline font-medium"
+              />{" "}
               with the subject line <em>&ldquo;DPDP Patient Data Request — [Your Name]&rdquo;</em>. All verified requests are acknowledged within 48 hours.
             </p>
           </section>
@@ -194,14 +197,12 @@ export default function PrivacyPolicyPage() {
                 <div>
                   <span className="text-xs text-text-muted">Official Email:</span>
                   <p>
-                    <a
-                      href="https://mail.google.com/mail/?view=cm&fs=1&to=pragativuplekar@gmail.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ObfuscatedEmail
+                      user="pragativuplekar"
+                      domain="gmail.com"
                       className="text-primary-main underline font-semibold"
-                    >
-                      pragativuplekar@gmail.com ↗
-                    </a>
+                      showArrow
+                    />
                   </p>
                 </div>
               </div>

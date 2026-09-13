@@ -63,14 +63,14 @@ export async function getClinicData(): Promise<ClinicData> {
       contact: {
         ...defaultClinicData.contact,
         phoneFormatted: s.phone || defaultClinicData.contact.phoneFormatted,
-        email: s.email || defaultClinicData.contact.email,
+        email: (s.email || defaultClinicData.contact.email).replace("@", "[at]"),
         youtubeChannelUrl:
           s.youtubeChannelUrl || defaultClinicData.contact.youtubeChannelUrl,
         youtubeChannelName:
           s.youtubeChannelName || defaultClinicData.contact.youtubeChannelName,
         secondaryPhone: s.secondaryPhone || defaultClinicData.contact.secondaryPhone,
         secondaryPhoneFormatted: s.secondaryPhone || defaultClinicData.contact.secondaryPhoneFormatted,
-        secondaryEmail: s.secondaryEmail || defaultClinicData.contact.secondaryEmail,
+        secondaryEmail: (s.secondaryEmail || defaultClinicData.contact.secondaryEmail).replace("@", "[at]"),
         secondaryWhatsappUrl: s.secondaryPhone
           ? `https://wa.me/${s.secondaryPhone.replace(/\D/g, "")}`
           : defaultClinicData.contact.secondaryWhatsappUrl,

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Cookie, ShieldCheck, CheckCircle2, Lock, Settings2 } from "lucide-react";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
@@ -147,14 +148,12 @@ export default function CookiePolicyPage() {
               </a>
               <br />
               Email:{" "}
-              <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=pragativuplekar@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              <ObfuscatedEmail
+                user="pragativuplekar"
+                domain="gmail.com"
                 className="text-primary-main underline font-medium"
-              >
-                pragativuplekar@gmail.com ↗
-              </a>
+                showArrow
+              />
             </p>
           </div>
 

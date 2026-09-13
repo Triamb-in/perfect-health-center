@@ -23,7 +23,6 @@ export function SchemaMarkup({
       "Perfect Health Center offers gentle, personalized constitutional homeopathic treatment and family general healthcare by Dr. Pragati Khobragade with over 20 years of clinical experience in Diva East, Thane.",
     url: pageUrl,
     telephone: clinicData.contact.phoneFormatted,
-    email: clinicData.contact.email,
     priceRange: "₹₹",
     image: `${pageUrl}/images/hero_doctor.jpg`,
     medicalSpecialty: [
