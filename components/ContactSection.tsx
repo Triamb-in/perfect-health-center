@@ -57,25 +57,58 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                   <div className="w-10 h-10 rounded-xl bg-primary-subtle text-primary-dark flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Phone className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-sm text-primary-dark mb-1">
                       Phone &amp; WhatsApp
                     </p>
-                    <div className="flex flex-col gap-1">
-                      <a
-                        href={`tel:${clinicData.contact.phone}`}
-                        className="text-xs sm:text-sm font-bold text-primary-dark hover:text-primary-main hover:underline"
-                      >
-                        {clinicData.contact.phoneFormatted}
-                      </a>
-                      <a
-                        href={clinicData.contact.whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-primary-main hover:underline flex items-center gap-1 font-semibold"
-                      >
-                        <span>Chat directly on WhatsApp →</span>
-                      </a>
+                    <div className="space-y-3">
+                      <div>
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-primary-main block">
+                          Dr. Pragati Khobragade (Consultations)
+                        </span>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <a
+                            href={`tel:${clinicData.contact.phone}`}
+                            className="text-xs sm:text-sm font-bold text-primary-dark hover:text-primary-main hover:underline"
+                          >
+                            {clinicData.contact.phoneFormatted}
+                          </a>
+                          <span className="text-text-muted text-xs">•</span>
+                          <a
+                            href={clinicData.contact.whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-primary-main hover:underline font-semibold"
+                          >
+                            WhatsApp →
+                          </a>
+                        </div>
+                      </div>
+
+                      {clinicData.contact.secondaryPhoneFormatted && (
+                        <div className="pt-2 border-t border-primary-subtle/60">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-primary-main block">
+                            Mr. Vijay Uplekar (Clinic Support &amp; Inquiries)
+                          </span>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <a
+                              href={`tel:${clinicData.contact.secondaryPhone}`}
+                              className="text-xs sm:text-sm font-bold text-primary-dark hover:text-primary-main hover:underline"
+                            >
+                              {clinicData.contact.secondaryPhoneFormatted}
+                            </a>
+                            <span className="text-text-muted text-xs">•</span>
+                            <a
+                              href={clinicData.contact.secondaryWhatsappUrl || `https://wa.me/918087775415`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-primary-main hover:underline font-semibold"
+                            >
+                              WhatsApp →
+                            </a>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -85,20 +118,40 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                   <div className="w-10 h-10 rounded-xl bg-primary-subtle text-primary-dark flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Mail className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-sm text-primary-dark mb-1">
-                      Email Address
+                      Email Addresses
                     </p>
-                    <a
-                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs sm:text-sm text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1"
-                      title="Compose email in Gmail"
-                    >
-                      <span>{clinicData.contact.email}</span>
-                      <span className="text-[11px] opacity-70">↗</span>
-                    </a>
+                    <div className="space-y-2 text-xs sm:text-sm">
+                      <div>
+                        <span className="text-[11px] text-text-muted block">Direct Doctor Email:</span>
+                        <a
+                          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1 font-medium"
+                          title="Compose email in Gmail"
+                        >
+                          <span>{clinicData.contact.email}</span>
+                          <span className="text-[11px] opacity-70">↗</span>
+                        </a>
+                      </div>
+                      {clinicData.contact.secondaryEmail && (
+                        <div className="pt-1.5 border-t border-primary-subtle/40">
+                          <span className="text-[11px] text-text-muted block">Clinic Inquiries &amp; Support:</span>
+                          <a
+                            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.secondaryEmail}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary-dark hover:text-primary-main hover:underline inline-flex items-center gap-1 font-medium"
+                            title="Compose email in Gmail"
+                          >
+                            <span>{clinicData.contact.secondaryEmail}</span>
+                            <span className="text-[11px] opacity-70">↗</span>
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 

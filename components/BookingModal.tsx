@@ -246,20 +246,50 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="m-type" className="block text-xs font-bold text-primary-dark mb-1">
-                  Consultation Mode
-                </label>
-                <select
-                  id="m-type"
-                  name="consultationType"
-                  value={formData.consultationType}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 rounded-xl border border-primary-subtle bg-cream-50 text-sm text-text-dark focus:outline-none focus:ring-2 focus:ring-primary-dark"
-                >
-                  <option value="In-Person">In-Person Clinic Visit (Diva East, Thane)</option>
-                  <option value="Online">Online Video Consultation</option>
-                </select>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="m-type" className="block text-xs font-bold text-primary-dark mb-1">
+                    Consultation Mode
+                  </label>
+                  <select
+                    id="m-type"
+                    name="consultationType"
+                    value={formData.consultationType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-xl border border-primary-subtle bg-cream-50 text-sm text-text-dark focus:outline-none focus:ring-2 focus:ring-primary-dark"
+                  >
+                    <option value="In-Person">In-Person Clinic Visit</option>
+                    <option value="Online">Online Video Consultation</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="m-specialty" className="block text-xs font-bold text-primary-dark mb-1">
+                    Primary Concern / Service
+                  </label>
+                  <select
+                    id="m-specialty"
+                    name="specialty"
+                    value={formData.specialty || "Skin Care"}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-xl border border-primary-subtle bg-cream-50 text-sm text-text-dark focus:outline-none focus:ring-2 focus:ring-primary-dark"
+                  >
+                    <option value="Skin Care">Skin Care &amp; Aesthetics</option>
+                    <option value="Asthma">Asthma &amp; Respiratory</option>
+                    <option value="Hair Fall">Hair Fall &amp; Scalp Care</option>
+                    <option value="Migraine">Migraine &amp; Headaches</option>
+                    <option value="Fungal Infections">Fungal Infections / Ringworm</option>
+                    <option value="Psoriasis">Psoriasis</option>
+                    <option value="Piles">Piles &amp; Hemorrhoids</option>
+                    <option value="Renal Stones">Renal Stones (Kidney Stones)</option>
+                    <option value="Fissure">Anal Fissure</option>
+                    <option value="Homeopathy">Constitutional Homeopathy</option>
+                    <option value="General Practice">General Practice</option>
+                    <option value="Women's Health">Women&apos;s Health</option>
+                    <option value="Children's Health">Children&apos;s Health</option>
+                    <option value="Chronic Disease">Chronic Disease</option>
+                  </select>
+                </div>
               </div>
 
               <button

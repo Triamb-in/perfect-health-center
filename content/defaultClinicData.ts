@@ -31,6 +31,11 @@ export const defaultClinicData: ClinicData = {
     whatsappUrl: "https://wa.me/919273431261?text=Hello%20Dr.%20Pragati,%20I%20would%20like%20to%20inquire%20about%20a%20consultation%20at%20Perfect%20Health%20Center.",
     youtubeChannelUrl: "https://www.youtube.com/@pragatiuplekar4292/videos",
     youtubeChannelName: "pragatiuplekar4292",
+    secondaryPhone: "+918087775415",
+    secondaryPhoneFormatted: "+91 80877 75415",
+    secondaryEmail: "Uplekarvijay78@gmail.com",
+    secondaryWhatsappUrl: "https://wa.me/918087775415?text=Hello,%20I%20would%20like%20to%20inquire%20about%20Perfect%20Health%20Center.",
+    secondaryContactName: "Mr. Vijay Uplekar",
   },
 
   developerCredit: {
@@ -61,6 +66,186 @@ export const defaultClinicData: ClinicData = {
   ],
 
   specialties: [
+    {
+      id: "skin-care",
+      title: "Skin Care",
+      shortDesc: "Holistic homeopathic dermatology & facial aesthetic care for clear, healthy, glowing skin.",
+      fullDesc:
+        "Root-cause homeopathic treatment for stubborn acne, facial pigmentation, melasma, atopic dermatitis, and allergic skin rashes. Dr. Pragati combines clinical dermatology insights with gentle constitutional remedies that balance internal vitality without harsh steroid creams.",
+      iconName: "Sparkles",
+      conditions: [
+        "Acne, Pimples & Blemishes",
+        "Melasma & Hyperpigmentation",
+        "Atopic Dermatitis & Eczema",
+        "Facial Aesthetic Rejuvenation",
+        "Urticaria & Allergic Rashes",
+      ],
+      benefits: [
+        "Steroid-free holistic healing from within",
+        "Zero harsh topical peeling or chemical suppression",
+        "Prevents recurring flare-ups by addressing metabolic roots",
+      ],
+    },
+    {
+      id: "migraine",
+      title: "Migraine",
+      shortDesc: "Targeted constitutional relief to reduce the frequency, duration, and intensity of migraines.",
+      fullDesc:
+        "Comprehensive homeopathic management for unilateral throbbing migraines, visual aura, stress-induced tension headaches, and hormonally triggered headaches. Our treatment regulates neurological and vascular hypersensitivity without sedative dependency.",
+      iconName: "Brain",
+      conditions: [
+        "Chronic Throbbing Migraine with Aura",
+        "Stress & Tension Headaches",
+        "Hormonal & Menstrual Headaches",
+        "Cervical & Gastric Migraines",
+        "Nausea & Sensory Sensitivity with Headaches",
+      ],
+      benefits: [
+        "Significantly decreases attack frequency and intensity",
+        "Free from sedative and painkiller dependency",
+        "Addresses emotional, digestive, and hormonal triggers",
+      ],
+    },
+    {
+      id: "fungal-infections",
+      title: "Fungal Infections / Ringworm",
+      shortDesc: "Deep-acting remedies that eradicate stubborn ringworm and fungal rashes without recurrence.",
+      fullDesc:
+        "Topical creams often fail because fungal spores thrive on weakened skin immunity. Our internal homeopathic therapies strengthen cellular resistance, eliminate stubborn ringworm (tinea corporis/cruris), athlete's foot, and persistent fungal itch without steroid rebound.",
+      iconName: "ShieldCheck",
+      conditions: [
+        "Ringworm (Tinea Corporis & Cruris)",
+        "Stubborn Fungal Skin Itching & Patches",
+        "Athlete's Foot & Toe Fungal Infections",
+        "Candidiasis & Intertrigo in Skin Folds",
+        "Recurring Sweat-Induced Fungal Rashes",
+      ],
+      benefits: [
+        "Stops relentless burning and itching quickly",
+        "Eliminates reliance on antifungal suppressive ointments",
+        "Rebuilds local skin immunity to prevent relapse",
+      ],
+    },
+    {
+      id: "psoriasis",
+      title: "Psoriasis",
+      shortDesc: "Gentle autoimmune modulation for chronic plaque psoriasis, scalp scaling, and inflammation.",
+      fullDesc:
+        "Psoriasis is an autoimmune condition where skin cells multiply rapidly. Dr. Pragati’s individualized homeopathic treatment works at the immune and constitutional level to slow down cell turnover, clear scaly silvery plaques, and relieve itching naturally.",
+      iconName: "Layers",
+      conditions: [
+        "Plaque Psoriasis on Elbows & Knees",
+        "Scalp Psoriasis with Severe Flaking",
+        "Guttate & Inverse Psoriasis",
+        "Dry, Cracked, Bleeding Skin Patches",
+        "Psoriatic Itching & Burning Discomfort",
+      ],
+      benefits: [
+        "Normalizes hyperactive immune responses safely",
+        "Soothes severe dryness, cracking, and scaling",
+        "Aids in achieving long-lasting clinical remission",
+      ],
+    },
+    {
+      id: "piles",
+      title: "Piles",
+      shortDesc: "Non-surgical homeopathic care to shrink swollen hemorrhoids and stop rectal bleeding.",
+      fullDesc:
+        "Safe, painless non-surgical solutions for internal and external hemorrhoids (piles). Our medicines relieve venous congestion in the pelvic area, heal swollen hemorrhoidal veins, resolve chronic constipation, and stop rectal bleeding and throbbing pain.",
+      iconName: "HeartPulse",
+      conditions: [
+        "Bleeding & Non-Bleeding Piles",
+        "Internal & External Hemorrhoids",
+        "Throbbing Rectal Pain & Discomfort",
+        "Prolapsed Swollen Pile Masses",
+        "Straining & Chronic Constipation Distress",
+      ],
+      benefits: [
+        "Highly effective non-surgical treatment",
+        "Rapid control of rectal bleeding and swelling",
+        "Improves liver metabolism and bowel motility",
+      ],
+    },
+    {
+      id: "renal-stones",
+      title: "Renal Stones",
+      shortDesc: "Natural protocols to help dissolve, flush out calculi, and prevent recurring kidney stones.",
+      fullDesc:
+        "Specialized homeopathic protocols designed to facilitate the smooth passage of renal and ureteric calculi (kidney stones) by relaxing urinary tract spasms and dissolving small stones. Corrects underlying calcium oxalate and uric acid diathesis to prevent future stones.",
+      iconName: "Droplets",
+      conditions: [
+        "Kidney Calculi (Nephrolithiasis)",
+        "Ureteric Stones & Urinary Obstruction",
+        "Acute Flank & Renal Colic Spasms",
+        "Burning & Pain During Urination (Dysuria)",
+        "Frequent Recurrent Kidney Stone Formation",
+      ],
+      benefits: [
+        "Assists natural expulsion of small stones painlessly",
+        "Relieves severe spasmodic back and groin pain",
+        "Corrects metabolic tendency to form new stones",
+      ],
+    },
+    {
+      id: "fissure",
+      title: "Fissure",
+      shortDesc: "Rapid healing remedies for painful anal fissures, sphincter spasms, and post-stool burning.",
+      fullDesc:
+        "Anal fissures cause excruciating knife-like pain and bleeding during and after bowel movements. Our soothing homeopathic remedies relax involuntary sphincter spasm, soften bowel movements, heal the raw mucosal lining, and prevent painful chronic fissures without surgery.",
+      iconName: "Activity",
+      conditions: [
+        "Acute & Chronic Anal Fissures",
+        "Severe Tearing Pain During Defecation",
+        "Post-Stool Burning Lasting for Hours",
+        "Anal Sphincter Spasms & Tightness",
+        "Blood Streaks on Stool or Toilet Paper",
+      ],
+      benefits: [
+        "Prompt relief from acute burning and rectal spasm",
+        "Promotes rapid epithelial mucosal healing",
+        "Avoids painful surgical sphincterotomy intervention",
+      ],
+    },
+    {
+      id: "asthma",
+      title: "Asthma",
+      shortDesc: "Specialized respiratory care by Dr. Pragati for bronchial asthma, allergic bronchitis & wheezing.",
+      fullDesc:
+        "As a core specialty of Dr. Pragati Khobragade, our respiratory clinic treats bronchial asthma, wheezing, nighttime coughing fits, and chest tightness. Constitutional remedies reduce bronchial hypersensitivity, improve lung capacity, and reduce reliance on emergency inhalers.",
+      iconName: "Wind",
+      conditions: [
+        "Bronchial Asthma & Wheezing",
+        "Allergic Bronchitis & Chronic Cough",
+        "Childhood Wheeze & Nighttime Breathlessness",
+        "Seasonal & Dust-Triggered Asthma",
+        "Chest Tightness & Exercise-Induced Dyspnea",
+      ],
+      benefits: [
+        "Gradually reduces dependency on rescue inhalers",
+        "Strengthens bronchial mucosa against environmental triggers",
+        "Safe and gentle for pediatric and elderly patients alike",
+      ],
+    },
+    {
+      id: "hair-fall",
+      title: "Hair Fall",
+      shortDesc: "Root-strengthening therapies for excessive shedding, thinning, alopecia areata & dandruff.",
+      fullDesc:
+        "Hair loss is often a reflection of underlying nutritional deficiencies, hormonal shifts, stress, or autoimmune tendencies. Our constitutional remedies stimulate follicle circulation, arrest rapid hair shedding, treat stubborn scalp dandruff, and encourage natural re-growth.",
+      iconName: "Sparkles",
+      conditions: [
+        "Excessive Hair Fall & Diffuse Thinning",
+        "Alopecia Areata (Coin-Sized Bald Patches)",
+        "Chronic Scalp Dandruff & Seborrhea",
+        "Postpartum & Hormonal Hair Loss",
+        "Stress-Induced Telogen Effluvium",
+      ],
+      benefits: [
+        "Revitalizes dormant hair follicles from the root",
+        "Controls oily, itchy scalp and persistent flaking",
+        "Improves natural hair density, texture, and strength",
+      ],
+    },
     {
       id: "homeopathy",
       title: "Homeopathy",

@@ -122,10 +122,19 @@ export async function sendClinicEmail(
     return false;
   }
 
-  const recipientEmail =
-    process.env.CLINIC_NOTIFICATION_EMAIL ||
-    process.env.NOTIFICATION_EMAIL ||
-    "pragativuplekar@gmail.com";
+  const defaultRecipients = [
+    "pragativuplekar@gmail.com",
+    "Uplekarvijay78@gmail.com",
+  ];
+
+  const envEmail =
+    process.env.CLINIC_NOTIFICATION_EMAIL || process.env.NOTIFICATION_EMAIL;
+  const recipientEmails = envEmail
+    ? envEmail
+        .split(",")
+        .map((e) => e.trim())
+        .filter(Boolean)
+    : defaultRecipients;
 
   const fromSender =
     process.env.CLINIC_FROM_EMAIL ||
@@ -134,7 +143,7 @@ export async function sendClinicEmail(
   try {
     const { error } = await resend.emails.send({
       from: fromSender,
-      to: [recipientEmail],
+      to: recipientEmails,
       subject: buildSubject(payload),
       html: buildHtml(payload),
     });
@@ -145,7 +154,7 @@ export async function sendClinicEmail(
     }
 
     console.log(
-      `[email] Sent to ${recipientEmail}: "${buildSubject(payload)}"`
+      `[email] Sent to ${recipientEmails.join(", ")}: "${buildSubject(payload)}"`
     );
     return true;
   } catch (err) {

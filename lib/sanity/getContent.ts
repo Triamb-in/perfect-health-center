@@ -68,6 +68,13 @@ export async function getClinicData(): Promise<ClinicData> {
           s.youtubeChannelUrl || defaultClinicData.contact.youtubeChannelUrl,
         youtubeChannelName:
           s.youtubeChannelName || defaultClinicData.contact.youtubeChannelName,
+        secondaryPhone: s.secondaryPhone || defaultClinicData.contact.secondaryPhone,
+        secondaryPhoneFormatted: s.secondaryPhone || defaultClinicData.contact.secondaryPhoneFormatted,
+        secondaryEmail: s.secondaryEmail || defaultClinicData.contact.secondaryEmail,
+        secondaryWhatsappUrl: s.secondaryPhone
+          ? `https://wa.me/${s.secondaryPhone.replace(/\D/g, "")}`
+          : defaultClinicData.contact.secondaryWhatsappUrl,
+        secondaryContactName: s.secondaryContactName || defaultClinicData.contact.secondaryContactName,
       },
       address: {
         ...defaultClinicData.address,
@@ -76,26 +83,36 @@ export async function getClinicData(): Promise<ClinicData> {
         pincode: s.pincode || defaultClinicData.address.pincode,
         fullFormatted: `${s.clinicName || defaultClinicData.clinicName}, ${s.streetAddress || defaultClinicData.address.street}, ${s.locality || defaultClinicData.address.locality} – ${s.pincode || defaultClinicData.address.pincode}, Maharashtra`,
       },
-      specialties:
-        specialties && specialties.length > 0
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            specialties.map((s: any) => ({
-              id: s.slug?.current || s._id,
-              title: s.title,
-              shortDesc: s.shortDesc || "",
-              fullDesc: s.fullDesc || "",
-              iconName: s.iconName || "Pill",
-              conditions: s.conditions || [],
-              benefits:
-                s.benefits && s.benefits.length > 0
-                  ? s.benefits
-                  : (defaultClinicData.specialties.find(
-                      (ds) =>
-                        ds.id === (s.slug?.current || s._id) ||
-                        ds.title.toLowerCase() === s.title?.toLowerCase()
-                    )?.benefits || []),
-            }))
-          : defaultClinicData.specialties,
+      specialties: (() => {
+        if (!specialties || specialties.length === 0) {
+          return defaultClinicData.specialties;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const sanityList = specialties.map((s: any) => ({
+          id: s.slug?.current || s._id.replace("specialty-", ""),
+          title: s.title,
+          shortDesc: s.shortDesc || "",
+          fullDesc: s.fullDesc || "",
+          iconName: s.iconName || "Pill",
+          conditions: s.conditions || [],
+          benefits:
+            s.benefits && s.benefits.length > 0
+              ? s.benefits
+              : (defaultClinicData.specialties.find(
+                  (ds) =>
+                    ds.id === (s.slug?.current || s._id) ||
+                    ds.title.toLowerCase() === s.title?.toLowerCase()
+                )?.benefits || []),
+        }));
+
+        // Ensure all verified default specialties are present
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const existingIds = new Set(sanityList.map((s: any) => s.id.toLowerCase()));
+        const missingDefaults = defaultClinicData.specialties.filter(
+          (ds) => !existingIds.has(ds.id.toLowerCase())
+        );
+        return [...sanityList, ...missingDefaults];
+      })(),
       faqs:
         faqs && faqs.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any

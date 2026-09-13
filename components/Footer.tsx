@@ -107,37 +107,57 @@ export function Footer({ clinicData }: FooterProps) {
           {/* Specialties */}
           <div className="lg:col-span-3">
             <h4 className="font-serif font-bold text-base text-white mb-4">
-              Specialties
+              Featured Specialties
             </h4>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-white/75">
+            <ul className="space-y-2 text-xs sm:text-sm text-white/75">
+              <li>
+                <Link href="/services#skin-care" className="hover:text-white transition-colors">
+                  Skin Care &amp; Facial Aesthetics
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#asthma" className="hover:text-white transition-colors">
+                  Asthma &amp; Respiratory Care
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#hair-fall" className="hover:text-white transition-colors">
+                  Hair Fall &amp; Scalp Care
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#migraine" className="hover:text-white transition-colors">
+                  Migraine &amp; Headaches
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#psoriasis" className="hover:text-white transition-colors">
+                  Psoriasis &amp; Chronic Dermatitis
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#fungal-infections" className="hover:text-white transition-colors">
+                  Fungal Infections &amp; Ringworm
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#piles" className="hover:text-white transition-colors">
+                  Piles &amp; Hemorrhoids Care
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#fissure" className="hover:text-white transition-colors">
+                  Anal Fissure Treatment
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#renal-stones" className="hover:text-white transition-colors">
+                  Renal Stones (Kidney Stones)
+                </Link>
+              </li>
               <li>
                 <Link href="/services#homeopathy" className="hover:text-white transition-colors">
-                  Classical Homeopathy
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#general-practice" className="hover:text-white transition-colors">
-                  General Practice &amp; Primary Care
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#womens-health" className="hover:text-white transition-colors">
-                  Women&apos;s Health &amp; Hormonal Balance
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#childrens-health" className="hover:text-white transition-colors">
-                  Pediatric Homeopathy
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#chronic-disease" className="hover:text-white transition-colors">
-                  Chronic Disease Support
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#lifestyle-disorders" className="hover:text-white transition-colors">
-                  Lifestyle &amp; Stress Management
+                  Constitutional Homeopathy
                 </Link>
               </li>
             </ul>
@@ -146,31 +166,54 @@ export function Footer({ clinicData }: FooterProps) {
           {/* Clinic Address & Hours */}
           <div className="lg:col-span-3">
             <h4 className="font-serif font-bold text-base text-white mb-4">
-              Clinic Location
+              Clinic Location &amp; Contact
             </h4>
             <div className="space-y-3 text-xs sm:text-sm text-white/75">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#a3d9b1] flex-shrink-0 mt-0.5" />
                 <span>{clinicData.address.fullFormatted}</span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#a3d9b1] flex-shrink-0" />
-                <a href={`tel:${clinicData.contact.phone}`} className="hover:text-white">
-                  {clinicData.contact.phoneFormatted}
-                </a>
+              <div className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 text-[#a3d9b1] flex-shrink-0 mt-1" />
+                <div className="flex flex-col gap-1">
+                  <a href={`tel:${clinicData.contact.phone}`} className="hover:text-white">
+                    <span className="font-semibold text-white">{clinicData.contact.phoneFormatted}</span>{" "}
+                    <span className="text-[11px] text-[#a3d9b1]">(Dr. Pragati)</span>
+                  </a>
+                  {clinicData.contact.secondaryPhoneFormatted && (
+                    <a href={`tel:${clinicData.contact.secondaryPhone}`} className="hover:text-white">
+                      <span className="font-semibold text-white">{clinicData.contact.secondaryPhoneFormatted}</span>{" "}
+                      <span className="text-[11px] text-[#a3d9b1]">(Support)</span>
+                    </a>
+                  )}
+                </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#a3d9b1] flex-shrink-0" />
-                <a
-                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1"
-                  title="Compose email in Gmail"
-                >
-                  <span>{clinicData.contact.email}</span>
-                  <span className="text-[10px] text-[#a3d9b1]">↗</span>
-                </a>
+              <div className="flex items-start gap-2.5">
+                <Mail className="w-4 h-4 text-[#a3d9b1] flex-shrink-0 mt-1" />
+                <div className="flex flex-col gap-1">
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors inline-flex items-center gap-1"
+                    title="Compose email to Dr. Pragati in Gmail"
+                  >
+                    <span>{clinicData.contact.email}</span>
+                    <span className="text-[10px] text-[#a3d9b1]">↗</span>
+                  </a>
+                  {clinicData.contact.secondaryEmail && (
+                    <a
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.secondaryEmail}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors inline-flex items-center gap-1"
+                      title="Compose email to Support in Gmail"
+                    >
+                      <span>{clinicData.contact.secondaryEmail}</span>
+                      <span className="text-[10px] text-[#a3d9b1]">↗</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>

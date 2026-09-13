@@ -192,7 +192,7 @@ export function ContactForm() {
 
         <div>
           <label htmlFor="specialty" className="block text-xs font-bold text-primary-dark mb-1">
-            Specialty Required
+            Specialty / Concern Required
           </label>
           <select
             id="specialty"
@@ -201,12 +201,21 @@ export function ContactForm() {
             onChange={handleChange}
             className="w-full px-4 py-3 rounded-xl border border-primary-subtle bg-cream-50 text-sm text-text-dark focus:outline-none focus:ring-2 focus:ring-primary-dark transition-all"
           >
-            <option value="Homeopathy">Homeopathy Consultation</option>
-            <option value="General Practice">General Practice</option>
-            <option value="Women's Health">Women&apos;s Health</option>
-            <option value="Children's Health">Children&apos;s Health</option>
-            <option value="Chronic Disease">Chronic Diseases</option>
-            <option value="Lifestyle Disorders">Lifestyle Disorders</option>
+            <option value="Skin Care">Skin Care &amp; Aesthetics</option>
+            <option value="Asthma">Asthma &amp; Respiratory Care</option>
+            <option value="Hair Fall">Hair Fall &amp; Scalp Care</option>
+            <option value="Migraine">Migraine &amp; Chronic Headaches</option>
+            <option value="Fungal Infections">Fungal Infections / Ringworm</option>
+            <option value="Psoriasis">Psoriasis Care</option>
+            <option value="Piles">Piles &amp; Hemorrhoids</option>
+            <option value="Renal Stones">Renal Stones (Kidney Stones)</option>
+            <option value="Fissure">Anal Fissure Care</option>
+            <option value="Homeopathy">Constitutional Homeopathy</option>
+            <option value="General Practice">General Practice &amp; Primary Care</option>
+            <option value="Women's Health">Women&apos;s Health &amp; Hormonal Care</option>
+            <option value="Children's Health">Children&apos;s Pediatric Care</option>
+            <option value="Chronic Disease">Chronic Diseases &amp; Joint Pain</option>
+            <option value="Lifestyle Disorders">Lifestyle &amp; Stress Disorders</option>
           </select>
         </div>
       </div>

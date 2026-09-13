@@ -46,12 +46,27 @@ export const clinicSettings = defineType({
     }),
     defineField({
       name: "phone",
-      title: "Phone Number",
+      title: "Phone Number (Primary / Doctor)",
       type: "string",
     }),
     defineField({
       name: "email",
-      title: "Email Address",
+      title: "Email Address (Primary / Doctor)",
+      type: "string",
+    }),
+    defineField({
+      name: "secondaryPhone",
+      title: "Secondary / Support Phone Number (Sir)",
+      type: "string",
+    }),
+    defineField({
+      name: "secondaryEmail",
+      title: "Secondary / Support Email Address (Sir)",
+      type: "string",
+    }),
+    defineField({
+      name: "secondaryContactName",
+      title: "Secondary Contact Name",
       type: "string",
     }),
     defineField({

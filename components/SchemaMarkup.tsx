@@ -31,6 +31,9 @@ export function SchemaMarkup({
       "GeneralPractice",
       "Pediatric",
       "Dermatology",
+      "Respiratory",
+      "Gastroenterology",
+      "Urology",
     ],
     address: {
       "@type": "PostalAddress",

@@ -91,6 +91,11 @@ export interface ClinicData {
     whatsappUrl: string;
     youtubeChannelUrl: string;
     youtubeChannelName: string;
+    secondaryPhone?: string;
+    secondaryPhoneFormatted?: string;
+    secondaryEmail?: string;
+    secondaryWhatsappUrl?: string;
+    secondaryContactName?: string;
   };
   developerCredit: {
     text: string;
