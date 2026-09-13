@@ -70,7 +70,7 @@ export const config = {
      */
     {
       source:
-        "/((?!api/media|_next/static|_next/image|favicon.ico|images/|robots.txt|sitemap.xml).*)",
+        "/((?!api/media|_next/static|_next/image|favicon.ico|images/|robots.txt|sitemap.xml|ads.txt|llms.txt).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "purpose", value: "prefetch" },
