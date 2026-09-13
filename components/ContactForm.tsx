@@ -180,7 +180,7 @@ export function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="ananya@example.com"
+            placeholder="Enter your email address"
             className={`w-full px-4 py-3 rounded-xl border bg-cream-50 text-sm text-text-dark focus:outline-none focus:ring-2 focus:ring-primary-dark transition-all ${
               errors.email ? "border-red-500" : "border-primary-subtle"
             }`}
