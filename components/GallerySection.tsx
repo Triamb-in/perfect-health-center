@@ -39,8 +39,9 @@ export function GallerySection({ galleryItems }: GallerySectionProps) {
               <Image
                 src={item.imageUrl}
                 alt={item.altText}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                width={600}
+                height={450}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
 

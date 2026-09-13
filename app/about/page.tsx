@@ -7,9 +7,9 @@ import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { CertificatesSection } from "@/components/CertificatesSection";
 
 export const metadata: Metadata = {
-  title: "About Dr. Pragati Khobragade — Clinical Background & Philosophy",
+  title: "About Our Doctors & Clinic",
   description:
-    "Learn about Dr. Pragati Khobragade, her 20+ years of clinical experience in homeopathy, and the holistic healing philosophy at Perfect Health Center in Diva East, Thane.",
+    "Learn about Dr. Pragati Khobragade and Dr. Vijay Uplekar, our 20+ years of clinical homeopathy experience, and holistic care in Diva East, Thane.",
   alternates: {
     canonical: "/about",
   },
@@ -43,9 +43,10 @@ export default async function AboutPage() {
               <Image
                 src="/images/about_doctor.png"
                 alt="Dr. Pragati Khobragade at Perfect Health Center"
-                fill
+                width={440}
+                height={550}
                 priority
-                className="object-cover"
+                className="w-full h-full object-cover"
                 sizes="(max-width: 768px) 100vw, 450px"
               />
             </div>

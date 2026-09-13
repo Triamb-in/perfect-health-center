@@ -22,9 +22,10 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
               <Image
                 src={doctorImageUrl}
                 alt="Dr. Pragati Khobragade at Perfect Health Center"
-                fill
+                width={440}
+                height={550}
                 priority
-                className="object-cover pointer-events-none select-none"
+                className="w-full h-full object-cover pointer-events-none select-none"
                 sizes="(max-width: 768px) 100vw, 420px"
                 draggable={false}
               />

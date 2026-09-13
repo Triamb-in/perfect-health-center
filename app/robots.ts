@@ -11,6 +11,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/studio", "/api/"],
       },
       {
+        userAgent: "Google-Extended",
+        allow: "/",
+      },
+      {
         userAgent: "GPTBot",
         allow: "/",
       },
@@ -31,11 +35,39 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
       {
+        userAgent: "anthropic-ai",
+        allow: "/",
+      },
+      {
         userAgent: "PerplexityBot",
         allow: "/",
       },
       {
+        userAgent: "Applebot-Extended",
+        allow: "/",
+      },
+      {
         userAgent: "Meta-ExternalAgent",
+        allow: "/",
+      },
+      {
+        userAgent: "FacebookBot",
+        allow: "/",
+      },
+      {
+        userAgent: "CCBot",
+        allow: "/",
+      },
+      {
+        userAgent: "cohere-ai",
+        allow: "/",
+      },
+      {
+        userAgent: "Diffbot",
+        allow: "/",
+      },
+      {
+        userAgent: "Bytespider",
         allow: "/",
       },
     ],

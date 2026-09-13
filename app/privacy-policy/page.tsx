@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Shield, Lock, FileText, CheckCircle2, UserCheck, AlertCircle, Phone, Mail, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy & Patient Data Protection — Perfect Health Center",
+  title: "Patient Privacy Policy",
   description:
-    "Comprehensive patient data privacy policy complying with India's Digital Personal Data Protection Act (DPDP Act 2023) at Perfect Health Center, Diva East, Thane.",
+    "Patient data privacy policy complying with India's Digital Personal Data Protection Act (DPDP Act 2023) at Perfect Health Center, Diva East, Thane.",
   alternates: {
     canonical: "/privacy-policy",
   },

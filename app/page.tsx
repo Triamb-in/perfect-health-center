@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { Hero } from "@/components/Hero";
 import { AboutSection } from "@/components/AboutSection";
@@ -8,6 +9,17 @@ import { YouTubeSection } from "@/components/YouTubeSection";
 import { GallerySection } from "@/components/GallerySection";
 import { PatientInfo } from "@/components/PatientInfo";
 import { ContactSection } from "@/components/ContactSection";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Homeopathy Clinic in Diva East | Perfect Health Center",
+  },
+  description:
+    "Dr. Pragati Khobragade & Dr. Vijay Uplekar offer gentle constitutional homeopathy and primary healthcare in Diva East, Thane. Over 20 years clinical experience.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export const revalidate = 0;
 

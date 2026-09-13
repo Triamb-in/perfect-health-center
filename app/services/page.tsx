@@ -5,9 +5,9 @@ import { getClinicData } from "@/lib/sanity/getContent";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "Clinical Specialties & Treated Conditions — Homeopathy & General Practice",
+  title: "Specialties & Treatments",
   description:
-    "Explore treatments offered at Perfect Health Center Diva East: Homeopathy, Skin & Asthma care, Women's Health (PCOS), Pediatric care, Chronic disease, and Lifestyle disorders.",
+    "Explore 15 clinical homeopathy treatments at Perfect Health Center in Diva East, Thane: skin care, asthma, hair fall, migraine, psoriasis & family care.",
   alternates: {
     canonical: "/services",
   },

@@ -3,8 +3,9 @@ import Link from "next/link";
 import { FileCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Use — Perfect Health Center",
-  description: "Terms of use and clinical disclaimer for Perfect Health Center website.",
+  title: "Terms of Use & Disclaimer",
+  description:
+    "Terms of use, clinical disclaimer, and medical guidance policies for Perfect Health Center website in Diva East, Thane.",
   alternates: {
     canonical: "/terms-of-use",
   },

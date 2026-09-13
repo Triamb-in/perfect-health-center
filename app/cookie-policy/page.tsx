@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Cookie, ShieldCheck, CheckCircle2, Lock, Settings2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy — Perfect Health Center Diva East",
+  title: "Cookie Policy",
   description:
-    "Information on cookies, functional local storage, and privacy compliance under India's Digital Personal Data Protection Act (DPDP Act 2023) at Perfect Health Center.",
+    "Information on cookies, functional browser storage, and DPDP Act 2023 compliance at Perfect Health Center in Diva East, Thane.",
   alternates: {
     canonical: "/cookie-policy",
   },

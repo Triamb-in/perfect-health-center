@@ -48,8 +48,9 @@ export function CertificatesSection({ certificates }: CertificatesSectionProps) 
                     <Image
                       src={cert.imageUrl}
                       alt={cert.altText}
-                      fill
-                      className="object-contain p-1.5 transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+                      width={640}
+                      height={440}
+                      className="w-full h-full object-contain p-1.5 transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       draggable={false}
                     />

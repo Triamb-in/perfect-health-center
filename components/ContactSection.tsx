@@ -5,9 +5,10 @@ import { ContactForm } from "./ContactForm";
 
 interface ContactSectionProps {
   clinicData: ClinicData;
+  isPage?: boolean;
 }
 
-export function ContactSection({ clinicData }: ContactSectionProps) {
+export function ContactSection({ clinicData, isPage = false }: ContactSectionProps) {
   return (
     <section id="contact" className="py-14 sm:py-20 lg:py-28 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,11 +16,17 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
           <div className="section-tag">Reach Out</div>
-          <h2 className="font-serif text-2xl sm:text-4xl font-bold text-primary-dark mb-3 sm:mb-4">
-            Contact &amp; Visit Us
-          </h2>
+          {isPage ? (
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-dark mb-3 sm:mb-4">
+              Contact &amp; Visit Us
+            </h1>
+          ) : (
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-primary-dark mb-3 sm:mb-4">
+              Contact &amp; Visit Us
+            </h2>
+          )}
           <p className="text-sm sm:text-base text-text-muted">
-            Schedule an in-person clinic consultation in Diva East or an online video session with {clinicData.doctorName}.
+            Schedule an in-person clinic consultation in Diva East or an online video session with {clinicData.doctorName} &amp; Dr. Vijay Uplekar.
           </p>
         </div>
 

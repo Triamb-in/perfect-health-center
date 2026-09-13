@@ -4,9 +4,9 @@ import { ContactSection } from "@/components/ContactSection";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "Contact & Location — Perfect Health Center Diva East",
+  title: "Contact & Appointments",
   description:
-    "Book an appointment or visit Perfect Health Center in Mumra Devi Colony, Diva East, Thane. Phone: +91 92734 31261. Hours: Mon-Sat 10:30 AM - 10:00 PM.",
+    "Book an appointment or visit Dr. Pragati Khobragade & Dr. Vijay Uplekar at Perfect Health Center, Diva East, Thane. Call +91 92734 31261 or WhatsApp.",
   alternates: {
     canonical: "/contact",
   },
@@ -17,7 +17,7 @@ export default async function ContactPage() {
 
   return (
     <div className="pt-24 bg-white">
-      <ContactSection clinicData={clinicData} />
+      <ContactSection clinicData={clinicData} isPage={true} />
     </div>
   );
 }

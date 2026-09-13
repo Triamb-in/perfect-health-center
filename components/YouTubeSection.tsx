@@ -80,9 +80,10 @@ function YouTubeFeaturedPoster({ videoId, alt }: { videoId: string; alt: string 
     <Image
       src={imgSrc}
       alt={alt}
-      fill
+      width={1280}
+      height={720}
       sizes="(max-width: 1024px) 100vw, 720px"
-      className="object-cover transition-transform duration-500 group-hover:scale-105"
+      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       onError={() => {
         if (imgSrc !== hqUrl) {
           setImgSrc(hqUrl);
@@ -101,9 +102,10 @@ function PlaylistThumbnail({ videoId, alt }: { videoId: string; alt: string }) {
     <Image
       src={imgSrc}
       alt={alt}
-      fill
+      width={320}
+      height={180}
       sizes="130px"
-      className="object-cover transition-transform duration-300 group-hover:scale-105"
+      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
       onError={() => {
         setImgSrc(`https://i.ytimg.com/vi/${cleanId}/mqdefault.jpg`);
       }}
