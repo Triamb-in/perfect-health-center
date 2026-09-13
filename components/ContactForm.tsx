@@ -90,7 +90,7 @@ export function ContactForm() {
           Thank You!
         </h4>
         <p className="text-sm sm:text-base text-text-body mb-6">
-          Your consultation request has been received. Dr. Pragati&apos;s team at Perfect Health Center will contact you shortly to confirm your appointment time.
+          Your consultation request has been received. Dr. Pragati and Dr. Vijay&apos;s team at Perfect Health Center will contact you shortly to confirm your appointment time.
         </p>
         <button
           onClick={() => setStatus("idle")}

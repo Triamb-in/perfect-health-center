@@ -34,8 +34,8 @@ export const defaultClinicData: ClinicData = {
     secondaryPhone: "+918087775415",
     secondaryPhoneFormatted: "+91 80877 75415",
     secondaryEmail: "Uplekarvijay78@gmail.com",
-    secondaryWhatsappUrl: "https://wa.me/918087775415?text=Hello,%20I%20would%20like%20to%20inquire%20about%20Perfect%20Health%20Center.",
-    secondaryContactName: "Mr. Vijay Uplekar",
+    secondaryWhatsappUrl: "https://wa.me/918087775415?text=Hello%20Dr.%20Vijay,%20I%20would%20like%20to%20inquire%20about%20a%20consultation%20at%20Perfect%20Health%20Center.",
+    secondaryContactName: "Dr. Vijay Uplekar",
   },
 
   developerCredit: {
@@ -84,6 +84,46 @@ export const defaultClinicData: ClinicData = {
         "Steroid-free holistic healing from within",
         "Zero harsh topical peeling or chemical suppression",
         "Prevents recurring flare-ups by addressing metabolic roots",
+      ],
+    },
+    {
+      id: "asthma",
+      title: "Asthma",
+      shortDesc: "Specialized respiratory care by Dr. Pragati for bronchial asthma, allergic bronchitis & wheezing.",
+      fullDesc:
+        "As a core specialty of Dr. Pragati Khobragade, our respiratory clinic treats bronchial asthma, wheezing, nighttime coughing fits, and chest tightness. Constitutional remedies reduce bronchial hypersensitivity, improve lung capacity, and reduce reliance on emergency inhalers.",
+      iconName: "Wind",
+      conditions: [
+        "Bronchial Asthma & Wheezing",
+        "Allergic Bronchitis & Chronic Cough",
+        "Childhood Wheeze & Nighttime Breathlessness",
+        "Seasonal & Dust-Triggered Asthma",
+        "Chest Tightness & Exercise-Induced Dyspnea",
+      ],
+      benefits: [
+        "Gradually reduces dependency on rescue inhalers",
+        "Strengthens bronchial mucosa against environmental triggers",
+        "Safe and gentle for pediatric and elderly patients alike",
+      ],
+    },
+    {
+      id: "hair-fall",
+      title: "Hair Fall",
+      shortDesc: "Root-strengthening therapies for excessive shedding, thinning, alopecia areata & dandruff.",
+      fullDesc:
+        "Hair loss is often a reflection of underlying nutritional deficiencies, hormonal shifts, stress, or autoimmune tendencies. Our constitutional remedies stimulate follicle circulation, arrest rapid hair shedding, treat stubborn scalp dandruff, and encourage natural re-growth.",
+      iconName: "Sparkles",
+      conditions: [
+        "Excessive Hair Fall & Diffuse Thinning",
+        "Alopecia Areata (Coin-Sized Bald Patches)",
+        "Chronic Scalp Dandruff & Seborrhea",
+        "Postpartum & Hormonal Hair Loss",
+        "Stress-Induced Telogen Effluvium",
+      ],
+      benefits: [
+        "Revitalizes dormant hair follicles from the root",
+        "Controls oily, itchy scalp and persistent flaking",
+        "Improves natural hair density, texture, and strength",
       ],
     },
     {
@@ -204,46 +244,6 @@ export const defaultClinicData: ClinicData = {
         "Prompt relief from acute burning and rectal spasm",
         "Promotes rapid epithelial mucosal healing",
         "Avoids painful surgical sphincterotomy intervention",
-      ],
-    },
-    {
-      id: "asthma",
-      title: "Asthma",
-      shortDesc: "Specialized respiratory care by Dr. Pragati for bronchial asthma, allergic bronchitis & wheezing.",
-      fullDesc:
-        "As a core specialty of Dr. Pragati Khobragade, our respiratory clinic treats bronchial asthma, wheezing, nighttime coughing fits, and chest tightness. Constitutional remedies reduce bronchial hypersensitivity, improve lung capacity, and reduce reliance on emergency inhalers.",
-      iconName: "Wind",
-      conditions: [
-        "Bronchial Asthma & Wheezing",
-        "Allergic Bronchitis & Chronic Cough",
-        "Childhood Wheeze & Nighttime Breathlessness",
-        "Seasonal & Dust-Triggered Asthma",
-        "Chest Tightness & Exercise-Induced Dyspnea",
-      ],
-      benefits: [
-        "Gradually reduces dependency on rescue inhalers",
-        "Strengthens bronchial mucosa against environmental triggers",
-        "Safe and gentle for pediatric and elderly patients alike",
-      ],
-    },
-    {
-      id: "hair-fall",
-      title: "Hair Fall",
-      shortDesc: "Root-strengthening therapies for excessive shedding, thinning, alopecia areata & dandruff.",
-      fullDesc:
-        "Hair loss is often a reflection of underlying nutritional deficiencies, hormonal shifts, stress, or autoimmune tendencies. Our constitutional remedies stimulate follicle circulation, arrest rapid hair shedding, treat stubborn scalp dandruff, and encourage natural re-growth.",
-      iconName: "Sparkles",
-      conditions: [
-        "Excessive Hair Fall & Diffuse Thinning",
-        "Alopecia Areata (Coin-Sized Bald Patches)",
-        "Chronic Scalp Dandruff & Seborrhea",
-        "Postpartum & Hormonal Hair Loss",
-        "Stress-Induced Telogen Effluvium",
-      ],
-      benefits: [
-        "Revitalizes dormant hair follicles from the root",
-        "Controls oily, itchy scalp and persistent flaking",
-        "Improves natural hair density, texture, and strength",
       ],
     },
     {

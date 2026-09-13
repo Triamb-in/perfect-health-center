@@ -183,7 +183,7 @@ export function Footer({ clinicData }: FooterProps) {
                   {clinicData.contact.secondaryPhoneFormatted && (
                     <a href={`tel:${clinicData.contact.secondaryPhone}`} className="hover:text-white">
                       <span className="font-semibold text-white">{clinicData.contact.secondaryPhoneFormatted}</span>{" "}
-                      <span className="text-[11px] text-[#a3d9b1]">(Support)</span>
+                      <span className="text-[11px] text-[#a3d9b1]">(Dr. Vijay)</span>
                     </a>
                   )}
                 </div>
@@ -207,7 +207,7 @@ export function Footer({ clinicData }: FooterProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-white transition-colors inline-flex items-center gap-1"
-                      title="Compose email to Support in Gmail"
+                      title="Compose email to Dr. Vijay in Gmail"
                     >
                       <span>{clinicData.contact.secondaryEmail}</span>
                       <span className="text-[10px] text-[#a3d9b1]">↗</span>

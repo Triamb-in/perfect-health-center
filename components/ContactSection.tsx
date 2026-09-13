@@ -88,7 +88,7 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                       {clinicData.contact.secondaryPhoneFormatted && (
                         <div className="pt-2 border-t border-primary-subtle/60">
                           <span className="text-[11px] font-bold uppercase tracking-wider text-primary-main block">
-                            Mr. Vijay Uplekar (Clinic Support &amp; Inquiries)
+                            Dr. Vijay Uplekar (Consultations &amp; Clinic Inquiries)
                           </span>
                           <div className="flex items-center gap-2 mt-0.5">
                             <a
@@ -124,7 +124,7 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                     </p>
                     <div className="space-y-2 text-xs sm:text-sm">
                       <div>
-                        <span className="text-[11px] text-text-muted block">Direct Doctor Email:</span>
+                        <span className="text-[11px] text-text-muted block">Dr. Pragati Khobragade (Doctor):</span>
                         <a
                           href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.email}`}
                           target="_blank"
@@ -138,7 +138,7 @@ export function ContactSection({ clinicData }: ContactSectionProps) {
                       </div>
                       {clinicData.contact.secondaryEmail && (
                         <div className="pt-1.5 border-t border-primary-subtle/40">
-                          <span className="text-[11px] text-text-muted block">Clinic Inquiries &amp; Support:</span>
+                          <span className="text-[11px] text-text-muted block">Dr. Vijay Uplekar (Consultations &amp; Support):</span>
                           <a
                             href={`https://mail.google.com/mail/?view=cm&fs=1&to=${clinicData.contact.secondaryEmail}`}
                             target="_blank"

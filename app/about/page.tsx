@@ -76,6 +76,10 @@ export default async function AboutPage() {
               Her clinical focus spans recalcitrant skin conditions (such as eczema, psoriasis, and chronic urticaria), respiratory allergies, bronchial asthma, pediatric immunity development, and women&apos;s hormonal disorders like PCOS and menstrual irregularities.
             </p>
 
+            <p className="leading-relaxed">
+              Working hand-in-hand with <strong>Dr. Vijay Uplekar</strong>, Perfect Health Center offers collaborative medical leadership and personalized care for the entire family, ensuring every patient benefits from thorough clinical attention and empathetic guidance.
+            </p>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               <div className="p-4 rounded-xl bg-white border border-primary-subtle shadow-subtle flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-primary-main flex-shrink-0 mt-0.5" />

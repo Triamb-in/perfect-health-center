@@ -57,7 +57,7 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
             </h2>
 
             <p className="text-base sm:text-lg text-text-body mb-6 leading-relaxed">
-              At <strong>{clinicData.clinicName}</strong>, we believe true healing addresses the individual as a whole—mind, body, and vitality. Guided by {clinicData.doctorName}&apos;s extensive clinical expertise of over 20 years, our clinic in Diva East, Thane provides individualized homeopathic care combined with primary general healthcare oversight.
+              At <strong>{clinicData.clinicName}</strong>, we believe true healing addresses the individual as a whole—mind, body, and vitality. Led by <strong>{clinicData.doctorName}</strong> alongside <strong>Dr. Vijay Uplekar</strong> with over two decades of clinical experience, our clinic in Diva East, Thane provides individualized homeopathic care combined with primary general healthcare oversight.
             </p>
 
             {/* Core Philosophy Card */}

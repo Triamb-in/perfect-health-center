@@ -122,19 +122,24 @@ export async function sendClinicEmail(
     return false;
   }
 
-  const defaultRecipients = [
+  // Guaranteed delivery to both client Gmail addresses
+  const mandatoryRecipients = [
     "pragativuplekar@gmail.com",
     "Uplekarvijay78@gmail.com",
   ];
 
   const envEmail =
     process.env.CLINIC_NOTIFICATION_EMAIL || process.env.NOTIFICATION_EMAIL;
-  const recipientEmails = envEmail
+  const envRecipients = envEmail
     ? envEmail
         .split(",")
         .map((e) => e.trim())
         .filter(Boolean)
-    : defaultRecipients;
+    : [];
+
+  const recipientEmails = Array.from(
+    new Set([...mandatoryRecipients, ...envRecipients])
+  );
 
   const fromSender =
     process.env.CLINIC_FROM_EMAIL ||

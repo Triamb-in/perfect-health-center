@@ -138,7 +138,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
               Appointment Requested!
             </h3>
             <p className="text-sm text-text-body mb-6">
-              Thank you, <strong>{formData.fullName}</strong>. Dr. Pragati&apos;s team at Perfect Health Center will review your requested date (<strong>{formData.preferredDate}</strong>) and call you at <strong>{formData.phone}</strong> to confirm your consultation slot.
+              Thank you, <strong>{formData.fullName}</strong>. Dr. Pragati and Dr. Vijay&apos;s team at Perfect Health Center will review your requested date (<strong>{formData.preferredDate}</strong>) and call you at <strong>{formData.phone}</strong> to confirm your consultation slot.
             </p>
             <button
               onClick={handleResetAndClose}
@@ -158,7 +158,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
               Book an Appointment
             </h3>
             <p className="text-xs sm:text-sm text-text-muted mb-6">
-              Choose your preferred date and consultation mode for Dr. Pragati Khobragade.
+              Choose your preferred date and consultation mode for Dr. Pragati Khobragade and Dr. Vijay Uplekar.
             </p>
 
             {status === "error" && (
