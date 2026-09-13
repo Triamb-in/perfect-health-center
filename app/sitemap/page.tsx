@@ -79,6 +79,20 @@ export default function SitemapPage() {
       icon: Baby,
       badge: "Child Health",
     },
+    {
+      title: "Benefits of Homeopathy in 2026",
+      href: "/articles/benefits-of-homeopathy-2026",
+      desc: "Why modern families choose gentle, non-toxic precision medicine for urban stress and chronic illness.",
+      icon: BookOpen,
+      badge: "2026 Trends",
+    },
+    {
+      title: "Understanding Constitutional Homeopathy",
+      href: "/articles/understanding-constitutional-homeopathy",
+      desc: "How whole-person case-taking addresses the totality of symptoms for long-term health restoration.",
+      icon: BookOpen,
+      badge: "Core Science",
+    },
   ];
 
   const specialtyLinks = defaultClinicData.specialties.map((s) => ({

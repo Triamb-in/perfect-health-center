@@ -112,6 +112,16 @@ export function Footer({ clinicData }: FooterProps) {
                 </Link>
               </li>
               <li>
+                <Link href="/articles/benefits-of-homeopathy-2026" className="hover:text-white transition-colors">
+                  Homeopathy in 2026
+                </Link>
+              </li>
+              <li>
+                <Link href="/articles/understanding-constitutional-homeopathy" className="hover:text-white transition-colors">
+                  Constitutional Care
+                </Link>
+              </li>
+              <li>
                 <Link href="/sitemap" className="hover:text-white transition-colors">
                   Directory &amp; Sitemap
                 </Link>
