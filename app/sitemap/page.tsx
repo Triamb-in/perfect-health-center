@@ -18,13 +18,15 @@ import {
   Calendar,
   MessageCircle,
   Cookie,
+  BookOpen,
+  Baby,
 } from "lucide-react";
 import { defaultClinicData } from "@/content/defaultClinicData";
 
 export const metadata: Metadata = {
-  title: "Website Sitemap & Directory — Perfect Health Center Diva East",
+  title: "Clinic Website Directory",
   description:
-    "Explore the complete website structure of Perfect Health Center. Quick navigation to clinical services, homeopathy treatments, doctor credentials, clinic timings, and patient guides.",
+    "Explore the complete website directory of Perfect Health Center in Diva East, Thane. Quick access to specialties, consultations, timings, and patient guides.",
   alternates: {
     canonical: "/sitemap",
   },
@@ -59,6 +61,23 @@ export default function SitemapPage() {
       desc: "Location map in Diva East, telephone, WhatsApp, clinic timings, and appointment request.",
       icon: PhoneCall,
       badge: "Visit",
+    },
+  ];
+
+  const healthGuides = [
+    {
+      title: "Benefits of Homeopathy for Chronic Illness",
+      href: "/articles/benefits-of-homeopathy-for-chronic-illness",
+      desc: "In-depth clinical guide on constitutional root-cause healing for asthma, eczema, psoriasis, and migraines.",
+      icon: BookOpen,
+      badge: "Chronic Care",
+    },
+    {
+      title: "Pediatric Care: What Every Parent Should Know",
+      href: "/articles/pediatric-care-homeopathy",
+      desc: "Gentle, sweet, non-toxic homeopathic treatment for tonsillitis, cold allergies, colic, and child immunity.",
+      icon: Baby,
+      badge: "Child Health",
     },
   ];
 
@@ -190,6 +209,50 @@ export default function SitemapPage() {
                   </div>
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-primary-main group-hover:translate-x-1 transition-transform">
                     <span>Visit page</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Section: Informative Health Guides & Articles */}
+        <div className="mb-14">
+          <div className="flex items-center gap-2 mb-6">
+            <BookOpen className="w-5 h-5 text-primary-main" />
+            <h2 className="font-serif text-2xl font-bold text-primary-dark">
+              Informative Health Guides &amp; Clinical Articles
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {healthGuides.map((guide, idx) => {
+              const Icon = guide.icon;
+              return (
+                <Link
+                  key={idx}
+                  href={guide.href}
+                  className="group bg-white rounded-2xl p-6 border border-primary-subtle hover:border-primary-main/40 shadow-subtle hover:shadow-card transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary-subtle/60 text-primary-dark flex items-center justify-center group-hover:bg-primary-dark group-hover:text-white transition-colors">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-primary-main bg-primary-subtle/50 px-2.5 py-1 rounded-full border border-primary-subtle">
+                        {guide.badge}
+                      </span>
+                    </div>
+                    <h3 className="font-serif font-bold text-lg text-primary-dark mb-2 group-hover:text-primary-main transition-colors">
+                      {guide.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-text-muted leading-relaxed mb-4">
+                      {guide.desc}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-primary-main group-hover:translate-x-1 transition-transform">
+                    <span>Read full clinical guide</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </Link>

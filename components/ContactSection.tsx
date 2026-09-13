@@ -36,9 +36,15 @@ export function ContactSection({ clinicData, isPage = false }: ContactSectionPro
           {/* Left Column: Clinic Contact Details */}
           <div className="lg:col-span-5 bg-cream-50 rounded-2xl p-5 sm:p-7 lg:p-9 border border-primary-subtle shadow-subtle flex flex-col justify-between">
             <div>
-              <h3 className="font-serif font-bold text-2xl text-primary-dark mb-2">
-                {clinicData.clinicName}
-              </h3>
+              {isPage ? (
+                <h2 className="font-serif font-bold text-2xl text-primary-dark mb-2">
+                  {clinicData.clinicName}
+                </h2>
+              ) : (
+                <h3 className="font-serif font-bold text-2xl text-primary-dark mb-2">
+                  {clinicData.clinicName}
+                </h3>
+              )}
               <p className="text-sm text-text-muted mb-8 leading-relaxed">
                 Visit our clinic in Diva East, Thane or connect via phone or WhatsApp for prompt consultation booking.
               </p>
@@ -202,9 +208,15 @@ export function ContactSection({ clinicData, isPage = false }: ContactSectionPro
 
           {/* Right Column: Contact Form Card */}
           <div className="lg:col-span-7 bg-white rounded-2xl p-5 sm:p-7 lg:p-9 border border-primary-subtle shadow-card">
-            <h3 className="font-serif font-bold text-2xl text-primary-dark mb-2">
-              Request Consultation
-            </h3>
+            {isPage ? (
+              <h2 className="font-serif font-bold text-2xl text-primary-dark mb-2">
+                Request Consultation
+              </h2>
+            ) : (
+              <h3 className="font-serif font-bold text-2xl text-primary-dark mb-2">
+                Request Consultation
+              </h3>
+            )}
             <p className="text-xs sm:text-sm text-text-muted mb-6">
               Fill in your details below and our team will get in touch to confirm your appointment slot.
             </p>

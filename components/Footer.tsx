@@ -101,6 +101,21 @@ export function Footer({ clinicData }: FooterProps) {
                   Contact &amp; Directions
                 </Link>
               </li>
+              <li>
+                <Link href="/articles/benefits-of-homeopathy-for-chronic-illness" className="hover:text-white transition-colors">
+                  Chronic Illness Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/articles/pediatric-care-homeopathy" className="hover:text-white transition-colors">
+                  Pediatric Care Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/sitemap" className="hover:text-white transition-colors">
+                  Directory &amp; Sitemap
+                </Link>
+              </li>
             </ul>
           </div>
 
