@@ -1,6 +1,6 @@
 import { defaultClinicData } from "@/content/defaultClinicData";
 import { ClinicData } from "@/types";
-import { sanityClient, urlFor } from "./client";
+import { sanityClient, urlFor, isSanityConfigured } from "./client";
 import { getSignedMediaUrl } from "@/lib/mediaSecurity";
 
 function signClinicMedia(data: ClinicData): ClinicData {
@@ -20,33 +20,39 @@ function signClinicMedia(data: ClinicData): ClinicData {
 }
 
 export async function getClinicData(): Promise<ClinicData> {
-  // If Sanity is not connected yet, serve verified default data with zero latency
-  if (!sanityClient) {
+  // If Sanity is not configured, log clear server diagnostics and serve verified default data
+  if (!sanityClient || !isSanityConfigured) {
+    if (process.env.NODE_ENV === "production") {
+      console.error(
+        "[Sanity] Configuration missing in production: Serving verified fallback data. " +
+        "Ensure NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET are set in Vercel."
+      );
+    } else {
+      console.warn("[Sanity] Configuration missing in development: Serving default clinic data.");
+    }
     return signClinicMedia(defaultClinicData);
   }
 
   try {
-    const settings = await sanityClient.fetch(
-      `*[_type == "clinicSettings"][0]`
-    );
-    const specialties = await sanityClient.fetch(
-      `*[_type == "specialty"] | order(order asc)`
-    );
-    const faqs = await sanityClient.fetch(
-      `*[_type == "faq"] | order(order asc)`
-    );
-    const testimonials = await sanityClient.fetch(
-      `*[_type == "testimonial"] | order(order asc)`
-    );
-    const certificates = await sanityClient.fetch(
-      `*[_type == "certificate"] | order(order asc)`
-    );
-    const youtubeVideos = await sanityClient.fetch(
-      `*[_type == "youtubeVideo"] | order(order asc)`
-    );
-    const gallery = await sanityClient.fetch(
-      `*[_type == "galleryItem"] | order(order asc)`
-    );
+    const [
+      settings,
+      specialties,
+      faqs,
+      testimonials,
+      certificates,
+      youtubeVideos,
+      gallery,
+    ] = await Promise.all([
+      sanityClient.fetch(`*[_type == "clinicSettings"][0]`),
+      sanityClient.fetch(`*[_type == "specialty"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "faq"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "testimonial"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "certificate"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "youtubeVideo"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "galleryItem"] | order(order asc)`),
+    ]);
+
+    console.log("[Sanity] Connected: Published CMS data successfully loaded from production dataset.");
 
     const s = settings || {};
 
@@ -83,35 +89,22 @@ export async function getClinicData(): Promise<ClinicData> {
         pincode: s.pincode || defaultClinicData.address.pincode,
         fullFormatted: `${s.clinicName || defaultClinicData.clinicName}, ${s.streetAddress || defaultClinicData.address.street}, ${s.locality || defaultClinicData.address.locality} – ${s.pincode || defaultClinicData.address.pincode}, Maharashtra`,
       },
+      // SANITY SOURCE-OF-TRUTH: If specialties exist in Sanity, use the published Sanity list exactly as returned.
+      // Do NOT resurrect deleted or modified items from defaultClinicData.
       specialties: (() => {
         if (!specialties || specialties.length === 0) {
           return defaultClinicData.specialties;
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sanityList = specialties.map((s: any) => ({
-          id: s.slug?.current || s._id.replace("specialty-", ""),
-          title: s.title,
-          shortDesc: s.shortDesc || "",
-          fullDesc: s.fullDesc || "",
-          iconName: s.iconName || "Pill",
-          conditions: s.conditions || [],
-          benefits:
-            s.benefits && s.benefits.length > 0
-              ? s.benefits
-              : (defaultClinicData.specialties.find(
-                  (ds) =>
-                    ds.id === (s.slug?.current || s._id) ||
-                    ds.title.toLowerCase() === s.title?.toLowerCase()
-                )?.benefits || []),
+        return specialties.map((spec: any) => ({
+          id: spec.slug?.current || spec._id.replace("specialty-", ""),
+          title: spec.title,
+          shortDesc: spec.shortDesc || "",
+          fullDesc: spec.fullDesc || "",
+          iconName: spec.iconName || "Pill",
+          conditions: spec.conditions || [],
+          benefits: spec.benefits || [],
         }));
-
-        // Ensure all verified default specialties are present
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const existingIds = new Set(sanityList.map((s: any) => s.id.toLowerCase()));
-        const missingDefaults = defaultClinicData.specialties.filter(
-          (ds) => !existingIds.has(ds.id.toLowerCase())
-        );
-        return [...sanityList, ...missingDefaults];
       })(),
       faqs:
         faqs && faqs.length > 0
@@ -183,7 +176,10 @@ export async function getClinicData(): Promise<ClinicData> {
           : defaultClinicData.gallery,
     });
   } catch (error) {
-    console.error("Failed to fetch from Sanity, falling back to default clinic data:", error);
+    console.error(
+      "❌ [Sanity CMS Request Failed]:",
+      error instanceof Error ? error.message : error
+    );
     return signClinicMedia(defaultClinicData);
   }
 }

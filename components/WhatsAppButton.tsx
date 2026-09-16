@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { ClinicData } from "@/types";
 
 interface WhatsAppButtonProps {
-  clinicData: ClinicData;
+  clinicData: {
+    contact: {
+      phone: string;
+    };
+  };
 }
 
 export function WhatsAppButton({ clinicData }: WhatsAppButtonProps) {

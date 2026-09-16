@@ -24,9 +24,8 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
                 alt="Dr. Pragati Khobragade at Perfect Health Center"
                 width={600}
                 height={400}
-                priority
                 className="w-full h-full object-cover pointer-events-none select-none"
-                sizes="(max-width: 768px) 100vw, 420px"
+                sizes="(max-width: 640px) 92vw, 448px"
                 draggable={false}
               />
               {/* Protective Overlay Shield */}

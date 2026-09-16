@@ -23,7 +23,6 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
           width={336}
           height={599}
           sizes="256px"
-          priority
           className="hero-left-leaves-img w-full h-auto object-contain object-left-top mix-blend-multiply opacity-100 select-none pointer-events-none"
           draggable={false}
         />
@@ -62,9 +61,15 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
             </h1>
 
             {/* Sub-heading */}
-            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-medium text-[#556b60] mb-2 sm:mb-2.5 xl:mb-6 leading-snug">
+            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-medium text-[#556b60] mb-1.5 sm:mb-2 xl:mb-3 leading-snug">
               {clinicData.doctorTitle || "Skin Care & Asthma Specialist | Homeopathy"}
             </p>
+
+            {/* Specialization Highlight Badge */}
+            <div className="inline-flex items-center gap-1.5 bg-[#e4ede1] border border-[#b8d1b3] text-[#134633] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-semibold mb-2 sm:mb-2.5 xl:mb-5 shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2e7d32] animate-pulse" aria-hidden="true" />
+              <span>Specialized in All Types of Skin Conditions</span>
+            </div>
 
             {/* Feature Highlights Badges */}
             <div className="w-full space-y-1.5 sm:space-y-2 xl:space-y-3.5 mb-3 sm:mb-3.5 xl:mb-8">
@@ -125,7 +130,7 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
             <div className="absolute w-[170px] h-[170px] sm:w-[240px] sm:h-[240px] md:w-[300px] md:h-[300px] xl:w-[380px] xl:h-[380px] rounded-full bg-[#dbe5d4] left-1/2 -translate-x-1/2 bottom-0 sm:bottom-1 xl:bottom-0 z-0 pointer-events-none" />
 
             {/* Doctor Portrait Image */}
-            <div className="relative z-10 w-full max-w-[210px] sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px] text-center -mb-2.5 sm:-mb-4 md:-mb-5 xl:mb-0 flex justify-center protected-media select-none">
+            <div className="relative z-10 w-full max-w-[210px] sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px] aspect-square text-center -mb-2.5 sm:-mb-4 md:-mb-5 xl:mb-0 flex justify-center protected-media select-none">
               <Image
                 src="/images/hero_doctor.png"
                 alt="Dr. Pragati Khobragade - Perfect Health Center"
@@ -165,7 +170,7 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
             </div>
 
             {/* Remedies Illustration */}
-            <div className="w-20 sm:w-40 md:w-56 lg:w-64 xl:w-[480px] xl:absolute xl:bottom-0 xl:right-0 xl:translate-x-[15%] flex-shrink-0 pointer-events-none z-0">
+            <div className="w-20 sm:w-40 md:w-56 lg:w-64 xl:w-[480px] aspect-square xl:absolute xl:bottom-0 xl:right-0 xl:translate-x-[15%] flex-shrink-0 pointer-events-none z-0">
               <Image
                 src="/images/remedies_right_side.png"
                 alt="Homeopathic Remedies & Natural Herbs - Perfect Health Center"

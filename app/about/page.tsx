@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck, Heart, Sparkles, CheckCircle2, Calendar, Youtube } from "lucide-react";
 import { getClinicData } from "@/lib/sanity/getContent";
-import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { CertificatesSection } from "@/components/CertificatesSection";
 
 export const metadata: Metadata = {
-  title: "About Our Doctors & Clinic",
+  title: {
+    absolute: "About Perfect Health Center | Homeopathy Clinic in Diva East",
+  },
   description:
     "Learn about Dr. Pragati Khobragade and Dr. Vijay Uplekar, our 20+ years of clinical homeopathy experience, and holistic care in Diva East, Thane.",
   alternates: {

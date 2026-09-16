@@ -113,3 +113,8 @@ export interface ClinicData {
   youtubeVideos: YouTubeVideoItem[];
   testimonials: TestimonialItem[];
 }
+
+export type LayoutClinicData = Pick<
+  ClinicData,
+  "clinicName" | "address" | "contact" | "developerCredit"
+>;

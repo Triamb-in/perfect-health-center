@@ -11,16 +11,23 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/studio", "/api/"],
       },
       {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/studio", "/api/"],
+      },
+      {
         userAgent: "Google-Extended",
         allow: "/",
       },
       {
         userAgent: "GPTBot",
         allow: "/",
+        disallow: ["/studio", "/api/"],
       },
       {
         userAgent: "OAI-SearchBot",
         allow: "/",
+        disallow: ["/studio", "/api/"],
       },
       {
         userAgent: "ChatGPT-User",
@@ -29,6 +36,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "ClaudeBot",
         allow: "/",
+        disallow: ["/studio", "/api/"],
       },
       {
         userAgent: "Claude-SearchBot",
@@ -41,6 +49,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "PerplexityBot",
         allow: "/",
+        disallow: ["/studio", "/api/"],
+      },
+      {
+        userAgent: "Applebot",
+        allow: "/",
+        disallow: ["/studio", "/api/"],
       },
       {
         userAgent: "Applebot-Extended",

@@ -1,12 +1,13 @@
 import { Metadata } from "next";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { ContactSection } from "@/components/ContactSection";
-import { SchemaMarkup } from "@/components/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "Contact & Appointments",
+  title: {
+    absolute: "Contact Perfect Health Center | Diva East, Thane",
+  },
   description:
-    "Book an appointment or visit Dr. Pragati Khobragade & Dr. Vijay Uplekar at Perfect Health Center, Diva East, Thane. Call +91 92734 31261 or WhatsApp.",
+    "Book an appointment or visit Dr. Pragati Khobragade & Dr. Vijay Uplekar at Perfect Health Center in Mumra Devi Colony, Diva East, Thane. Call +91 92734 31261 or WhatsApp.",
   alternates: {
     canonical: "/contact",
   },

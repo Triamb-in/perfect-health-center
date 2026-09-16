@@ -3,14 +3,63 @@ import { defaultClinicData } from "../content/defaultClinicData";
 import * as fs from "fs";
 import * as path from "path";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "ciisvyoq";
+const isVercel = process.env.VERCEL === "1" || process.env.VERCEL_ENV !== undefined;
+const isProd = process.env.NODE_ENV === "production";
+const hasConfirmFlag = process.argv.includes("--confirm-seed");
+const hasAllowProdFlag = process.argv.includes("--allow-production-overwrite");
+
+console.log("==================================================================");
+console.log("🛡️  PERFECT HEALTH CENTER — SANITY SEED / BOOTSTRAP TOOL");
+console.log("==================================================================");
+
+// 1. Forbid running in Vercel CI/CD or deployment hooks
+if (isVercel) {
+  console.error(
+    "❌ [FATAL SAFETY ABORT] Seeding is strictly prohibited in Vercel environments.\n" +
+    "A production deployment must NEVER mutate or overwrite Sanity CMS documents.\n" +
+    "GitHub controls code; Sanity controls client content."
+  );
+  process.exit(1);
+}
+
+// 2. Forbid running in production node environment unless explicitly confirmed
+if (isProd && !hasAllowProdFlag) {
+  console.error(
+    "❌ [SAFETY ABORT] Seeding is blocked in production environment (NODE_ENV=production).\n" +
+    "Running this script executes createOrReplace, which destroys client-published edits in Sanity.\n" +
+    "If you intentionally want to bootstrap a fresh production dataset, you must pass: --allow-production-overwrite"
+  );
+  process.exit(1);
+}
+
+// 3. Require explicit confirmation flag for any execution
+if (!hasConfirmFlag) {
+  console.error(
+    "⚠️  [SAFETY GUARD ACTIVATED] seedSanity is an initial bootstrap/migration tool only.\n" +
+    "It uses createOrReplace which WILL OVERWRITE existing documents in Sanity.\n\n" +
+    "To execute this command in local development, you must deliberately pass:\n" +
+    "  npm run seed:sanity -- --confirm-seed\n"
+  );
+  process.exit(1);
+}
+
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const token = process.env.SANITY_API_WRITE_TOKEN;
+
+if (!projectId) {
+  console.error("❌ NEXT_PUBLIC_SANITY_PROJECT_ID is missing in environment.");
+  process.exit(1);
+}
 
 if (!token) {
   console.error("❌ SANITY_API_WRITE_TOKEN is missing in environment.");
   process.exit(1);
 }
+
+console.warn(
+  "⚠️  [WARNING] You have passed --confirm-seed. This operation will mutate Sanity dataset: " + dataset
+);
 
 const client = createClient({
   projectId,

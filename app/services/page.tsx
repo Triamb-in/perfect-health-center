@@ -2,12 +2,13 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Calendar, ArrowRight } from "lucide-react";
 import { getClinicData } from "@/lib/sanity/getContent";
-import { SchemaMarkup } from "@/components/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "Specialties & Treatments",
+  title: {
+    absolute: "Homeopathy & General Healthcare Services in Diva East | Perfect Health Center",
+  },
   description:
-    "Explore 15 clinical homeopathy treatments at Perfect Health Center in Diva East, Thane: skin care, asthma, hair fall, migraine, psoriasis & family care.",
+    "Explore comprehensive clinical homeopathy and primary healthcare services at Perfect Health Center in Diva East, Thane: skin care, asthma, migraine, renal stones, and family medicine.",
   alternates: {
     canonical: "/services",
   },

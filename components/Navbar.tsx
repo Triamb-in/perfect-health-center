@@ -8,7 +8,9 @@ import { Calendar, Menu, X } from "lucide-react";
 import { ClinicData } from "@/types";
 
 interface NavbarProps {
-  clinicData: ClinicData;
+  clinicData: {
+    clinicName: string;
+  };
   onOpenBooking: () => void;
 }
 

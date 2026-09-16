@@ -149,9 +149,9 @@ export const defaultClinicData: ClinicData = {
     {
       id: "fungal-infections",
       title: "Fungal Infections / Ringworm",
-      shortDesc: "Deep-acting remedies that eradicate stubborn ringworm and fungal rashes without recurrence.",
+      shortDesc: "Constitutional care to soothe stubborn ringworm, strengthen skin resistance, and manage persistent fungal rashes.",
       fullDesc:
-        "Topical creams often fail because fungal spores thrive on weakened skin immunity. Our internal homeopathic therapies strengthen cellular resistance, eliminate stubborn ringworm (tinea corporis/cruris), athlete's foot, and persistent fungal itch without steroid rebound.",
+        "Topical applications often provide temporary relief while fungal spores persist on sensitive skin. Our internal homeopathic approach focuses on strengthening cellular resistance, managing stubborn ringworm (tinea corporis/cruris), athlete's foot, and chronic fungal itch without steroid rebound.",
       iconName: "ShieldCheck",
       conditions: [
         "Ringworm (Tinea Corporis & Cruris)",
@@ -161,9 +161,9 @@ export const defaultClinicData: ClinicData = {
         "Recurring Sweat-Induced Fungal Rashes",
       ],
       benefits: [
-        "Stops relentless burning and itching quickly",
-        "Eliminates reliance on antifungal suppressive ointments",
-        "Rebuilds local skin immunity to prevent relapse",
+        "Soothes persistent burning and itching sensations",
+        "Supports skin health without over-reliance on suppressive topical ointments",
+        "Aids in restoring local skin resistance to minimize recurrence",
       ],
     },
     {
@@ -189,9 +189,9 @@ export const defaultClinicData: ClinicData = {
     {
       id: "piles",
       title: "Piles",
-      shortDesc: "Non-surgical homeopathic care to shrink swollen hemorrhoids and stop rectal bleeding.",
+      shortDesc: "Conservative homeopathic care to relieve swollen hemorrhoids and bleeding distress naturally.",
       fullDesc:
-        "Safe, painless non-surgical solutions for internal and external hemorrhoids (piles). Our medicines relieve venous congestion in the pelvic area, heal swollen hemorrhoidal veins, resolve chronic constipation, and stop rectal bleeding and throbbing pain.",
+        "Gentle, non-invasive therapeutic options for internal and external hemorrhoids (piles). Our constitutional remedies help relieve pelvic venous congestion, soothe swollen hemorrhoidal tissues, regulate chronic constipation, and manage rectal discomfort.",
       iconName: "HeartPulse",
       conditions: [
         "Bleeding & Non-Bleeding Piles",
@@ -201,17 +201,17 @@ export const defaultClinicData: ClinicData = {
         "Straining & Chronic Constipation Distress",
       ],
       benefits: [
-        "Highly effective non-surgical treatment",
-        "Rapid control of rectal bleeding and swelling",
-        "Improves liver metabolism and bowel motility",
+        "Gentle, non-surgical supportive approach",
+        "Helps manage rectal discomfort, bleeding, and swelling",
+        "Supports natural digestion, liver function, and bowel regularity",
       ],
     },
     {
       id: "renal-stones",
       title: "Renal Stones",
-      shortDesc: "Natural protocols to help dissolve, flush out calculi, and prevent recurring kidney stones.",
+      shortDesc: "Supportive protocols to relieve renal colic, assist stone expulsion, and help manage recurring kidney stones.",
       fullDesc:
-        "Specialized homeopathic protocols designed to facilitate the smooth passage of renal and ureteric calculi (kidney stones) by relaxing urinary tract spasms and dissolving small stones. Corrects underlying calcium oxalate and uric acid diathesis to prevent future stones.",
+        "Specialized homeopathic protocols designed to relieve urinary tract spasms, support the natural passage of small renal and ureteric calculi (kidney stones), and address underlying metabolic diathesis to reduce recurrence risk.",
       iconName: "Droplets",
       conditions: [
         "Kidney Calculi (Nephrolithiasis)",
@@ -221,17 +221,17 @@ export const defaultClinicData: ClinicData = {
         "Frequent Recurrent Kidney Stone Formation",
       ],
       benefits: [
-        "Assists natural expulsion of small stones painlessly",
-        "Relieves severe spasmodic back and groin pain",
-        "Corrects metabolic tendency to form new stones",
+        "Supports natural passage of small calculi with minimal discomfort",
+        "Helps alleviate spasmodic flank and groin pain",
+        "Addresses constitutional tendencies toward crystal formation",
       ],
     },
     {
       id: "fissure",
       title: "Fissure",
-      shortDesc: "Rapid healing remedies for painful anal fissures, sphincter spasms, and post-stool burning.",
+      shortDesc: "Soothing remedies for anal fissures, sphincter tightness, and post-bowel discomfort.",
       fullDesc:
-        "Anal fissures cause excruciating knife-like pain and bleeding during and after bowel movements. Our soothing homeopathic remedies relax involuntary sphincter spasm, soften bowel movements, heal the raw mucosal lining, and prevent painful chronic fissures without surgery.",
+        "Anal fissures cause sharp tearing pain and bleeding during and after bowel movements. Our soothing homeopathic remedies aim to relax involuntary sphincter tension, ease bowel movements, and support mucosal tissue comfort gently.",
       iconName: "Activity",
       conditions: [
         "Acute & Chronic Anal Fissures",
@@ -241,9 +241,9 @@ export const defaultClinicData: ClinicData = {
         "Blood Streaks on Stool or Toilet Paper",
       ],
       benefits: [
-        "Prompt relief from acute burning and rectal spasm",
-        "Promotes rapid epithelial mucosal healing",
-        "Avoids painful surgical sphincterotomy intervention",
+        "Relief from acute post-defecation burning and sphincter spasm",
+        "Promotes healthy epithelial mucosal tissue recovery",
+        "Provides a conservative, gentle first-line approach",
       ],
     },
     {
@@ -499,7 +499,7 @@ export const defaultClinicData: ClinicData = {
     {
       id: "yt-potentisation",
       title: "Unlocking the Power of Potentisation in Acute & Chronic Conditions",
-      description: "How potentisation dynamically prepares micro-diluted remedies for gentle, rapid, and permanent healing.",
+      description: "How potentisation dynamically prepares micro-diluted remedies for gentle, restorative, and holistic healing.",
       youtubeId: "gcdq5Txnsfo",
       thumbnailUrl: "https://i.ytimg.com/vi/gcdq5Txnsfo/hqdefault.jpg",
       uploadDate: "2024-01-30",

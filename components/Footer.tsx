@@ -2,11 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Youtube, MapPin, Phone, Mail, Sparkles, Instagram } from "lucide-react";
-import { ClinicData } from "@/types";
+import { LayoutClinicData } from "@/types";
 import { ObfuscatedEmail } from "./ObfuscatedEmail";
 
 interface FooterProps {
-  clinicData: ClinicData;
+  clinicData: LayoutClinicData;
 }
 
 export function Footer({ clinicData }: FooterProps) {

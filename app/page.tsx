@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { Hero } from "@/components/Hero";
+import { SpecialtiesBanner } from "@/components/SpecialtiesBanner";
 import { AboutSection } from "@/components/AboutSection";
 import { SpecialtiesGrid } from "@/components/SpecialtiesGrid";
 import { FeaturesBottomBar } from "@/components/FeaturesBottomBar";
@@ -31,6 +32,9 @@ export default async function HomePage() {
       {/* 1. Hero Section */}
       <Hero clinicData={clinicData} />
 
+      {/* 1b. Clinical Focus & Specializations Highlight Bar */}
+      <SpecialtiesBanner />
+
       {/* 2. About Us Section */}
       <AboutSection clinicData={clinicData} />
 
@@ -58,6 +62,27 @@ export default async function HomePage() {
 
       {/* 9. Contact Us, Location Map & Request Form */}
       <ContactSection clinicData={clinicData} />
+
+      {/* 10. FAQPage Structured Data (Rendered only on Homepage where FAQs are physically visible) */}
+      {clinicData.faqs && clinicData.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: clinicData.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
     </>
   );
 }

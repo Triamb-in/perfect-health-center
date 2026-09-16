@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { ClinicData } from "@/types";
+import { LayoutClinicData } from "@/types";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { BookingModal } from "./BookingModal";
@@ -11,7 +11,7 @@ import { CookieConsent } from "./CookieConsent";
 import { MediaProtectionProvider } from "./MediaProtectionProvider";
 
 interface ClientAppShellProps {
-  clinicData: ClinicData;
+  clinicData: LayoutClinicData;
   children: React.ReactNode;
 }
 

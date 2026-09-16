@@ -25,7 +25,7 @@ export function SpecialtiesGrid({ specialties }: SpecialtiesGridProps) {
             <span className="text-primary-light font-sans opacity-60" aria-hidden="true">←</span>
           </h2>
           <p className="text-sm sm:text-base text-text-muted">
-            Holistic, personalized healthcare protocols tailored for chronic ailments, pediatric wellness, and primary family medicine.
+            Specialized in All Types of Skin Conditions — offering proven constitutional care for Renal Stones, Asthma, Fungal Skin Infections &amp; Ringworm, Piles, Fissure &amp; Fistula, Migraine, and Hair Fall.
           </p>
         </div>
 
@@ -46,7 +46,7 @@ export function SpecialtiesGrid({ specialties }: SpecialtiesGridProps) {
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
           <p className="text-xs text-text-muted mt-2.5">
-            Explore all treatments including Migraine, Fungal Infections, Psoriasis, Piles, Renal Stones, Fissure &amp; Pediatric Care.
+            Key Focus: Renal Stones • Asthma • Fungal Skin Infections &amp; Ringworm • Piles • Fissure &amp; Fistula • Migraine • Hair Fall • All Types of Skin Conditions
           </p>
         </div>
 

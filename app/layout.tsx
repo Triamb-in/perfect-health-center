@@ -6,17 +6,20 @@ import { getClinicData } from "@/lib/sanity/getContent";
 import { ClientAppShell } from "@/components/ClientAppShell";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
 import { PageLoader } from "@/components/PageLoader";
+import { LayoutClinicData } from "@/types";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
+  weight: ["600", "700"],
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -110,35 +113,50 @@ export default async function RootLayout({
   const headersList = await headers();
   const nonce = headersList.get("x-nonce") ?? undefined;
   const clinicData = await getClinicData();
-  const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-PHC2026DIVA";
+  const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim();
+
+  const layoutClinicData: LayoutClinicData = {
+    clinicName: clinicData.clinicName,
+    address: clinicData.address,
+    contact: clinicData.contact,
+    developerCredit: clinicData.developerCredit,
+  };
 
   return (
     <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="anonymous" />
+      </head>
       <body className="font-sans antialiased bg-white text-text-body selection:bg-primary-subtle selection:text-primary-dark">
-        {/* Google Analytics (gtag.js) */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-          nonce={nonce}
-        />
-        <script
-          id="google-analytics"
-          nonce={nonce}
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${gaId}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
+        {/* Google Analytics (gtag.js) - Rendered only when real production NEXT_PUBLIC_GA_ID is configured */}
+        {gaId && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              nonce={nonce}
+            />
+            <script
+              id="google-analytics"
+              nonce={nonce}
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaId}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
 
         <PageLoader />
         <SchemaMarkup clinicData={clinicData} />
-        <ClientAppShell clinicData={clinicData}>{children}</ClientAppShell>
+        <ClientAppShell clinicData={layoutClinicData}>{children}</ClientAppShell>
       </body>
     </html>
   );
