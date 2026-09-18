@@ -1,55 +1,55 @@
-# Perfect Health Center — Dr. Pragati Khobragade
+# Perfect Health Center
 
-> Perfect Health Center is a homeopathic and primary general healthcare clinic operated by Dr. Pragati Khobragade with over 20 years of clinical experience, located in Diva East, Thane (Mumbai Metropolitan Region), Maharashtra, India.
+> Perfect Health Center is a Homeopathy & General Practice clinic serving patients in Diva East, Thane, Maharashtra, operated by Dr. Pragati Khobragade and Dr. Vijay Uplekar with over 20 years of clinical experience.
 
-## Clinic Overview
-- **Clinic Name:** Perfect Health Center
-- **Consulting Doctors:** Dr. Pragati Khobragade & Dr. Vijay Uplekar
-- **Specialization:** Skin Care & Asthma Specialist | Classical Homeopathy & Primary General Practice
-- **Clinical Experience:** 20+ years of dedicated healthcare experience
-- **Location:** Perfect Health Center, Mumra Devi Colony, Diva East, Thane – 400612, Maharashtra, India
-- **Geographic Coordinates:** Latitude 19.186461, Longitude 73.045805
-- **Phone / Consultations:** +91 92734 31261 (Dr. Pragati Khobragade)
+## Website
+- Home: Constitutional homeopathy and general healthcare overview, clinical pillars, and verified credentials.
+- About: Practitioner profile of Dr. Pragati Khobragade, qualifications, clinical journey, and treatment philosophy.
+- Specialties: In-depth clinical departments, conditions addressed, and therapeutic advantages.
+- Gallery: Sanctuary of healing, modern natural dispensary, and documented clinical improvements.
+- Patient Information: Consultation process, first-visit guidance, clinic timings, and FAQs.
+- Contact: In-clinic address, Google Maps location, phone consultations, and appointment requests.
+- Book Appointment: Direct appointment booking portal for in-clinic and remote consultations.
+
+## Key Services / Specialties
+- **Skin Conditions:** Individualized homeopathic management for eczema, acne, melasma, psoriasis, atopic dermatitis, and allergic skin conditions.
+- **Renal Stones:** Supportive protocols to relieve renal colic, assist natural calculi passage, and manage recurrence tendencies.
+- **Asthma & Respiratory Care:** Supportive constitutional care for bronchial asthma, allergic bronchitis, childhood wheezing, and seasonal breathlessness.
+- **Fungal Skin Infections & Ringworm:** Targeted constitutional protocols for stubborn ringworm (tinea), athlete's foot, and persistent fungal itch.
+- **Piles:** Conservative homeopathic care to manage hemorrhoidal discomfort, bleeding symptoms, and bowel irregularity.
+- **Fissure & Fistula:** Soothing constitutional remedies to relieve anal sphincter spasms, tearing pain, and promote mucosal healing.
+- **Migraine & Headaches:** Individualized care for unilateral throbbing migraines, visual aura, and tension headaches.
+- **Hair Fall:** Constitutional therapy for alopecia areata, excessive hair shedding, dandruff, and postpartum thinning.
+- **Constitutional Homeopathy:** Holistic single-remedy constitutional care addressing root causes without superficial suppression.
+- **General Practice & Primary Care:** Acute fever management, seasonal infections, digestive complaints, and family medicine.
+- **Pediatric Care:** Gentle homeopathic globules for recurring coughs, tonsillitis, and childhood wellness.
+- **Women's Health:** Supportive protocols for PCOS/PCOD, menstrual irregularities, and hormonal balance.
+
+## Contact
+- **Clinic Address:** Perfect Health Center, Mumra Devi Colony, Diva East, Thane – 400612, Maharashtra, India
+- **Primary Phone / Appointments:** +91 92734 31261 (Dr. Pragati Khobragade)
 - **Secondary Phone / Inquiries:** +91 80877 75415 (Dr. Vijay Uplekar)
-- **Doctor Email:** pragativuplekar[at]gmail.com
-- **Consulting Doctor Email:** Uplekarvijay78[at]gmail.com
-- **Official YouTube Channel:** https://www.youtube.com/@pragatiuplekar4292
 - **Working Hours:** Monday to Saturday: 10:30 AM – 10:00 PM (Closed on Sundays)
-- **Accepted In-Clinic Payment Modes:** UPI (GPay/PhonePe), Debit & Credit Cards, Net Banking, Cash
+- **Consulting Doctors:** Dr. Pragati Khobragade & Dr. Vijay Uplekar
+- **Official YouTube Channel:** https://www.youtube.com/@pragatiuplekar4292
+- **Official Email:** pragativuplekar@gmail.com
 
-## Clinical Specialties & Focus Areas
-1. **Skin Care & Dermatology:** Acne, melasma, hyperpigmentation, eczema, atopic dermatitis, and allergic skin conditions.
-2. **Asthma & Respiratory Care:** Supportive management for bronchial asthma, allergic bronchitis, childhood wheezing, and seasonal breathlessness.
-3. **Hair Fall & Scalp Health:** Constitutional therapy for alopecia areata, excessive hair shedding, dandruff, and postpartum thinning.
-4. **Migraine & Chronic Headaches:** Individualized care for unilateral throbbing migraines, visual aura, and tension headaches.
-5. **Fungal Skin Conditions & Ringworm:** Constitutional protocols for stubborn ringworm (tinea), athlete's foot, and persistent fungal itch.
-6. **Psoriasis & Autoimmune Skin Care:** Supportive management for plaque psoriasis, scalp flaking, and dry skin patches.
-7. **Piles & Hemorrhoids:** Conservative homeopathic care to manage hemorrhoidal discomfort, bleeding symptoms, and bowel irregularity.
-8. **Renal Stones (Kidney Stones):** Supportive protocols to relieve renal colic, assist natural calculi passage, and manage recurrence tendencies.
-9. **Anal Fissure Care:** Soothing constitutional remedies to relieve anal sphincter spasms, tearing pain, and mucosal irritation.
-10. **Constitutional Homeopathy:** Personalized single-remedy constitutional care addressing physical and emotional health holistically.
-11. **General Practice & Primary Care:** Treatment for acute fevers, seasonal infections, digestive complaints, and general family medicine.
-12. **Women's Health:** Supportive protocols for PCOS/PCOD, menstrual irregularities, and menopausal transition.
-13. **Pediatric Care:** Gentle homeopathic globules for childhood tonsillitis, recurring coughs, infantile colic, and wellness.
-14. **Joint & Musculoskeletal Health:** Supportive care for arthritis symptoms, joint stiffness, and chronic musculoskeletal discomfort.
-15. **Lifestyle & Stress Support:** Guidance and constitutional care for chronic anxiety symptoms, insomnia, and fatigue.
-
-## Core Website Pages
-- **Homepage:** https://perfecthealthcenter.in/
-- **About Doctors & Clinic:** https://perfecthealthcenter.in/about
+## Important URLs
+- **Home:** https://perfecthealthcenter.in/
+- **About Us:** https://perfecthealthcenter.in/about
 - **Specialties & Services:** https://perfecthealthcenter.in/services
+- **Clinic Gallery:** https://perfecthealthcenter.in/gallery
 - **Contact & Appointments:** https://perfecthealthcenter.in/contact
+- **HTML Sitemap:** https://perfecthealthcenter.in/sitemap
+- **XML Sitemap:** https://perfecthealthcenter.in/sitemap.xml
+- **Robots Specification:** https://perfecthealthcenter.in/robots.txt
+- **LLMs Orientation:** https://perfecthealthcenter.in/llms.txt
 - **Privacy Policy:** https://perfecthealthcenter.in/privacy-policy
 - **Terms of Use:** https://perfecthealthcenter.in/terms-of-use
 - **Cookie Policy:** https://perfecthealthcenter.in/cookie-policy
-- **HTML Sitemap:** https://perfecthealthcenter.in/sitemap
-- **XML Sitemap:** https://perfecthealthcenter.in/sitemap.xml
 
 ## Informative Clinical Guides
 - **Benefits of Homeopathy for Chronic Illness:** https://perfecthealthcenter.in/articles/benefits-of-homeopathy-for-chronic-illness
 - **Pediatric Care: What Every Parent Should Know:** https://perfecthealthcenter.in/articles/pediatric-care-homeopathy
 - **Benefits of Homeopathy in 2026:** https://perfecthealthcenter.in/articles/benefits-of-homeopathy-2026
 - **Understanding Constitutional Homeopathy:** https://perfecthealthcenter.in/articles/understanding-constitutional-homeopathy
-
-## Consultations
-In-person clinic visits at Diva East, Thane and remote inquiries can be arranged via the official appointment form at https://perfecthealthcenter.in/contact or by calling +91 92734 31261.

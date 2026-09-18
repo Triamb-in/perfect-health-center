@@ -89,34 +89,49 @@ export function GalleryPageContent({ galleryItems }: GalleryPageContentProps) {
         {/* Category Filter Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
           <button
+            type="button"
             onClick={() => setActiveTab("All")}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${activeTab === "All"
-                ? "bg-primary-dark text-white shadow-md shadow-primary-dark/20 scale-105"
-                : "bg-white text-text-muted hover:bg-stone-100 hover:text-primary-dark border border-stone-200"
-              }`}
+            className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 cursor-pointer ${
+              activeTab === "All"
+                ? "bg-primary-dark text-white border border-primary-dark shadow-md shadow-primary-dark/25 scale-105"
+                : "bg-white text-primary-dark border border-stone-200/90 shadow-sm hover:bg-emerald-50/70 hover:border-emerald-300 hover:text-primary-dark hover:shadow-md"
+            }`}
           >
-            <LayoutGrid className="w-3.5 h-3.5" />
-            All ({galleryItems.length})
+            <LayoutGrid className={`w-3.5 h-3.5 flex-shrink-0 ${activeTab === "All" ? "text-white" : "text-primary-main"}`} />
+            <span>All</span>
+            <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full ${activeTab === "All" ? "bg-white/20 text-white" : "bg-primary-subtle/80 text-primary-dark"}`}>
+              {galleryItems.length}
+            </span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("Clinical Results")}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${activeTab === "Clinical Results"
-                ? "bg-primary text-white shadow-md shadow-primary/20 scale-105"
-                : "bg-white text-text-muted hover:bg-stone-100 hover:text-primary-dark border border-stone-200"
-              }`}
+            className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 cursor-pointer ${
+              activeTab === "Clinical Results"
+                ? "bg-primary-dark text-white border border-primary-dark shadow-md shadow-primary-dark/25 scale-105"
+                : "bg-white text-primary-dark border border-stone-200/90 shadow-sm hover:bg-emerald-50/70 hover:border-emerald-300 hover:text-primary-dark hover:shadow-md"
+            }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            Clinical Results ({clinicalCount})
+            <Sparkles className={`w-3.5 h-3.5 flex-shrink-0 ${activeTab === "Clinical Results" ? "text-amber-300" : "text-amber-600"}`} />
+            <span>Clinical Results</span>
+            <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full ${activeTab === "Clinical Results" ? "bg-white/20 text-white" : "bg-primary-subtle/80 text-primary-dark"}`}>
+              {clinicalCount}
+            </span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("Clinic Facilities")}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${activeTab === "Clinic Facilities"
-                ? "bg-primary-dark text-white shadow-md shadow-primary-dark/20 scale-105"
-                : "bg-white text-text-muted hover:bg-stone-100 hover:text-primary-dark border border-stone-200"
-              }`}
+            className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 cursor-pointer ${
+              activeTab === "Clinic Facilities"
+                ? "bg-primary-dark text-white border border-primary-dark shadow-md shadow-primary-dark/25 scale-105"
+                : "bg-white text-primary-dark border border-stone-200/90 shadow-sm hover:bg-emerald-50/70 hover:border-emerald-300 hover:text-primary-dark hover:shadow-md"
+            }`}
           >
-            <Building2 className="w-3.5 h-3.5" />
-            Clinic Facilities ({facilitiesCount})
+            <Building2 className={`w-3.5 h-3.5 flex-shrink-0 ${activeTab === "Clinic Facilities" ? "text-white" : "text-primary-main"}`} />
+            <span>Clinic Facilities</span>
+            <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full ${activeTab === "Clinic Facilities" ? "bg-white/20 text-white" : "bg-primary-subtle/80 text-primary-dark"}`}>
+              {facilitiesCount}
+            </span>
           </button>
         </div>
       </div>

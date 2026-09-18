@@ -19,7 +19,7 @@ export default async function GalleryPage() {
   const clinicData = await getClinicData();
 
   return (
-    <div className="pt-28 pb-6 sm:pb-8 lg:pb-10 bg-[#fafaf7] overflow-x-clip">
+    <div className="pt-24 sm:pt-28 pb-6 sm:pb-8 lg:pb-10 bg-[#fafaf7] overflow-x-clip">
       <GalleryPageContent galleryItems={clinicData.gallery} />
     </div>
   );

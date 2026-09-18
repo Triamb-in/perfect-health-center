@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Calendar, Menu, X } from "lucide-react";
-import { ClinicData } from "@/types";
 
 interface NavbarProps {
   clinicData: {
@@ -14,80 +13,178 @@ interface NavbarProps {
   onOpenBooking: () => void;
 }
 
+interface NavItem {
+  label: string;
+  href: string;
+  sectionId: "home" | "about" | "specialties" | "gallery" | "patient-info" | "contact";
+}
+
 export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
   const pathname = usePathname();
 
-  // Scroll detection for navbar background & section spy
+  const isManualScrollRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // High-performance RAF throttled scroll detection
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 20;
+          setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
 
-      // Scroll Spy when on homepage
-      if (pathname === "/") {
-        const sections = [
-          "home",
-          "about",
-          "specialties",
-          "credentials",
-          "videos",
-          "gallery",
-          "patient-info",
-          "contact",
-        ];
+          if (pathname === "/" && !isManualScrollRef.current) {
+            const primarySections = [
+              "home",
+              "about",
+              "specialties",
+              "gallery",
+              "patient-info",
+              "contact",
+            ];
 
-        const scrollPosition = window.scrollY + 180;
+            const scrollPosition = window.scrollY + 140;
+            let currentSection = "";
 
-        for (const sectionId of sections) {
-          const el = document.getElementById(sectionId);
-          if (el) {
-            const top = el.offsetTop;
-            const height = el.offsetHeight;
-            if (scrollPosition >= top && scrollPosition < top + height) {
-              setActiveSection(sectionId);
-              break;
+            if (
+              window.innerHeight + window.scrollY >=
+              document.documentElement.scrollHeight - 60
+            ) {
+              currentSection = "contact";
+            } else if (window.scrollY < 200) {
+              currentSection = "home";
+            } else {
+              for (const id of primarySections) {
+                const el = document.getElementById(id);
+                if (el) {
+                  const top = el.offsetTop - 90;
+                  const bottom = top + el.offsetHeight;
+                  if (scrollPosition >= top && scrollPosition < bottom) {
+                    currentSection = id;
+                    break;
+                  }
+                }
+              }
             }
+
+            // Only trigger state update if the section actually changed
+            setActiveSection((prev) =>
+              prev !== currentSection ? currentSection : prev
+            );
           }
-        }
+
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, [pathname]);
 
+  // Primary navigation concise structure based on Home page source of truth
+  const navItems: NavItem[] = [
+    { label: "Home", href: "/", sectionId: "home" },
+    { label: "About Us", href: "/#about", sectionId: "about" },
+    { label: "Specialties", href: "/#specialties", sectionId: "specialties" },
+    { label: "Gallery", href: pathname === "/" ? "#gallery" : "/gallery", sectionId: "gallery" },
+    { label: "Patient Info", href: "/#patient-info", sectionId: "patient-info" },
+    { label: "Contact Us", href: "/#contact", sectionId: "contact" },
+  ];
+
   // Determine active state for each nav item
-  const isItemActive = (path: string, sectionId: string) => {
-    if (pathname === path && path !== "/") return true;
-    if (pathname === "/" && activeSection === sectionId) return true;
+  const isItemActive = (item: NavItem) => {
+    if (pathname === "/gallery") return item.sectionId === "gallery";
+    if (pathname === "/about") return item.sectionId === "about";
+    if (pathname === "/services") return item.sectionId === "specialties";
+    if (pathname === "/contact") return item.sectionId === "contact";
+    if (pathname === "/") {
+      return activeSection === item.sectionId;
+    }
     return false;
   };
 
-  const navItems = [
-    { label: "Home", href: "/", sectionId: "home" },
-    { label: "About Us", href: "/about", sectionId: "about" },
-    { label: "Specialties", href: "/services", sectionId: "specialties" },
-    { label: "Gallery", href: "/#gallery", sectionId: "gallery" },
-    { label: "Patient Info", href: "/#patient-info", sectionId: "patient-info" },
-    { label: "Contact Us", href: "/contact", sectionId: "contact" },
-  ];
+  // Smooth, jitter-free in-page scrolling with exact header offset compensation
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: NavItem
+  ) => {
+    if (pathname === "/") {
+      e.preventDefault();
+
+      if (item.sectionId === "home") {
+        isManualScrollRef.current = true;
+        setActiveSection("home");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+        scrollTimeoutRef.current = setTimeout(() => {
+          isManualScrollRef.current = false;
+        }, 750);
+      } else {
+        const el = document.getElementById(item.sectionId);
+        if (el) {
+          isManualScrollRef.current = true;
+          setActiveSection(item.sectionId);
+
+          const headerOffset = window.innerWidth >= 640 ? 80 : 64;
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+          scrollTimeoutRef.current = setTimeout(() => {
+            isManualScrollRef.current = false;
+          }, 750);
+        }
+      }
+    }
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 h-16 sm:h-20 flex items-center transition-[background-color,border-color,box-shadow] duration-200 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-card border-b border-primary-subtle py-2.5"
-          : "bg-white/85 backdrop-blur-sm py-3 sm:py-3.5 border-b border-transparent"
+          ? "bg-white/95 backdrop-blur-md shadow-card border-b border-primary-subtle"
+          : "bg-white/90 backdrop-blur-sm border-b border-primary-subtle/30"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
-          <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 transition-transform group-hover:scale-105">
+        <Link
+          href="/"
+          onClick={(e) => {
+            if (pathname === "/") {
+              e.preventDefault();
+              isManualScrollRef.current = true;
+              setActiveSection("home");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+              scrollTimeoutRef.current = setTimeout(() => {
+                isManualScrollRef.current = false;
+              }, 750);
+            }
+          }}
+          className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0 min-w-0"
+        >
+          <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
             <Image
               src="/logo.png"
               alt="Perfect Health Center Logo"
@@ -99,33 +196,38 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
             />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-serif font-bold text-sm sm:text-base md:text-lg lg:text-xl text-primary-dark tracking-tight leading-tight truncate">
+            <span className="font-serif font-bold text-sm sm:text-base md:text-lg lg:text-xl text-primary-dark tracking-tight leading-tight whitespace-nowrap">
               {clinicData.clinicName}
             </span>
-            <span className="text-[8px] sm:text-[10px] md:text-xs font-semibold tracking-wider text-text-muted uppercase truncate">
+            <span className="text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-wider text-text-muted uppercase whitespace-nowrap">
               Homeopathy &amp; General Practice
             </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation Menu (Active at lg/xl with whitespace-nowrap and fluid padding) */}
+        {/* Desktop Navigation Menu (Zero layout shift, buttery-smooth transition) */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 bg-primary-subtle/40 p-1.5 rounded-full border border-primary-subtle/60 backdrop-blur-sm flex-shrink-0">
           {navItems.map((item) => {
-            const active = isItemActive(item.href, item.sectionId);
+            const active = isItemActive(item);
 
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`relative px-2.5 xl:px-4 py-1.5 rounded-full text-xs xl:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap ${
+                onClick={(e) => handleNavClick(e, item)}
+                className={`relative px-3.5 xl:px-4 py-1.5 rounded-full text-xs xl:text-sm font-semibold transition-[background-color,color,box-shadow] duration-200 ease-out flex items-center whitespace-nowrap cursor-pointer ${
                   active
-                    ? "bg-primary-dark text-white shadow-button transform scale-100"
+                    ? "bg-primary-dark text-white shadow-button"
                     : "text-text-body hover:text-primary-dark hover:bg-white/70"
                 }`}
               >
-                {active && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#a3d9b1] inline-block animate-pulse" />
-                )}
+                {/* Fixed-slot indicator dot to eliminate any horizontal layout shifting */}
+                <span
+                  aria-hidden="true"
+                  className={`w-1.5 h-1.5 rounded-full bg-[#a3d9b1] flex-shrink-0 transition-opacity duration-150 ${
+                    active ? "opacity-100 mr-1.5" : "opacity-0 w-0 mr-0"
+                  }`}
+                />
                 <span>{item.label}</span>
               </Link>
             );
@@ -134,10 +236,10 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
 
         {/* Right Header CTA & Mobile/Tablet Toggle */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-          {/* Mobile & Desktop Book Appointment Button in Header */}
+          {/* Header Book Appointment Button */}
           <button
             onClick={onOpenBooking}
-            className="inline-flex items-center gap-1.5 bg-primary-dark hover:bg-primary-hover text-white px-2.5 sm:px-4 xl:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold shadow-button hover:shadow-button-hover transition-all duration-200 transform hover:-translate-y-0.5 flex-shrink-0"
+            className="inline-flex items-center gap-1.5 bg-primary-dark hover:bg-primary-hover text-white px-3 sm:px-4 xl:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold shadow-button hover:shadow-button-hover transition-[background-color,box-shadow,transform] duration-200 transform hover:-translate-y-0.5 flex-shrink-0 cursor-pointer"
             aria-label="Book an Appointment"
           >
             <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
@@ -148,7 +250,7 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
           {/* Mobile/Tablet Hamburger Button (Visible below lg / 1024px) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-1.5 sm:p-2 rounded-md text-text-dark hover:text-primary-main hover:bg-primary-subtle focus:outline-none flex-shrink-0"
+            className="lg:hidden p-1.5 sm:p-2 rounded-lg text-primary-dark hover:text-primary-hover hover:bg-primary-subtle/70 focus:outline-none flex-shrink-0 cursor-pointer transition-colors duration-150"
             aria-label="Toggle Menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -158,29 +260,49 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
 
       {/* Mobile & Tablet Drawer (Full-width clean drawer for < lg) */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-b border-primary-subtle px-4 pt-3 pb-5 shadow-floating animate-fadeIn max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="lg:hidden fixed top-16 sm:top-20 left-0 right-0 bg-white border-b border-primary-subtle px-4 pt-3 pb-6 shadow-floating animate-fadeIn max-h-[calc(100vh-4rem)] overflow-y-auto z-50">
           <nav className="flex flex-col gap-1.5 max-w-lg mx-auto">
             {navItems.map((item) => {
-              const active = isItemActive(item.href, item.sectionId);
+              const active = isItemActive(item);
 
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-2.5 rounded-xl text-sm sm:text-base font-semibold flex items-center justify-between transition-all ${
+                  onClick={(e) => {
+                    handleNavClick(e, item);
+                    setMobileOpen(false);
+                  }}
+                  className={`px-4 py-2.5 rounded-xl text-sm sm:text-base font-semibold flex items-center justify-between transition-[background-color,color,box-shadow] duration-200 cursor-pointer ${
                     active
                       ? "bg-primary-dark text-white shadow-subtle"
                       : "text-text-dark hover:bg-primary-subtle/60"
                   }`}
                 >
                   <span>{item.label}</span>
-                  {active && (
-                    <span className="w-2 h-2 rounded-full bg-[#a3d9b1]" />
-                  )}
+                  <span
+                    aria-hidden="true"
+                    className={`w-2 h-2 rounded-full bg-[#a3d9b1] transition-opacity duration-150 ${
+                      active ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
                 </Link>
               );
             })}
+
+            {/* Prominent Book Appointment CTA in Mobile Menu Drawer */}
+            <div className="pt-3 mt-2 border-t border-stone-100">
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  onOpenBooking();
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 bg-primary-dark hover:bg-primary-hover text-white py-3 rounded-xl text-sm font-semibold shadow-button transition-all duration-200 cursor-pointer"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Book Appointment</span>
+              </button>
+            </div>
           </nav>
         </div>
       )}
