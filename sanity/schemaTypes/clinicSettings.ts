@@ -45,6 +45,13 @@ export const clinicSettings = defineType({
       type: "string",
     }),
     defineField({
+      name: "highlightedConditions",
+      title: "Hero Highlighted Conditions",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Specific condition chips highlighted in the hero (e.g. Renal Stones, Asthma, etc.)",
+    }),
+    defineField({
       name: "phone",
       title: "Phone Number (Primary / Doctor)",
       type: "string",

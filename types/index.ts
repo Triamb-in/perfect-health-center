@@ -21,6 +21,7 @@ export interface GalleryItem {
   subtitle: string;
   imageUrl: string;
   altText: string;
+  category?: string;
 }
 
 export interface CertificateItem {
@@ -72,6 +73,7 @@ export interface ClinicData {
   doctorExperienceYears: string;
   tagline: string;
   quote: string;
+  highlightedConditions?: string[];
   address: {
     clinicName: string;
     street: string;

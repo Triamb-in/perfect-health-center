@@ -46,14 +46,17 @@ export function GalleryLightbox({ selectedItem, onClose }: GalleryLightboxProps)
           <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
-        <div className="relative w-full aspect-[16/10] max-h-[65vh] flex-shrink-0 protected-media select-none">
+        {/* Image wrapper: no fixed aspect ratio — collapses to image's natural height */}
+        <div className="relative w-full flex-shrink-0 protected-media select-none">
           <Image
             src={selectedItem.imageUrl}
             alt={selectedItem.altText}
-            fill
-            className="object-cover pointer-events-none select-none"
-            sizes="(max-width: 1024px) 100vw, 900px"
+            width={1200}
+            height={800}
+            className="w-full h-auto max-h-[65vh] object-contain pointer-events-none select-none"
+            style={{ display: "block" }}
             draggable={false}
+            priority
           />
           {/* Transparent Security Overlay Shield */}
           <div
@@ -64,12 +67,28 @@ export function GalleryLightbox({ selectedItem, onClose }: GalleryLightboxProps)
         </div>
 
         <div className="p-4 sm:p-5 overflow-y-auto bg-white border-t border-primary-subtle">
-          <h4 className="font-serif font-bold text-lg text-primary-dark">
-            {selectedItem.title}
-          </h4>
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <h4 className="font-serif font-bold text-lg text-primary-dark">
+              {selectedItem.title}
+            </h4>
+            {selectedItem.category && (
+              <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${
+                selectedItem.category === "Clinical Results"
+                  ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                  : "bg-primary-subtle text-primary-dark"
+              }`}>
+                {selectedItem.category}
+              </span>
+            )}
+          </div>
           <p className="text-xs sm:text-sm text-text-muted">
             {selectedItem.subtitle}
           </p>
+          {selectedItem.category === "Clinical Results" && (
+            <p className="mt-2 text-[11px] text-text-muted/80 italic">
+              * Note: Individual clinical outcomes depend on personal constitution, medical history, and adherence to homeopathic treatment.
+            </p>
+          )}
         </div>
       </div>
     </div>

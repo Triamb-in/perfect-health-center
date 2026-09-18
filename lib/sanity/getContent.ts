@@ -66,6 +66,8 @@ export async function getClinicData(): Promise<ClinicData> {
         s.experienceYears || defaultClinicData.doctorExperienceYears,
       tagline: s.tagline || defaultClinicData.tagline,
       quote: s.quote || defaultClinicData.quote,
+      highlightedConditions:
+        s.highlightedConditions || defaultClinicData.highlightedConditions,
       contact: {
         ...defaultClinicData.contact,
         phoneFormatted: s.phone || defaultClinicData.contact.phoneFormatted,
@@ -163,17 +165,41 @@ export async function getClinicData(): Promise<ClinicData> {
               isClosed: !!h.isClosed,
             }))
           : defaultClinicData.hours,
-      gallery:
-        gallery && gallery.length > 0
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            gallery.map((g: any) => ({
+      gallery: (() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const sanityItems = (gallery && gallery.length > 0)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ? gallery.map((g: any) => ({
               id: g._id,
               title: g.title,
               subtitle: g.subtitle || "",
-              imageUrl: g.image ? urlFor(g.image) : defaultClinicData.gallery[0]?.imageUrl || "",
+              imageUrl: g.image ? urlFor(g.image) : "",
               altText: g.altText || g.title,
+              category:
+                g.category ||
+                (g.title?.toLowerCase().includes("swelling") ||
+                g.title?.toLowerCase().includes("acne") ||
+                g.title?.toLowerCase().includes("dermatitis") ||
+                g.title?.toLowerCase().includes("peeling") ||
+                g.title?.toLowerCase().includes("lesion")
+                  ? "Clinical Results"
+                  : "Clinic Facilities"),
             }))
-          : defaultClinicData.gallery,
+          : [];
+
+        const clinicalCases = defaultClinicData.gallery.filter(
+          (d) => d.category === "Clinical Results"
+        );
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const existingIds = new Set(sanityItems.map((s: any) => s.id));
+        const missingCases = clinicalCases.filter(
+          (c) => !existingIds.has(`gallery-${c.id}`) && !existingIds.has(c.id)
+        );
+
+        const combined = [...missingCases, ...sanityItems];
+        return combined.length > 0 ? combined : defaultClinicData.gallery;
+      })(),
     });
   } catch (error) {
     console.error(

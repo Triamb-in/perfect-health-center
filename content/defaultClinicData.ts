@@ -4,10 +4,19 @@ export const defaultClinicData: ClinicData = {
   clinicName: "Perfect Health Center",
   doctorName: "Dr. Pragati Khobragade",
   // Confirm exact qualification degree with client before final production launch.
-  doctorTitle: "Skin Care & Asthma Specialist | Homeopathy & General Practice",
+  doctorTitle: "Specialized in All Types of Skin Conditions",
   doctorExperienceYears: "20+",
   tagline: "Compassionate Care, Naturally",
   quote: "Healing the body, mind and soul with care you can trust.",
+  highlightedConditions: [
+    "Renal Stones",
+    "Asthma",
+    "Fungal Skin Infections & Ringworm",
+    "Piles, Fissure & Fistula",
+    "Migraine",
+    "Hair Fall",
+    "All Types of Skin Conditions",
+  ],
   doctorBio:
     "Dr. Pragati Khobragade has over 20 years of clinical experience in classical homeopathy and primary general healthcare. Dedicated to gentle, root-cause healing, she combines comprehensive constitutional case taking with holistic medical oversight to treat acute ailments and long-standing chronic conditions safely.",
 
@@ -599,11 +608,36 @@ export const defaultClinicData: ClinicData = {
 
   gallery: [
     {
+      id: "gal-case-1",
+      title: "Palmar Dermatitis & Skin Peeling",
+      subtitle: "Visible improvement in skin peeling & barrier restoration",
+      imageUrl: "/images/gallery/clinical-skin-condition-palms.jpg",
+      altText: "Clinical before and after homeopathic treatment for severe skin condition and peeling on palms",
+      category: "Clinical Results",
+    },
+    {
+      id: "gal-case-2",
+      title: "Foot & Ankle Swelling",
+      subtitle: "Reduced swelling & improved fluid circulation recovery",
+      imageUrl: "/images/gallery/clinical-swelling-foot-ankle.jpg",
+      altText: "Clinical before and after homeopathic care for foot and ankle swelling due to poor circulation",
+      category: "Clinical Results",
+    },
+    {
+      id: "gal-case-3",
+      title: "Severe Acne & Skin Lesions",
+      subtitle: "Clearer, healthier skin texture & reduced inflammation",
+      imageUrl: "/images/gallery/clinical-acne-skin-lesions.jpg",
+      altText: "Clinical before and after homeopathic treatment for facial acne, inflammation, and skin lesions",
+      category: "Clinical Results",
+    },
+    {
       id: "gal-1",
       title: "Doctor Consultation Suite",
       subtitle: "Dedicated, private clinical consultation room",
       imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
       altText: "Dr. Pragati Consultation Suite at Perfect Health Center Diva East",
+      category: "Clinic Facilities",
     },
     {
       id: "gal-2",
@@ -611,6 +645,7 @@ export const defaultClinicData: ClinicData = {
       subtitle: "Serene, welcoming healing atmosphere",
       imageUrl: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
       altText: "Reception and Waiting Area Perfect Health Center",
+      category: "Clinic Facilities",
     },
     {
       id: "gal-3",
@@ -618,6 +653,7 @@ export const defaultClinicData: ClinicData = {
       subtitle: "Organized storage of high-purity homeopathic preparations",
       imageUrl: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
       altText: "Homeopathic Remedy Bottles and Dispensary",
+      category: "Clinic Facilities",
     },
     {
       id: "gal-4",
@@ -625,6 +661,7 @@ export const defaultClinicData: ClinicData = {
       subtitle: "Primary healthcare examinations & vital checks",
       imageUrl: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
       altText: "Patient Clinical Examination Station",
+      category: "Clinic Facilities",
     },
     {
       id: "gal-5",
@@ -632,6 +669,7 @@ export const defaultClinicData: ClinicData = {
       subtitle: "Custom-prepared remedies tailored to patient constitution",
       imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
       altText: "Individualized Natural Formulations Bay",
+      category: "Clinic Facilities",
     },
     {
       id: "gal-6",
@@ -639,6 +677,7 @@ export const defaultClinicData: ClinicData = {
       subtitle: "Calm environment designed for patient comfort",
       imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
       altText: "Holistic Wellness Environment at Perfect Health Center",
+      category: "Clinic Facilities",
     },
   ],
 

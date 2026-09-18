@@ -5,7 +5,6 @@ import { headers } from "next/headers";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { ClientAppShell } from "@/components/ClientAppShell";
 import { SchemaMarkup } from "@/components/SchemaMarkup";
-import { PageLoader } from "@/components/PageLoader";
 import { LayoutClinicData } from "@/types";
 
 const playfair = Playfair_Display({
@@ -154,7 +153,6 @@ export default async function RootLayout({
           </>
         )}
 
-        <PageLoader />
         <SchemaMarkup clinicData={clinicData} />
         <ClientAppShell clinicData={layoutClinicData}>{children}</ClientAppShell>
       </body>

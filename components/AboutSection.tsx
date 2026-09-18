@@ -9,7 +9,7 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ clinicData }: AboutSectionProps) {
-  const doctorImageUrl = getSignedMediaUrl("doctor/about_doctor.png");
+  const doctorImageUrl = "/images/about_doctor.png";
 
   return (
     <section id="about" className="py-12 sm:py-16 lg:py-24 xl:py-28 bg-white relative">
@@ -18,13 +18,12 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
 
           {/* Left Column: Image with Experience Badge */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-[360px] sm:max-w-md aspect-[3/2] rounded-3xl overflow-hidden shadow-floating border-4 border-primary-subtle protected-media select-none">
+            <div className="relative w-full max-w-[360px] sm:max-w-md aspect-[3/2] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-floating border-4 border-primary-subtle protected-media select-none">
               <Image
                 src={doctorImageUrl}
                 alt="Dr. Pragati Khobragade at Perfect Health Center"
-                width={600}
-                height={400}
-                className="w-full h-full object-cover pointer-events-none select-none"
+                fill
+                className="object-cover pointer-events-none select-none"
                 sizes="(max-width: 640px) 92vw, 448px"
                 draggable={false}
               />

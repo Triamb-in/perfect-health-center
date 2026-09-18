@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Calendar } from "lucide-react";
 import { ClinicData } from "@/types";
 
@@ -9,6 +10,18 @@ interface HeroProps {
 }
 
 export function Hero({ clinicData, onOpenBooking }: HeroProps) {
+  const conditions = (
+    clinicData.highlightedConditions && clinicData.highlightedConditions.length > 0
+      ? clinicData.highlightedConditions
+      : [
+          "Renal Stones",
+          "Asthma",
+          "Fungal Infections & Ringworm",
+          "Piles, Fissure & Fistula",
+          "Migraine",
+          "Hair Fall",
+        ]
+  ).filter((c) => !c.toLowerCase().includes("all types of skin conditions"));
   return (
     <section
       id="home"
@@ -60,18 +73,28 @@ export function Hero({ clinicData, onOpenBooking }: HeroProps) {
               {clinicData.doctorName}
             </h1>
 
-            {/* Sub-heading */}
-            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-medium text-[#556b60] mb-1.5 sm:mb-2 xl:mb-3 leading-snug">
-              {clinicData.doctorTitle || "Skin Care & Asthma Specialist | Homeopathy"}
+            {/* Sub-heading: Specialized in All Types of Skin Conditions (Bold) */}
+            <p className="text-[11px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-bold text-[#134633] mb-2 sm:mb-2.5 xl:mb-3 leading-snug">
+              Specialized in All Types of Skin Conditions
             </p>
 
-            {/* Specialization Highlight Badge */}
-            <div className="inline-flex items-center gap-1.5 bg-[#e4ede1] border border-[#b8d1b3] text-[#134633] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-semibold mb-2 sm:mb-2.5 xl:mb-5 shadow-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2e7d32] animate-pulse" aria-hidden="true" />
-              <span>Specialized in All Types of Skin Conditions</span>
+            {/* Condition Chips */}
+            <div className="w-full mb-2.5 sm:mb-3 xl:mb-5">
+              <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                {conditions.map((condition, idx) => (
+                  <Link
+                    key={idx}
+                    href="#specialties"
+                    className="inline-flex items-center text-[8.5px] sm:text-[9.5px] md:text-[10.5px] xl:text-xs font-medium text-[#134633] bg-[#e4ede1]/85 hover:bg-[#d5e5d1] border border-[#b8d1b3] hover:border-[#134633]/40 px-1.5 sm:px-2 py-0.5 rounded-md transition-colors shadow-xs"
+                    title={`Explore ${condition} care at Perfect Health Center`}
+                  >
+                    {condition}
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            {/* Feature Highlights Badges */}
+            {/* Feature Highlights Badges (Restored As-Is) */}
             <div className="w-full space-y-1.5 sm:space-y-2 xl:space-y-3.5 mb-3 sm:mb-3.5 xl:mb-8">
               {/* Highlight 1 */}
               <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-3 min-w-0">

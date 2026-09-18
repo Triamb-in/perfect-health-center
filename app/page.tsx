@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getClinicData } from "@/lib/sanity/getContent";
 import { Hero } from "@/components/Hero";
-import { SpecialtiesBanner } from "@/components/SpecialtiesBanner";
 import { AboutSection } from "@/components/AboutSection";
 import { SpecialtiesGrid } from "@/components/SpecialtiesGrid";
 import { FeaturesBottomBar } from "@/components/FeaturesBottomBar";
@@ -31,9 +30,6 @@ export default async function HomePage() {
     <>
       {/* 1. Hero Section */}
       <Hero clinicData={clinicData} />
-
-      {/* 1b. Clinical Focus & Specializations Highlight Bar */}
-      <SpecialtiesBanner />
 
       {/* 2. About Us Section */}
       <AboutSection clinicData={clinicData} />

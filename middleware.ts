@@ -7,8 +7,10 @@ export function middleware(request: NextRequest) {
   // Determine if requesting Sanity Studio
   const isStudio = request.nextUrl.pathname.startsWith("/studio");
 
+  const isDev = process.env.NODE_ENV === "development";
+
   // Strict CSP policy:
-  // - Regular pages: strict nonce-based CSP with 'strict-dynamic' (NO 'unsafe-inline' or 'unsafe-eval' for scripts)
+  // - Regular pages: strict nonce-based CSP with 'strict-dynamic' (allows 'unsafe-eval' in dev for Next.js hot reloading)
   // - Studio pages: scoped permissions for Sanity Studio SPA runtime
   const cspHeader = isStudio
     ? `
@@ -26,7 +28,7 @@ export function middleware(request: NextRequest) {
       `.replace(/\s{2,}/g, " ").trim()
     : `
         default-src 'self';
-        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https:;
+        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isDev ? "'unsafe-eval'" : ""} https:;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com data:;
         img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.ytimg.com https://img.youtube.com https://*.ytimg.com https://*.youtube.com https://*.google-analytics.com https://*.googletagmanager.com;

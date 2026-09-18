@@ -40,14 +40,13 @@ export default async function AboutPage() {
         {/* Profile Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-md aspect-[3/2] rounded-3xl overflow-hidden shadow-floating border-4 border-white">
+            <div className="relative w-full max-w-md aspect-[3/2] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-floating border-4 border-white">
               <Image
                 src="/images/about_doctor.png"
                 alt="Dr. Pragati Khobragade at Perfect Health Center"
-                width={600}
-                height={400}
+                fill
                 priority
-                className="w-full h-full object-cover"
+                className="object-cover"
                 sizes="(max-width: 768px) 100vw, 450px"
               />
             </div>
