@@ -25,12 +25,12 @@ export const testimonial = defineType({
     }),
     defineField({
       name: "photo",
-      title: "Patient Photo / Avatar (Optional)",
+      title: "Patient Image / Photo (Optional)",
       type: "image",
       options: {
         hotspot: true,
       },
-      description: "Upload an optional patient photo or portrait",
+      description: "Upload an image, portrait, or case photo for this testimonial",
     }),
     defineField({
       name: "videoFile",
