@@ -1,8 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Star, Quote, CheckCircle2, HeartHandshake } from "lucide-react";
+import {
+  Star,
+  Quote,
+  CheckCircle2,
+  HeartHandshake,
+  ZoomIn,
+  X,
+  ExternalLink,
+} from "lucide-react";
 import { TestimonialItem } from "@/types";
 import { UniversalVideoEmbed } from "./UniversalVideoEmbed";
 
@@ -11,6 +19,11 @@ interface TestimonialsSectionProps {
 }
 
 export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+  const [previewImage, setPreviewImage] = useState<{
+    url: string;
+    caption: string;
+  } | null>(null);
+
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
@@ -48,6 +61,13 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
               .slice(0, 2)
               .toUpperCase();
 
+            const isInstagramPost =
+              item.postUrl && /(?:instagram\.com|instagr\.am)\/(?:p|reel)\//i.test(item.postUrl);
+            const isGoogleReview =
+              item.postUrl && /(?:google\.com|g\.page|g\.co)/i.test(item.postUrl);
+            const isFacebookPost =
+              item.postUrl && /(?:facebook\.com|fb\.watch)/i.test(item.postUrl);
+
             return (
               <div
                 key={item.id}
@@ -68,7 +88,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                     </span>
                   </div>
 
-                  {/* Video Testimonial Player (Instagram Reel, Facebook, YouTube, or direct upload) */}
+                  {/* Video Testimonial Player (If video provided) */}
                   {item.videoUrl && (
                     <UniversalVideoEmbed
                       url={item.videoUrl}
@@ -76,6 +96,81 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                       poster={item.imageUrl}
                       className="mb-4"
                     />
+                  )}
+
+                  {/* Attached Image / Review Screenshot / Case Photo (If image provided) */}
+                  {item.imageUrl && (
+                    <div
+                      onClick={() =>
+                        setPreviewImage({
+                          url: item.imageUrl!,
+                          caption: `${item.name} — Testimonial Documentation`,
+                        })
+                      }
+                      className="mb-4 relative rounded-2xl overflow-hidden border border-stone-200/90 group/img cursor-pointer bg-stone-50 aspect-[16/10]"
+                      title="Click to view full image"
+                    >
+                      <Image
+                        src={item.imageUrl}
+                        alt={`${item.name} testimonial proof`}
+                        fill
+                        className="object-cover group-hover/img:scale-105 transition-transform duration-300 select-none"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                      />
+                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/75 text-white text-xs font-medium backdrop-blur-sm">
+                          <ZoomIn className="w-3.5 h-3.5" />
+                          <span>Click to expand image</span>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Social Post Link Badge (If external post provided) */}
+                  {item.postUrl && (
+                    <div className="mb-3">
+                      {isInstagramPost ? (
+                        <a
+                          href={item.postUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] px-3 py-1 rounded-full shadow-xs hover:opacity-90 transition-opacity"
+                        >
+                          <span>View on Instagram</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : isGoogleReview ? (
+                        <a
+                          href={item.postUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full shadow-xs hover:bg-amber-100 transition-colors"
+                        >
+                          <span>⭐ View on Google Reviews</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : isFacebookPost ? (
+                        <a
+                          href={item.postUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-[#1877F2] px-3 py-1 rounded-full shadow-xs hover:opacity-90 transition-opacity"
+                        >
+                          <span>View on Facebook</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <a
+                          href={item.postUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-dark bg-primary-subtle border border-emerald-200 px-3 py-1 rounded-full shadow-xs hover:bg-emerald-100 transition-colors"
+                        >
+                          <span>View Original Post</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
                   )}
 
                   {/* Quote Icon & Content */}
@@ -87,19 +182,9 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
 
                 {/* Author Info */}
                 <div className="pt-4 border-t border-stone-100 flex items-center gap-3.5">
-                  {item.imageUrl ? (
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.name}
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover border border-stone-200 flex-shrink-0"
-                    />
-                  ) : (
-                    <div className="w-11 h-11 rounded-full bg-primary-subtle text-primary-dark font-bold text-sm flex items-center justify-center flex-shrink-0">
-                      {initials || "P"}
-                    </div>
-                  )}
+                  <div className="w-11 h-11 rounded-full bg-primary-subtle text-primary-dark font-bold text-sm flex items-center justify-center flex-shrink-0">
+                    {initials || "P"}
+                  </div>
 
                   <div className="min-w-0">
                     <h3 className="font-serif font-bold text-base text-primary-dark truncate">
@@ -127,6 +212,48 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
           </div>
         </div>
       </div>
+
+      {/* High-Resolution Testimonial Image Lightbox */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn"
+          onClick={() => setPreviewImage(null)}
+        >
+          <div
+            className="relative max-w-3xl w-full max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-floating border border-white/20 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setPreviewImage(null)}
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-colors"
+              aria-label="Close Preview"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="relative w-full max-h-[75vh] flex items-center justify-center bg-stone-900 overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={previewImage.url}
+                alt={previewImage.caption}
+                className="max-h-[75vh] w-auto max-w-full object-contain select-none"
+              />
+            </div>
+
+            <div className="p-4 bg-white border-t border-stone-100 flex items-center justify-between gap-3">
+              <p className="text-sm font-semibold text-primary-dark">
+                {previewImage.caption}
+              </p>
+              <button
+                onClick={() => setPreviewImage(null)}
+                className="text-xs text-primary font-medium hover:underline flex-shrink-0"
+              >
+                Close Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

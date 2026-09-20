@@ -51,6 +51,7 @@ export interface TestimonialItem {
   comment: string;
   rating: number;
   imageUrl?: string;
+  postUrl?: string;
   videoUrl?: string;
 }
 

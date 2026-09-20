@@ -148,15 +148,25 @@ export async function getClinicData(): Promise<ClinicData> {
       testimonials:
         testimonials && testimonials.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            testimonials.map((t: any) => ({
-              id: t._id,
-              name: t.name,
-              condition: t.condition || "",
-              comment: t.comment,
-              rating: t.rating || 5,
-              imageUrl: t.photo ? urlFor(t.photo) : "",
-              videoUrl: t.videoFileUrl || t.videoUrl || "",
-            }))
+            testimonials.map((t: any) => {
+              const directPhoto = t.photo ? urlFor(t.photo) : "";
+              const externalLink = (t.postOrImageUrl || "").trim();
+              const isDirectImg =
+                Boolean(externalLink) &&
+                (/\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i.test(externalLink) ||
+                  externalLink.includes("cdn.sanity.io/images"));
+
+              return {
+                id: t._id,
+                name: t.name,
+                condition: t.condition || "",
+                comment: t.comment,
+                rating: t.rating || 5,
+                imageUrl: directPhoto || (isDirectImg ? externalLink : ""),
+                postUrl: !isDirectImg ? externalLink : "",
+                videoUrl: t.videoFileUrl || t.videoUrl || "",
+              };
+            })
           : defaultClinicData.testimonials,
       hours:
         s.hours && s.hours.length > 0
@@ -175,7 +185,7 @@ export async function getClinicData(): Promise<ClinicData> {
               id: g._id,
               title: g.title,
               subtitle: g.subtitle || "",
-              imageUrl: g.image ? urlFor(g.image) : "",
+              imageUrl: (g.image ? urlFor(g.image) : "") || g.imageUrl || "",
               videoUrl: g.videoFileUrl || g.videoUrl || "",
               altText: g.altText || g.title,
               category:

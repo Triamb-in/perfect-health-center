@@ -25,12 +25,19 @@ export const testimonial = defineType({
     }),
     defineField({
       name: "photo",
-      title: "Patient Image / Photo (Optional)",
+      title: "Upload Testimonial Image / Photo / Screenshot (Optional)",
       type: "image",
       options: {
         hotspot: true,
       },
-      description: "Upload an image, portrait, or case photo for this testimonial",
+      description: "Upload an image, review screenshot, WhatsApp feedback, handwritten note, or patient photo",
+    }),
+    defineField({
+      name: "postOrImageUrl",
+      title: "Or Post Link / Image URL (Instagram, Google Review, Facebook, etc.)",
+      type: "url",
+      description:
+        "Alternatively, paste an Instagram Post, Google Review, Facebook Post, or direct image URL (e.g. https://www.instagram.com/p/... or https://.../image.jpg)",
     }),
     defineField({
       name: "videoFile",
@@ -86,8 +93,13 @@ export const galleryItem = defineType({
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
       description: "Upload the high-resolution photo or the video thumbnail poster",
+    }),
+    defineField({
+      name: "imageUrl",
+      title: "Or Image URL / Photo Link (Optional)",
+      type: "url",
+      description: "Alternatively paste an external image URL or direct photo link",
     }),
     defineField({
       name: "videoFile",
