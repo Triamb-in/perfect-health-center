@@ -71,13 +71,13 @@ export async function getClinicData(): Promise<ClinicData> {
       youtubeVideos,
       gallery,
     ] = await Promise.all([
-      sanityClient.fetch(`*[_type == "clinicSettings"][0]`),
-      sanityClient.fetch(`*[_type == "specialty"] | order(order asc)`),
-      sanityClient.fetch(`*[_type == "faq"] | order(order asc)`),
-      sanityClient.fetch(`*[_type == "testimonial"] | order(order asc) { ..., "videoFileUrl": videoFile.asset->url }`),
-      sanityClient.fetch(`*[_type == "certificate"] | order(order asc)`),
-      sanityClient.fetch(`*[_type == "youtubeVideo"] | order(order asc)`),
-      sanityClient.fetch(`*[_type == "galleryItem"] | order(order asc) { ..., "videoFileUrl": videoFile.asset->url }`),
+      sanityClient.fetch(`*[_type == "clinicSettings" && !(_id in path("drafts.**"))][0]`),
+      sanityClient.fetch(`*[_type == "specialty" && !(_id in path("drafts.**"))] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "faq" && !(_id in path("drafts.**"))] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "testimonial" && !(_id in path("drafts.**"))] | order(order asc) { ..., "videoFileUrl": videoFile.asset->url }`),
+      sanityClient.fetch(`*[_type == "certificate" && !(_id in path("drafts.**"))] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "youtubeVideo" && !(_id in path("drafts.**"))] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "galleryItem" && !(_id in path("drafts.**"))] | order(order asc) { ..., "videoFileUrl": videoFile.asset->url }`),
     ]);
 
     console.log("[Sanity] Connected: Published CMS data successfully loaded from production dataset.");
