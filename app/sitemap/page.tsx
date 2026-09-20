@@ -403,7 +403,7 @@ export default function SitemapPage() {
             <span className="text-xs uppercase tracking-widest text-[#a3d9b1] font-semibold block mb-1">
               Need Direct Guidance?
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-2">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2">
               Ready to schedule your appointment?
             </h2>
             <p className="text-xs sm:text-sm text-white/80 max-w-xl">

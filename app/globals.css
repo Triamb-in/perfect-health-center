@@ -56,6 +56,21 @@ h6 {
   line-height: 1.25;
 }
 
+.bg-primary-dark h1,
+.bg-primary-dark h2,
+.bg-primary-dark h3,
+.bg-primary-dark h4,
+.bg-primary-dark h5,
+.bg-primary-dark h6,
+.text-white h1,
+.text-white h2,
+.text-white h3,
+.text-white h4,
+.text-white h5,
+.text-white h6 {
+  color: #ffffff;
+}
+
 .section-tag {
   display: inline-flex;
   align-items: center;
