@@ -50,6 +50,7 @@ export interface TestimonialItem {
   condition: string;
   comment: string;
   rating: number;
+  avatarUrl?: string;
   imageUrl?: string;
   postUrl?: string;
   videoUrl?: string;

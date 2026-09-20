@@ -149,7 +149,8 @@ export async function getClinicData(): Promise<ClinicData> {
         testimonials && testimonials.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
             testimonials.map((t: any) => {
-              const directPhoto = t.photo ? urlFor(t.photo) : "";
+              const avatarPhoto = t.photo ? urlFor(t.photo) : "";
+              const proofPhoto = t.proofImage ? urlFor(t.proofImage) : "";
               const externalLink = (t.postOrImageUrl || "").trim();
               const isDirectImg =
                 Boolean(externalLink) &&
@@ -162,7 +163,8 @@ export async function getClinicData(): Promise<ClinicData> {
                 condition: t.condition || "",
                 comment: t.comment,
                 rating: t.rating || 5,
-                imageUrl: directPhoto || (isDirectImg ? externalLink : ""),
+                avatarUrl: avatarPhoto,
+                imageUrl: proofPhoto || (isDirectImg ? externalLink : ""),
                 postUrl: !isDirectImg ? externalLink : "",
                 videoUrl: t.videoFileUrl || t.videoUrl || "",
               };

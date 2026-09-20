@@ -182,9 +182,19 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
 
                 {/* Author Info */}
                 <div className="pt-4 border-t border-stone-100 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-full bg-primary-subtle text-primary-dark font-bold text-sm flex items-center justify-center flex-shrink-0">
-                    {initials || "P"}
-                  </div>
+                  {item.avatarUrl ? (
+                    <Image
+                      src={item.avatarUrl}
+                      alt={item.name}
+                      width={48}
+                      height={48}
+                      className="w-11 h-11 rounded-full object-cover border border-stone-200 flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-11 h-11 rounded-full bg-primary-subtle text-primary-dark font-bold text-sm flex items-center justify-center flex-shrink-0">
+                      {initials || "P"}
+                    </div>
+                  )}
 
                   <div className="min-w-0">
                     <h3 className="font-serif font-bold text-base text-primary-dark truncate">

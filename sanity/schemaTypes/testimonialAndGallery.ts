@@ -25,12 +25,21 @@ export const testimonial = defineType({
     }),
     defineField({
       name: "photo",
-      title: "Upload Testimonial Image / Photo / Screenshot (Optional)",
+      title: "Patient Avatar / Photo (Optional)",
       type: "image",
       options: {
         hotspot: true,
       },
-      description: "Upload an image, review screenshot, WhatsApp feedback, handwritten note, or patient photo",
+      description: "Upload the patient's avatar or portrait photo (displayed next to their name)",
+    }),
+    defineField({
+      name: "proofImage",
+      title: "Review Screenshot / Case Document (Optional)",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      description: "Upload an optional review screenshot, WhatsApp feedback, handwritten note, or clinical photo",
     }),
     defineField({
       name: "postOrImageUrl",
