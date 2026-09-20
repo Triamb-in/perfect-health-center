@@ -45,9 +45,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Dr. Pragati Khobragade" }],
   creator: "Perfect Health Center",
   publisher: "Perfect Health Center",
-  alternates: {
-    canonical: "/",
-  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
