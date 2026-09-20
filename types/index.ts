@@ -20,6 +20,7 @@ export interface GalleryItem {
   title: string;
   subtitle: string;
   imageUrl: string;
+  videoUrl?: string;
   altText: string;
   category?: string;
 }

@@ -43,9 +43,10 @@ export const testimonial = defineType({
     }),
     defineField({
       name: "videoUrl",
-      title: "Or Video URL (YouTube / Cloud Link)",
+      title: "Video Link (Instagram Reel, Facebook, YouTube, etc.)",
       type: "url",
-      description: "Alternatively, paste a direct video or YouTube URL",
+      description:
+        "Paste a link to an Instagram Reel / Post, Facebook Video, YouTube video, or cloud video link (e.g. https://www.instagram.com/reel/...)",
     }),
     defineField({
       name: "rating",
@@ -99,9 +100,10 @@ export const galleryItem = defineType({
     }),
     defineField({
       name: "videoUrl",
-      title: "Or Video URL (Optional)",
+      title: "Video Link (Instagram Reel, Facebook, YouTube, etc.)",
       type: "url",
-      description: "Alternatively, paste a video URL",
+      description:
+        "Paste a link to an Instagram Reel / Post, Facebook Video, YouTube video, or cloud video link (e.g. https://www.instagram.com/reel/...)",
     }),
     defineField({
       name: "altText",

@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Star, Quote, CheckCircle2, HeartHandshake } from "lucide-react";
 import { TestimonialItem } from "@/types";
+import { UniversalVideoEmbed } from "./UniversalVideoEmbed";
 
 interface TestimonialsSectionProps {
   testimonials: TestimonialItem[];
@@ -67,16 +68,14 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                     </span>
                   </div>
 
-                  {/* Video Testimonial Player (If uploaded) */}
+                  {/* Video Testimonial Player (Instagram Reel, Facebook, YouTube, or direct upload) */}
                   {item.videoUrl && (
-                    <div className="mb-4 rounded-2xl overflow-hidden bg-black/5 aspect-video relative border border-stone-200/80">
-                      <video
-                        src={item.videoUrl}
-                        controls
-                        preload="metadata"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                    <UniversalVideoEmbed
+                      url={item.videoUrl}
+                      title={`Video testimonial by ${item.name}`}
+                      poster={item.imageUrl}
+                      className="mb-4"
+                    />
                   )}
 
                   {/* Quote Icon & Content */}
