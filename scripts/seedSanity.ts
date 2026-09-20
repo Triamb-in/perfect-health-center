@@ -241,13 +241,25 @@ async function seed() {
   console.log("7/7 Seeding Gallery items & images...");
   for (let i = 0; i < defaultClinicData.gallery.length; i++) {
     const g = defaultClinicData.gallery[i];
-    const asset = await uploadRemoteImage(g.imageUrl, `gallery-${g.id}.jpg`);
+    let asset = null;
+    if (g.imageUrl.startsWith("http://") || g.imageUrl.startsWith("https://")) {
+      asset = await uploadRemoteImage(g.imageUrl, `gallery-${g.id}.jpg`);
+    } else {
+      const localImagePath = path.resolve(
+        process.cwd(),
+        "public",
+        g.imageUrl.replace(/^\//, "")
+      );
+      asset = await uploadLocalImage(localImagePath, path.basename(g.imageUrl));
+    }
+
     const galDoc: any = {
       _id: `gallery-${g.id}`,
       _type: "galleryItem",
       title: g.title,
       subtitle: g.subtitle,
       altText: g.altText,
+      category: g.category || "Clinic Facilities",
       order: i + 1,
     };
     if (asset) {
