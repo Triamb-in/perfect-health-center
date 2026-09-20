@@ -122,12 +122,12 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="anonymous" />
       </head>
-      <body className="font-sans antialiased bg-white text-text-body selection:bg-primary-subtle selection:text-primary-dark">
+      <body className="font-sans antialiased bg-white text-text-body selection:bg-primary-subtle selection:text-primary-dark" suppressHydrationWarning>
         {/* Google Analytics (gtag.js) - Rendered only when real production NEXT_PUBLIC_GA_ID is configured */}
         {gaId && (
           <>
