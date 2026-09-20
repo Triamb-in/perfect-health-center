@@ -9,6 +9,8 @@ interface SpecialtiesGridProps {
 }
 
 export function SpecialtiesGrid({ specialties }: SpecialtiesGridProps) {
+  if (!specialties || specialties.length === 0) return null;
+
   // Show only top 3 specialties on the homepage as requested
   const topSpecialties = specialties.slice(0, 3);
 

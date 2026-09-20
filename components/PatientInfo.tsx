@@ -136,20 +136,22 @@ export function PatientInfo({ clinicData }: PatientInfoProps) {
 
         </div>
 
-        {/* FAQs Accordion Section */}
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 text-primary-main font-semibold text-xs tracking-wider uppercase mb-2">
-              <HelpCircle className="w-4 h-4" />
-              <span>Got Questions?</span>
+        {/* FAQs Accordion Section (Only rendered if FAQs exist in Sanity) */}
+        {clinicData.faqs && clinicData.faqs.length > 0 && (
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 text-primary-main font-semibold text-xs tracking-wider uppercase mb-2">
+                <HelpCircle className="w-4 h-4" />
+                <span>Got Questions?</span>
+              </div>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-primary-dark">
+                Frequently Asked Questions
+              </h3>
             </div>
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-primary-dark">
-              Frequently Asked Questions
-            </h3>
-          </div>
 
-          <FAQAccordion faqs={clinicData.faqs} />
-        </div>
+            <FAQAccordion faqs={clinicData.faqs} />
+          </div>
+        )}
 
       </div>
     </section>

@@ -122,12 +122,10 @@ export async function getClinicData(): Promise<ClinicData> {
       // SANITY SOURCE-OF-TRUTH: If specialties exist in Sanity, use the published Sanity list exactly as returned.
       // Do NOT resurrect deleted or modified items from defaultClinicData.
       specialties: (() => {
-        if (!specialties || specialties.length === 0) {
-          return defaultClinicData.specialties;
-        }
+        const uniqueSpecs = deduplicateSanityDocs(specialties || []);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return specialties.map((spec: any) => ({
-          id: spec.slug?.current || spec._id.replace("specialty-", ""),
+        return uniqueSpecs.map((spec: any) => ({
+          id: spec.slug?.current || spec._id.replace("specialty-", "").replace(/^drafts\./, ""),
           title: spec.title,
           shortDesc: spec.shortDesc || "",
           fullDesc: spec.fullDesc || "",
@@ -136,43 +134,43 @@ export async function getClinicData(): Promise<ClinicData> {
           benefits: spec.benefits || [],
         }));
       })(),
-      faqs:
-        faqs && faqs.length > 0
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            faqs.map((f: any) => ({
-              id: f._id,
-              question: f.question,
-              answer: f.answer,
-              category: f.category || "General",
-            }))
-          : defaultClinicData.faqs,
-      certificates:
-        certificates && certificates.length > 0
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            certificates.map((c: any) => ({
-              id: c._id,
-              title: c.title,
-              issuingAuthority: c.issuingAuthority,
-              year: c.year || "Verified",
-              imageUrl: c.image ? urlFor(c.image) : "/images/certificates/cert_mch_digikyd_qr.jpg",
-              altText: c.altText || c.title,
-              description: c.description || "",
-            }))
-          : defaultClinicData.certificates,
-      youtubeVideos:
-        youtubeVideos && youtubeVideos.length > 0
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            youtubeVideos.map((y: any) => ({
-              id: y._id,
-              title: y.title,
-              description: y.description || "",
-              youtubeId: y.youtubeId,
-              thumbnailUrl: y.thumbnail
-                ? urlFor(y.thumbnail)
-                : (y.youtubeId ? `https://i.ytimg.com/vi/${y.youtubeId}/hqdefault.jpg` : ""),
-              uploadDate: y.uploadDate || "2026-01-01",
-            }))
-          : defaultClinicData.youtubeVideos,
+      faqs: (() => {
+        const uniqueFaqs = deduplicateSanityDocs(faqs || []);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return uniqueFaqs.map((f: any) => ({
+          id: f._id.replace(/^drafts\./, ""),
+          question: f.question,
+          answer: f.answer,
+          category: f.category || "General",
+        }));
+      })(),
+      certificates: (() => {
+        const uniqueCerts = deduplicateSanityDocs(certificates || []);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return uniqueCerts.map((c: any) => ({
+          id: c._id.replace(/^drafts\./, ""),
+          title: c.title,
+          issuingAuthority: c.issuingAuthority,
+          year: c.year || "Verified",
+          imageUrl: c.image ? urlFor(c.image) : "/images/certificates/cert_mch_digikyd_qr.jpg",
+          altText: c.altText || c.title,
+          description: c.description || "",
+        }));
+      })(),
+      youtubeVideos: (() => {
+        const uniqueVideos = deduplicateSanityDocs(youtubeVideos || []);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return uniqueVideos.map((y: any) => ({
+          id: y._id.replace(/^drafts\./, ""),
+          title: y.title,
+          description: y.description || "",
+          youtubeId: y.youtubeId,
+          thumbnailUrl: y.thumbnail
+            ? urlFor(y.thumbnail)
+            : (y.youtubeId ? `https://i.ytimg.com/vi/${y.youtubeId}/hqdefault.jpg` : ""),
+          uploadDate: y.uploadDate || "2026-01-01",
+        }));
+      })(),
       testimonials: (() => {
         const uniqueTestimonials = deduplicateSanityDocs(testimonials || []);
         // If there are no reviews in Sanity (or all reviews are deleted), return empty array so section on website is hidden
@@ -210,36 +208,23 @@ export async function getClinicData(): Promise<ClinicData> {
       gallery: (() => {
         const uniqueGallery = deduplicateSanityDocs(gallery || []);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sanityItems = uniqueGallery.map((g: any) => ({
+        return uniqueGallery.map((g: any) => ({
           id: g._id.replace(/^drafts\./, ""),
           title: g.title,
           subtitle: g.subtitle || "",
           imageUrl: (g.image ? urlFor(g.image) : "") || g.imageUrl || "",
           videoUrl: g.videoFileUrl || g.videoUrl || "",
-              altText: g.altText || g.title,
-              category:
-                g.category ||
-                (g.title?.toLowerCase().includes("swelling") ||
-                g.title?.toLowerCase().includes("acne") ||
-                g.title?.toLowerCase().includes("dermatitis") ||
-                g.title?.toLowerCase().includes("peeling") ||
-                g.title?.toLowerCase().includes("lesion")
-                  ? "Clinical Results"
-                  : "Clinic Facilities"),
-            }));
-
-        const clinicalCases = defaultClinicData.gallery.filter(
-          (d) => d.category === "Clinical Results"
-        );
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const existingIds = new Set(sanityItems.map((s: any) => s.id));
-        const missingCases = clinicalCases.filter(
-          (c) => !existingIds.has(`gallery-${c.id}`) && !existingIds.has(c.id)
-        );
-
-        const combined = [...missingCases, ...sanityItems];
-        return combined.length > 0 ? combined : defaultClinicData.gallery;
+          altText: g.altText || g.title,
+          category:
+            g.category ||
+            (g.title?.toLowerCase().includes("swelling") ||
+            g.title?.toLowerCase().includes("acne") ||
+            g.title?.toLowerCase().includes("dermatitis") ||
+            g.title?.toLowerCase().includes("peeling") ||
+            g.title?.toLowerCase().includes("lesion")
+              ? "Clinical Results"
+              : "Clinic Facilities"),
+        }));
       })(),
     });
   } catch (error) {

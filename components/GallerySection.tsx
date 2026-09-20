@@ -17,6 +17,8 @@ export function GallerySection({ galleryItems }: GallerySectionProps) {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [activeTab, setActiveTab] = useState<"All" | "Clinical Results" | "Clinic Facilities">("All");
 
+  if (!galleryItems || galleryItems.length === 0) return null;
+
   const filteredItems = activeTab === "All"
     ? galleryItems
     : galleryItems.filter((item) => item.category === activeTab);
