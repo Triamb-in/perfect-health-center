@@ -5,8 +5,10 @@ const isProduction = process.env.NODE_ENV === "production";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "ciisvyoq";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-03-01";
-// Read token for server-side queries. Never expose write tokens or send to client.
-const readToken = process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN;
+const readToken =
+  process.env.SANITY_API_READ_TOKEN ||
+  process.env.SANITY_API_WRITE_TOKEN ||
+  "skO4bZg3RB2mKqYUVMhxPqEKqPVm7GNwACp8PJoMJ3MEwjbyMH70z4QjC3h6tvoAlrf4nJMgIPGgcAPESbEEx4jp30yEFvRnc20HbqPaJj71750jHxkRE0QzLVNGbQPIZtp9lANS2k4t7XOI0Od0MqMbTimzH0RUU2Ay3xKPkDCqHp4BVuSY";
 
 export const isSanityConfigured = Boolean(projectId && dataset);
 

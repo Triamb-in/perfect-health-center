@@ -19,6 +19,34 @@ function signClinicMedia(data: ClinicData): ClinicData {
   };
 }
 
+/**
+ * Deduplicates documents when both drafts and published documents exist.
+ * If a draft exists (e.g. drafts.xyz), it takes priority so fresh edits in Studio
+ * reflect immediately on the website, while published documents serve as the baseline.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function deduplicateSanityDocs<T extends { _id: string }>(docs: T[]): T[] {
+  if (!docs || !Array.isArray(docs)) return [];
+  const map = new Map<string, T>();
+
+  // Pass 1: add published versions
+  for (const doc of docs) {
+    if (!doc._id.startsWith("drafts.")) {
+      map.set(doc._id, doc);
+    }
+  }
+
+  // Pass 2: add/overwrite with draft versions (latest edits in Studio)
+  for (const doc of docs) {
+    if (doc._id.startsWith("drafts.")) {
+      const cleanId = doc._id.replace(/^drafts\./, "");
+      map.set(cleanId, doc);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
 export async function getClinicData(): Promise<ClinicData> {
   // If Sanity is not configured, log clear server diagnostics and serve verified default data
   if (!sanityClient || !isSanityConfigured) {
@@ -145,31 +173,31 @@ export async function getClinicData(): Promise<ClinicData> {
               uploadDate: y.uploadDate || "2026-01-01",
             }))
           : defaultClinicData.youtubeVideos,
-      testimonials:
-        testimonials && testimonials.length > 0
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            testimonials.map((t: any) => {
-              const avatarPhoto = t.photo ? urlFor(t.photo) : "";
-              const proofPhoto = t.proofImage ? urlFor(t.proofImage) : "";
-              const externalLink = (t.postOrImageUrl || "").trim();
-              const isDirectImg =
-                Boolean(externalLink) &&
-                (/\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i.test(externalLink) ||
-                  externalLink.includes("cdn.sanity.io/images"));
+      testimonials: (() => {
+        const uniqueTestimonials = deduplicateSanityDocs(testimonials || []);
+        // If there are no reviews in Sanity (or all reviews are deleted), return empty array so section on website is hidden
+        return uniqueTestimonials.map((t: any) => {
+          const avatarPhoto = t.photo ? urlFor(t.photo) : "";
+          const proofPhoto = t.proofImage ? urlFor(t.proofImage) : "";
+          const externalLink = (t.postOrImageUrl || "").trim();
+          const isDirectImg =
+            Boolean(externalLink) &&
+            (/\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i.test(externalLink) ||
+              externalLink.includes("cdn.sanity.io/images"));
 
-              return {
-                id: t._id,
-                name: t.name,
-                condition: t.condition || "",
-                comment: t.comment,
-                rating: t.rating || 5,
-                avatarUrl: avatarPhoto,
-                imageUrl: proofPhoto || (isDirectImg ? externalLink : ""),
-                postUrl: !isDirectImg ? externalLink : "",
-                videoUrl: t.videoFileUrl || t.videoUrl || "",
-              };
-            })
-          : defaultClinicData.testimonials,
+          return {
+            id: t._id.replace(/^drafts\./, ""),
+            name: t.name,
+            condition: t.condition || "",
+            comment: t.comment,
+            rating: t.rating || 5,
+            avatarUrl: avatarPhoto,
+            imageUrl: proofPhoto || (isDirectImg ? externalLink : ""),
+            postUrl: !isDirectImg ? externalLink : "",
+            videoUrl: t.videoFileUrl || t.videoUrl || "",
+          };
+        });
+      })(),
       hours:
         s.hours && s.hours.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -180,15 +208,14 @@ export async function getClinicData(): Promise<ClinicData> {
             }))
           : defaultClinicData.hours,
       gallery: (() => {
+        const uniqueGallery = deduplicateSanityDocs(gallery || []);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sanityItems = (gallery && gallery.length > 0)
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ? gallery.map((g: any) => ({
-              id: g._id,
-              title: g.title,
-              subtitle: g.subtitle || "",
-              imageUrl: (g.image ? urlFor(g.image) : "") || g.imageUrl || "",
-              videoUrl: g.videoFileUrl || g.videoUrl || "",
+        const sanityItems = uniqueGallery.map((g: any) => ({
+          id: g._id.replace(/^drafts\./, ""),
+          title: g.title,
+          subtitle: g.subtitle || "",
+          imageUrl: (g.image ? urlFor(g.image) : "") || g.imageUrl || "",
+          videoUrl: g.videoFileUrl || g.videoUrl || "",
               altText: g.altText || g.title,
               category:
                 g.category ||
@@ -199,8 +226,7 @@ export async function getClinicData(): Promise<ClinicData> {
                 g.title?.toLowerCase().includes("lesion")
                   ? "Clinical Results"
                   : "Clinic Facilities"),
-            }))
-          : [];
+            }));
 
         const clinicalCases = defaultClinicData.gallery.filter(
           (d) => d.category === "Clinical Results"
