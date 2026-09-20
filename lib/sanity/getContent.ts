@@ -46,10 +46,10 @@ export async function getClinicData(): Promise<ClinicData> {
       sanityClient.fetch(`*[_type == "clinicSettings"][0]`),
       sanityClient.fetch(`*[_type == "specialty"] | order(order asc)`),
       sanityClient.fetch(`*[_type == "faq"] | order(order asc)`),
-      sanityClient.fetch(`*[_type == "testimonial"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "testimonial"] | order(order asc) { ..., "videoFileUrl": videoFile.asset->url }`),
       sanityClient.fetch(`*[_type == "certificate"] | order(order asc)`),
       sanityClient.fetch(`*[_type == "youtubeVideo"] | order(order asc)`),
-      sanityClient.fetch(`*[_type == "galleryItem"] | order(order asc)`),
+      sanityClient.fetch(`*[_type == "galleryItem"] | order(order asc) { ..., "videoFileUrl": videoFile.asset->url }`),
     ]);
 
     console.log("[Sanity] Connected: Published CMS data successfully loaded from production dataset.");
@@ -154,6 +154,8 @@ export async function getClinicData(): Promise<ClinicData> {
               condition: t.condition || "",
               comment: t.comment,
               rating: t.rating || 5,
+              imageUrl: t.photo ? urlFor(t.photo) : "",
+              videoUrl: t.videoFileUrl || t.videoUrl || "",
             }))
           : defaultClinicData.testimonials,
       hours:
@@ -174,6 +176,7 @@ export async function getClinicData(): Promise<ClinicData> {
               title: g.title,
               subtitle: g.subtitle || "",
               imageUrl: g.image ? urlFor(g.image) : "",
+              videoUrl: g.videoFileUrl || g.videoUrl || "",
               altText: g.altText || g.title,
               category:
                 g.category ||

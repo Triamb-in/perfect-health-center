@@ -13,19 +13,43 @@ export const testimonial = defineType({
     }),
     defineField({
       name: "condition",
-      title: "Condition Addressed",
+      title: "Condition Addressed (e.g. Chronic Asthma & Dust Allergy)",
       type: "string",
     }),
     defineField({
       name: "comment",
-      title: "Testimonial Comment",
+      title: "Testimonial Comment / Review",
       type: "text",
-      rows: 3,
+      rows: 4,
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "photo",
+      title: "Patient Photo / Avatar (Optional)",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      description: "Upload an optional patient photo or portrait",
+    }),
+    defineField({
+      name: "videoFile",
+      title: "Video Testimonial File (Optional)",
+      type: "file",
+      options: {
+        accept: "video/*",
+      },
+      description: "Upload an MP4, MOV, or WebM video testimonial clip directly",
+    }),
+    defineField({
+      name: "videoUrl",
+      title: "Or Video URL (YouTube / Cloud Link)",
+      type: "url",
+      description: "Alternatively, paste a direct video or YouTube URL",
+    }),
+    defineField({
       name: "rating",
-      title: "Rating (1 to 5)",
+      title: "Rating (1 to 5 Stars)",
       type: "number",
       initialValue: 5,
       validation: (Rule) => Rule.min(1).max(5),
@@ -40,12 +64,12 @@ export const testimonial = defineType({
 
 export const galleryItem = defineType({
   name: "galleryItem",
-  title: "Clinic Gallery Images",
+  title: "Clinic Gallery Images & Videos",
   type: "document",
   fields: [
     defineField({
       name: "title",
-      title: "Image Title",
+      title: "Image / Media Title",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -56,12 +80,28 @@ export const galleryItem = defineType({
     }),
     defineField({
       name: "image",
-      title: "Photo",
+      title: "Photo / Video Poster",
       type: "image",
       options: {
         hotspot: true,
       },
       validation: (Rule) => Rule.required(),
+      description: "Upload the high-resolution photo or the video thumbnail poster",
+    }),
+    defineField({
+      name: "videoFile",
+      title: "Video File (Optional)",
+      type: "file",
+      options: {
+        accept: "video/*",
+      },
+      description: "Upload an optional MP4 or WebM video clip directly",
+    }),
+    defineField({
+      name: "videoUrl",
+      title: "Or Video URL (Optional)",
+      type: "url",
+      description: "Alternatively, paste a video URL",
     }),
     defineField({
       name: "altText",

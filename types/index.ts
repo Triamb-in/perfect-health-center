@@ -49,6 +49,8 @@ export interface TestimonialItem {
   condition: string;
   comment: string;
   rating: number;
+  imageUrl?: string;
+  videoUrl?: string;
 }
 
 export interface PillarItem {

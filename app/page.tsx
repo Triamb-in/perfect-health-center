@@ -7,6 +7,7 @@ import { FeaturesBottomBar } from "@/components/FeaturesBottomBar";
 import { CertificatesSection } from "@/components/CertificatesSection";
 import { YouTubeSection } from "@/components/YouTubeSection";
 import { GallerySection } from "@/components/GallerySection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { PatientInfo } from "@/components/PatientInfo";
 import { ContactSection } from "@/components/ContactSection";
 
@@ -53,10 +54,13 @@ export default async function HomePage() {
       {/* 7. Clinic Sanctuary Gallery */}
       <GallerySection galleryItems={clinicData.gallery} />
 
-      {/* 8. Patient Guide, Consultation Process, Timings & FAQs */}
+      {/* 8. Patient Stories & Testimonials Section */}
+      <TestimonialsSection testimonials={clinicData.testimonials} />
+
+      {/* 9. Patient Guide, Consultation Process, Timings & FAQs */}
       <PatientInfo clinicData={clinicData} />
 
-      {/* 9. Contact Us, Location Map & Request Form */}
+      {/* 10. Contact Us, Location Map & Request Form */}
       <ContactSection clinicData={clinicData} />
 
       {/* 10. FAQPage Structured Data (Rendered only on Homepage where FAQs are physically visible) */}
