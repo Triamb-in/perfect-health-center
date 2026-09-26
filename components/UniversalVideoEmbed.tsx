@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Play, ExternalLink, Video as VideoIcon } from "lucide-react";
 
 interface UniversalVideoEmbedProps {
@@ -37,14 +37,61 @@ function YouTubeIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+/**
+ * Detects aspect ratio and vertical orientation from URL, query parameters,
+ * or raw iframe HTML attributes (e.g. width="261" height="476" / "591").
+ */
+function detectAspectRatio(rawInput: string): { isVertical: boolean; aspectRatio?: string } {
+  if (!rawInput) return { isVertical: false };
+
+  // 1. Explicit reel or shorts keywords
+  if (/(?:reels?|shorts?)/i.test(rawInput)) {
+    return { isVertical: true, aspectRatio: "9 / 16" };
+  }
+
+  // 2. Query string width & height parameters (e.g. width=261&height=476)
+  const qWidth = rawInput.match(/[?&]width=(\d+)/i);
+  const qHeight = rawInput.match(/[?&]height=(\d+)/i);
+  if (qWidth && qHeight) {
+    const w = parseInt(qWidth[1], 10);
+    const h = parseInt(qHeight[1], 10);
+    if (w > 0 && h > 0) {
+      if (h > w * 1.05) {
+        return { isVertical: true, aspectRatio: `${w} / ${h}` };
+      }
+      if (Math.abs(w - h) <= 10) {
+        return { isVertical: false, aspectRatio: "1 / 1" };
+      }
+      return { isVertical: false, aspectRatio: `${w} / ${h}` };
+    }
+  }
+
+  // 3. Iframe HTML attributes width="..." height="..."
+  const attrWidth = rawInput.match(/\bwidth=["']?(\d+)/i);
+  const attrHeight = rawInput.match(/\bheight=["']?(\d+)/i);
+  if (attrWidth && attrHeight) {
+    const w = parseInt(attrWidth[1], 10);
+    const h = parseInt(attrHeight[1], 10);
+    if (w > 0 && h > 0) {
+      if (h > w * 1.05) {
+        return { isVertical: true, aspectRatio: `${w} / ${h}` };
+      }
+      if (Math.abs(w - h) <= 10) {
+        return { isVertical: false, aspectRatio: "1 / 1" };
+      }
+      return { isVertical: false, aspectRatio: `${w} / ${h}` };
+    }
+  }
+
+  return { isVertical: false };
+}
+
 export function UniversalVideoEmbed({
   url,
   title = "Video",
   poster,
   className = "",
 }: UniversalVideoEmbedProps) {
-  const [loadIframe, setLoadIframe] = useState(false);
-
   if (!url) return null;
   let cleanUrl = url.trim();
 
@@ -60,14 +107,20 @@ export function UniversalVideoEmbed({
   );
   if (youtubeMatch && youtubeMatch[1]) {
     const videoId = youtubeMatch[1];
+    const isShort = /shorts/i.test(cleanUrl);
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs ${className}`}>
+      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs flex items-center justify-center ${className}`}>
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
           title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-          className="w-full h-full border-0"
+          className="h-full border-0 mx-auto"
+          style={{
+            aspectRatio: isShort ? "9 / 16" : "16 / 9",
+            height: "100%",
+            maxWidth: "100%",
+          }}
         />
       </div>
     );
@@ -93,7 +146,7 @@ export function UniversalVideoEmbed({
         <div className="flex items-center justify-between px-3.5 py-1.5 bg-gradient-to-r from-[#833ab4]/90 via-[#fd1d1d]/90 to-[#fcb045]/90 text-white text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <InstagramIcon className="w-3.5 h-3.5" />
-            <span>{isReel ? "Instagram Reel" : "Instagram Post"}</span>
+            <span>{isReel ? "Instagram Reel" : "Instagram Video"}</span>
           </div>
           <a
             href={watchUrl}
@@ -106,12 +159,17 @@ export function UniversalVideoEmbed({
           </a>
         </div>
 
-        {/* Instagram Embed Frame (16:9 Landscape) */}
-        <div className="relative w-full aspect-video bg-stone-900 flex items-center justify-center overflow-hidden">
+        {/* Instagram Embed Frame (Centered, Object-Contain Behavior without cropping) */}
+        <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
           <iframe
             src={embedUrl}
             title={title || "Instagram Testimonial"}
-            className="w-full h-full border-0"
+            className="h-full border-0 mx-auto"
+            style={{
+              aspectRatio: isReel ? "9 / 16" : "1 / 1",
+              height: "100%",
+              maxWidth: "100%",
+            }}
             allowFullScreen
             scrolling="no"
           />
@@ -138,6 +196,7 @@ export function UniversalVideoEmbed({
       }
     }
 
+    const { isVertical, aspectRatio } = detectAspectRatio(url);
     const fbEmbedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(videoHref)}&show_text=0`;
 
     return (
@@ -146,7 +205,7 @@ export function UniversalVideoEmbed({
         <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1877F2] text-white text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <FacebookIcon className="w-3.5 h-3.5" />
-            <span>Facebook Video</span>
+            <span>{isVertical ? "Facebook Reel" : "Facebook Video"}</span>
           </div>
           <a
             href={watchUrl}
@@ -159,12 +218,17 @@ export function UniversalVideoEmbed({
           </a>
         </div>
 
-        {/* Facebook Embed Frame (Standard 16:9 Landscape) */}
+        {/* Facebook Embed Frame (16:9 Landscape Container with object-contain behavior) */}
         <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
           <iframe
             src={fbEmbedUrl}
             title={title || "Facebook Video"}
-            className="w-full h-full border-0"
+            className="h-full border-0 mx-auto"
+            style={{
+              aspectRatio: aspectRatio || (isVertical ? "9 / 16" : "16 / 9"),
+              height: "100%",
+              maxWidth: "100%",
+            }}
             allowFullScreen
             scrolling="no"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -182,14 +246,15 @@ export function UniversalVideoEmbed({
 
   if (isDirectVideo) {
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-black aspect-video border border-stone-200/80 shadow-xs ${className}`}>
+      <div className={`relative overflow-hidden rounded-2xl bg-black aspect-video border border-stone-200/80 shadow-xs flex items-center justify-center ${className}`}>
         <video
           src={cleanUrl}
           poster={poster}
           controls
           playsInline
           preload="metadata"
-          className="w-full h-full object-cover"
+          className="w-full h-full max-h-full max-w-full object-contain bg-black"
+          style={{ objectFit: "contain" }}
         />
       </div>
     );
@@ -197,13 +262,19 @@ export function UniversalVideoEmbed({
 
   // 5. Generic iframe embed if user passed an embed iframe or URL
   if (url.includes("<iframe") || cleanUrl.includes("/embed/")) {
+    const { isVertical, aspectRatio } = detectAspectRatio(url);
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs ${className}`}>
+      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs flex items-center justify-center ${className}`}>
         <iframe
           src={cleanUrl}
           title={title}
           allowFullScreen
-          className="w-full h-full border-0"
+          className="h-full border-0 mx-auto"
+          style={{
+            aspectRatio: aspectRatio || (isVertical ? "9 / 16" : "16 / 9"),
+            height: "100%",
+            maxWidth: "100%",
+          }}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         />
       </div>
