@@ -79,16 +79,24 @@ export function UniversalVideoEmbed({
   );
   if (instagramMatch && instagramMatch[1]) {
     const igCode = instagramMatch[1];
+    const isReel = /(?:reel|reels)/i.test(cleanUrl);
+    const embedUrl = isReel
+      ? `https://www.instagram.com/reel/${igCode}/embed/`
+      : `https://www.instagram.com/p/${igCode}/embed/`;
+    const watchUrl = isReel
+      ? `https://www.instagram.com/reel/${igCode}/`
+      : `https://www.instagram.com/p/${igCode}/`;
+
     return (
       <div className={`relative flex flex-col rounded-2xl overflow-hidden bg-stone-900 border border-stone-200/80 shadow-xs ${className}`}>
         {/* Top Instagram Branded Bar */}
-        <div className="flex items-center justify-between px-3.5 py-2 bg-gradient-to-r from-[#833ab4]/90 via-[#fd1d1d]/90 to-[#fcb045]/90 text-white text-xs font-semibold">
+        <div className="flex items-center justify-between px-3.5 py-1.5 bg-gradient-to-r from-[#833ab4]/90 via-[#fd1d1d]/90 to-[#fcb045]/90 text-white text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <InstagramIcon className="w-3.5 h-3.5" />
-            <span>Instagram Reel</span>
+            <span>{isReel ? "Instagram Reel" : "Instagram Post"}</span>
           </div>
           <a
-            href={`https://www.instagram.com/reel/${igCode}/`}
+            href={watchUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 hover:underline text-[11px] bg-white/20 hover:bg-white/30 px-2 py-0.5 rounded-full transition-colors"
@@ -98,10 +106,10 @@ export function UniversalVideoEmbed({
           </a>
         </div>
 
-        {/* Instagram Embed Frame */}
-        <div className="relative w-full h-[400px] sm:h-[420px] bg-white">
+        {/* Instagram Embed Frame (16:9 Landscape) */}
+        <div className="relative w-full aspect-video bg-stone-900 flex items-center justify-center overflow-hidden">
           <iframe
-            src={`https://www.instagram.com/reel/${igCode}/embed/`}
+            src={embedUrl}
             title={title || "Instagram Testimonial"}
             className="w-full h-full border-0"
             allowFullScreen
@@ -115,28 +123,27 @@ export function UniversalVideoEmbed({
   // 3. Facebook Video Match (fb.watch or facebook.com)
   const isFacebook = /(?:facebook\.com|fb\.watch)/i.test(cleanUrl);
   if (isFacebook) {
-    const isAlreadyPlugin = cleanUrl.includes("facebook.com/plugins/video.php");
-    const fbEmbedUrl = isAlreadyPlugin
-      ? cleanUrl
-      : `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(cleanUrl)}&show_text=0&width=500`;
-
-    // Try to extract original watch URL for the header link if it's a plugin URL
     let watchUrl = cleanUrl;
-    if (isAlreadyPlugin) {
+    let videoHref = cleanUrl;
+
+    if (cleanUrl.includes("facebook.com/plugins/video.php")) {
       const hrefParam = cleanUrl.match(/[?&]href=([^&]+)/);
       if (hrefParam && hrefParam[1]) {
         try {
-          watchUrl = decodeURIComponent(hrefParam[1]);
+          videoHref = decodeURIComponent(hrefParam[1]);
+          watchUrl = videoHref;
         } catch {
-          // fallback to cleanUrl
+          videoHref = cleanUrl;
         }
       }
     }
 
+    const fbEmbedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(videoHref)}&show_text=0`;
+
     return (
-      <div className={`relative flex flex-col rounded-2xl overflow-hidden bg-stone-900 border border-stone-200/80 shadow-xs ${className}`}>
+      <div className={`relative flex flex-col rounded-2xl overflow-hidden bg-black border border-stone-200/80 shadow-xs ${className}`}>
         {/* Facebook Header */}
-        <div className="flex items-center justify-between px-3.5 py-2 bg-[#1877F2] text-white text-xs font-semibold">
+        <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1877F2] text-white text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <FacebookIcon className="w-3.5 h-3.5" />
             <span>Facebook Video</span>
@@ -152,12 +159,12 @@ export function UniversalVideoEmbed({
           </a>
         </div>
 
-        {/* Facebook Embed Frame */}
-        <div className="relative w-full min-h-[380px] sm:min-h-[440px] bg-black flex items-center justify-center">
+        {/* Facebook Embed Frame (Standard 16:9 Landscape) */}
+        <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
           <iframe
             src={fbEmbedUrl}
             title={title || "Facebook Video"}
-            className="w-full h-[400px] sm:h-[460px] border-0"
+            className="w-full h-full border-0"
             allowFullScreen
             scrolling="no"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -188,7 +195,22 @@ export function UniversalVideoEmbed({
     );
   }
 
-  // 5. Generic / External Video Link Card
+  // 5. Generic iframe embed if user passed an embed iframe or URL
+  if (url.includes("<iframe") || cleanUrl.includes("/embed/")) {
+    return (
+      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs ${className}`}>
+        <iframe
+          src={cleanUrl}
+          title={title}
+          allowFullScreen
+          className="w-full h-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        />
+      </div>
+    );
+  }
+
+  // 6. Generic / External Video Link Card
   return (
     <div className={`relative rounded-2xl overflow-hidden bg-stone-50 border border-stone-200 p-4 shadow-xs ${className}`}>
       <div className="flex items-center justify-between gap-3">

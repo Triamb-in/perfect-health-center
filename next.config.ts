@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "img.youtube.com",
       },
+      {
+        protocol: "https",
+        hostname: "**.fbcdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "**.cdninstagram.com",
+      },
     ],
   },
   async headers() {
@@ -69,7 +77,7 @@ const nextConfig: NextConfig = {
           {
             key: "Permissions-Policy",
             value:
-              'camera=(), microphone=(), geolocation=(), autoplay=(self "https://www.youtube.com" "https://www.youtube-nocookie.com"), encrypted-media=(self "https://www.youtube.com" "https://www.youtube-nocookie.com"), fullscreen=*, picture-in-picture=*',
+              'camera=(), microphone=(), geolocation=(), autoplay=(self "https://www.youtube.com" "https://www.youtube-nocookie.com" "https://www.facebook.com" "https://*.facebook.com" "https://www.instagram.com"), encrypted-media=(self "https://www.youtube.com" "https://www.youtube-nocookie.com" "https://www.facebook.com" "https://*.facebook.com" "https://www.instagram.com"), fullscreen=*, picture-in-picture=*',
           },
           {
             key: "Strict-Transport-Security",
