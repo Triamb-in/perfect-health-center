@@ -182,6 +182,7 @@ export async function getClinicData(): Promise<ClinicData> {
           const embedLink = (t.embedVideoOrImage || t.embedVideo || "").trim();
           const isEmbedImg =
             Boolean(embedLink) &&
+            !embedLink.includes("<iframe") &&
             (/\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i.test(embedLink) ||
               embedLink.includes("cdn.sanity.io/images"));
           const isDirectImg =

@@ -51,9 +51,10 @@ export const testimonial = defineType({
     defineField({
       name: "embedVideoOrImage",
       title: "Embed Video or Image",
-      type: "url",
+      type: "text",
+      rows: 3,
       description:
-        "Paste an embed video link or image link (YouTube, Instagram Reel, Facebook Video, etc.)",
+        "Paste an iframe embed code (<iframe ...>) or video/image link (Facebook, Instagram, YouTube, etc.)",
     }),
     defineField({
       name: "videoFile",
@@ -136,9 +137,10 @@ export const galleryItem = defineType({
     defineField({
       name: "embedVideo",
       title: "Embed Video",
-      type: "url",
+      type: "text",
+      rows: 3,
       description:
-        "Paste an embed video link (YouTube, Instagram Reel, Facebook Video, etc.)",
+        "Paste an iframe embed code (<iframe ...>) or video link (Facebook, Instagram, YouTube, etc.)",
     }),
     defineField({
       name: "altText",

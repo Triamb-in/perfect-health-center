@@ -46,7 +46,13 @@ export function UniversalVideoEmbed({
   const [loadIframe, setLoadIframe] = useState(false);
 
   if (!url) return null;
-  const cleanUrl = url.trim();
+  let cleanUrl = url.trim();
+
+  // If user pasted a full <iframe ... src="..." ...> embed code, extract the src URL
+  const iframeSrcMatch = cleanUrl.match(/<iframe[^>]*\s+src=["']([^"']+)["']/i);
+  if (iframeSrcMatch && iframeSrcMatch[1]) {
+    cleanUrl = iframeSrcMatch[1];
+  }
 
   // 1. YouTube Match
   const youtubeMatch = cleanUrl.match(
@@ -109,7 +115,24 @@ export function UniversalVideoEmbed({
   // 3. Facebook Video Match (fb.watch or facebook.com)
   const isFacebook = /(?:facebook\.com|fb\.watch)/i.test(cleanUrl);
   if (isFacebook) {
-    const fbEmbedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(cleanUrl)}&show_text=0&width=500`;
+    const isAlreadyPlugin = cleanUrl.includes("facebook.com/plugins/video.php");
+    const fbEmbedUrl = isAlreadyPlugin
+      ? cleanUrl
+      : `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(cleanUrl)}&show_text=0&width=500`;
+
+    // Try to extract original watch URL for the header link if it's a plugin URL
+    let watchUrl = cleanUrl;
+    if (isAlreadyPlugin) {
+      const hrefParam = cleanUrl.match(/[?&]href=([^&]+)/);
+      if (hrefParam && hrefParam[1]) {
+        try {
+          watchUrl = decodeURIComponent(hrefParam[1]);
+        } catch {
+          // fallback to cleanUrl
+        }
+      }
+    }
+
     return (
       <div className={`relative flex flex-col rounded-2xl overflow-hidden bg-stone-900 border border-stone-200/80 shadow-xs ${className}`}>
         {/* Facebook Header */}
@@ -119,7 +142,7 @@ export function UniversalVideoEmbed({
             <span>Facebook Video</span>
           </div>
           <a
-            href={cleanUrl}
+            href={watchUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 hover:underline text-[11px] bg-white/20 hover:bg-white/30 px-2 py-0.5 rounded-full transition-colors"
@@ -130,12 +153,13 @@ export function UniversalVideoEmbed({
         </div>
 
         {/* Facebook Embed Frame */}
-        <div className="relative w-full aspect-[4/3] sm:aspect-video bg-black">
+        <div className="relative w-full min-h-[380px] sm:min-h-[440px] bg-black flex items-center justify-center">
           <iframe
             src={fbEmbedUrl}
             title={title || "Facebook Video"}
-            className="w-full h-full border-0"
+            className="w-full h-[400px] sm:h-[460px] border-0"
             allowFullScreen
+            scrolling="no"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           />
         </div>
