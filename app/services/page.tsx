@@ -12,13 +12,83 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/services",
   },
+  openGraph: {
+    title: "Homeopathy & General Healthcare Services in Diva East | Perfect Health Center",
+    description:
+      "Explore comprehensive clinical homeopathy and primary healthcare services at Perfect Health Center in Diva East, Thane: skin care, asthma, migraine, renal stones, and family medicine.",
+    url: "https://perfecthealthcenter.in/services",
+    siteName: "Perfect Health Center",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Services & Specialties - Perfect Health Center Diva East",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Clinical Specialties & Services | Perfect Health Center",
+    description:
+      "Homeopathic care for skin, asthma, migraine, renal stones, piles, and general medicine in Diva East, Thane.",
+    images: ["/images/og-image.jpg"],
+  },
 };
 
 export default async function ServicesPage() {
   const clinicData = await getClinicData();
 
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    name: "Homeopathy & General Healthcare Services in Diva East",
+    description:
+      "Comprehensive clinical homeopathy and primary healthcare services at Perfect Health Center in Diva East, Thane.",
+    url: "https://perfecthealthcenter.in/services",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: clinicData.specialties.map((s, idx) => ({
+        "@type": "MedicalSpecialty",
+        position: idx + 1,
+        name: s.title,
+        description: s.shortDesc || s.fullDesc,
+      })),
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://perfecthealthcenter.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Specialties & Services",
+        item: "https://perfecthealthcenter.in/services",
+      },
+    ],
+  };
+
   return (
-    <div className="pt-28 pb-20 lg:pt-36 lg:pb-28 bg-[#fafaf7]">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div className="pt-28 pb-20 lg:pt-36 lg:pb-28 bg-[#fafaf7]">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -132,5 +202,6 @@ export default async function ServicesPage() {
 
       </div>
     </div>
+    </>
   );
 }

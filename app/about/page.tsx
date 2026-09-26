@@ -14,6 +14,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/about",
   },
+  openGraph: {
+    title: "About Perfect Health Center | Homeopathy Clinic in Diva East",
+    description:
+      "Learn about Dr. Pragati Khobragade and Dr. Vijay Uplekar, our 20+ years of clinical homeopathy experience, and holistic care in Diva East, Thane.",
+    url: "https://perfecthealthcenter.in/about",
+    siteName: "Perfect Health Center",
+    locale: "en_IN",
+    type: "profile",
+    images: [
+      {
+        url: "/images/about_doctor.png",
+        width: 800,
+        height: 1000,
+        alt: "Dr. Pragati Khobragade - Perfect Health Center Diva East",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Dr. Pragati Khobragade | Perfect Health Center",
+    description:
+      "20+ years of homeopathic clinical experience in Diva East, Thane.",
+    images: ["/images/about_doctor.png"],
+  },
 };
 
 export const revalidate = 0;
@@ -21,8 +45,67 @@ export const revalidate = 0;
 export default async function AboutPage() {
   const clinicData = await getClinicData();
 
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": ["AboutPage", "ProfilePage"],
+    name: "About Perfect Health Center & Dr. Pragati Khobragade",
+    description:
+      "Learn about Dr. Pragati Khobragade and Dr. Vijay Uplekar, our 20+ years of clinical homeopathy experience, and holistic care in Diva East, Thane.",
+    url: "https://perfecthealthcenter.in/about",
+    mainEntity: {
+      "@type": "Person",
+      name: clinicData.doctorName,
+      jobTitle: "Consulting Homeopath & General Physician",
+      description: clinicData.doctorBio,
+      image: "https://perfecthealthcenter.in/images/about_doctor.png",
+      worksFor: {
+        "@type": "MedicalBusiness",
+        name: clinicData.clinicName,
+        url: "https://perfecthealthcenter.in",
+      },
+      alumniOf: "Maharashtra Council of Homoeopathy",
+      hasCredential: clinicData.certificates.map((c) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: c.title,
+        credentialCategory: c.year,
+        recognizedBy: {
+          "@type": "Organization",
+          name: c.issuingAuthority,
+        },
+      })),
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://perfecthealthcenter.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About Us",
+        item: "https://perfecthealthcenter.in/about",
+      },
+    ],
+  };
+
   return (
-    <div className="pt-28 pb-20 lg:pt-36 lg:pb-28 bg-[#fafaf7]">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div className="pt-28 pb-20 lg:pt-36 lg:pb-28 bg-[#fafaf7]">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -172,5 +255,6 @@ export default async function AboutPage() {
 
       </div>
     </div>
+    </>
   );
 }

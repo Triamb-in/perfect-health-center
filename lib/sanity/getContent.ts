@@ -2,6 +2,7 @@ import { defaultClinicData } from "@/content/defaultClinicData";
 import { ClinicData } from "@/types";
 import { sanityClient, urlFor, isSanityConfigured } from "./client";
 import { getSignedMediaUrl } from "@/lib/mediaSecurity";
+import { unstable_cache } from "next/cache";
 
 function signClinicMedia(data: ClinicData): ClinicData {
   return {
@@ -47,7 +48,7 @@ function deduplicateSanityDocs<T extends { _id: string }>(docs: T[]): T[] {
   return Array.from(map.values());
 }
 
-export async function getClinicData(): Promise<ClinicData> {
+async function fetchClinicDataFromSanity(): Promise<ClinicData> {
   // If Sanity is not configured, log clear server diagnostics and serve verified default data
   if (!sanityClient || !isSanityConfigured) {
     if (process.env.NODE_ENV === "production") {
@@ -242,3 +243,12 @@ export async function getClinicData(): Promise<ClinicData> {
     return signClinicMedia(defaultClinicData);
   }
 }
+
+export const getClinicData = unstable_cache(
+  fetchClinicDataFromSanity,
+  ["clinic-content-data"],
+  {
+    revalidate: 60,
+    tags: ["clinic-data"],
+  }
+);

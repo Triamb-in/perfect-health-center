@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/privacy-policy",
   },
+  openGraph: {
+    title: "Patient Privacy Policy | Perfect Health Center Diva East",
+    description:
+      "Patient data privacy policy complying with India's Digital Personal Data Protection Act (DPDP Act 2023) at Perfect Health Center, Diva East, Thane.",
+    url: "https://perfecthealthcenter.in/privacy-policy",
+    siteName: "Perfect Health Center",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Patient Privacy Policy | Perfect Health Center",
+    description:
+      "Patient data privacy policy complying with DPDP Act 2023 at Perfect Health Center, Diva East, Thane.",
+  },
 };
 
 export default function PrivacyPolicyPage() {

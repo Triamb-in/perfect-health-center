@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
 import { ClinicData } from "@/types";
 import { getSignedMediaUrl } from "@/lib/mediaSecurity";
 
@@ -95,6 +96,17 @@ export function AboutSection({ clinicData }: AboutSectionProps) {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* In-content Contextual Link for SEO and Patient Exploration */}
+            <div className="pt-6 w-full flex flex-wrap items-center gap-4">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 bg-primary-dark hover:bg-primary-hover text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-button hover:shadow-button-hover transition-all"
+              >
+                <span>Read Full Doctor Profile &amp; Clinical Background</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
           </div>

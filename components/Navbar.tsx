@@ -16,7 +16,7 @@ interface NavbarProps {
 interface NavItem {
   label: string;
   href: string;
-  sectionId: "home" | "about" | "specialties" | "gallery" | "patient-info" | "contact";
+  sectionId: "home" | "about" | "specialties" | "gallery" | "patient-info" | "contact" | "articles";
 }
 
 export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
@@ -44,6 +44,7 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
               "about",
               "specialties",
               "gallery",
+              "articles",
               "patient-info",
               "contact",
             ];
@@ -93,14 +94,14 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
     };
   }, [pathname]);
 
-  // Primary navigation concise structure based on Home page source of truth
+  // Primary navigation clean page routes for SEO, with smooth-scroll section interception on homepage
   const navItems: NavItem[] = [
     { label: "Home", href: "/", sectionId: "home" },
-    { label: "About Us", href: "/#about", sectionId: "about" },
-    { label: "Specialties", href: "/#specialties", sectionId: "specialties" },
-    { label: "Gallery", href: pathname === "/" ? "#gallery" : "/gallery", sectionId: "gallery" },
-    { label: "Patient Info", href: "/#patient-info", sectionId: "patient-info" },
-    { label: "Contact Us", href: "/#contact", sectionId: "contact" },
+    { label: "About Us", href: "/about", sectionId: "about" },
+    { label: "Specialties", href: "/services", sectionId: "specialties" },
+    { label: "Gallery", href: "/gallery", sectionId: "gallery" },
+    { label: "Health Guides", href: "/articles", sectionId: "articles" },
+    { label: "Contact Us", href: "/contact", sectionId: "contact" },
   ];
 
   // Determine active state for each nav item
@@ -109,6 +110,9 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
     if (pathname === "/about") return item.sectionId === "about";
     if (pathname === "/services") return item.sectionId === "specialties";
     if (pathname === "/contact") return item.sectionId === "contact";
+    if (pathname === "/articles" || pathname.startsWith("/articles/")) {
+      return item.sectionId === "articles";
+    }
     if (pathname === "/") {
       return activeSection === item.sectionId;
     }
@@ -121,9 +125,8 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
     item: NavItem
   ) => {
     if (pathname === "/") {
-      e.preventDefault();
-
       if (item.sectionId === "home") {
+        e.preventDefault();
         isManualScrollRef.current = true;
         setActiveSection("home");
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -135,6 +138,7 @@ export function Navbar({ clinicData, onOpenBooking }: NavbarProps) {
       } else {
         const el = document.getElementById(item.sectionId);
         if (el) {
+          e.preventDefault();
           isManualScrollRef.current = true;
           setActiveSection(item.sectionId);
 

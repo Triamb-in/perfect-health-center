@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/cookie-policy",
   },
+  openGraph: {
+    title: "Cookie Policy | Perfect Health Center Diva East",
+    description:
+      "Information on cookies, functional browser storage, and DPDP Act 2023 compliance at Perfect Health Center in Diva East, Thane.",
+    url: "https://perfecthealthcenter.in/cookie-policy",
+    siteName: "Perfect Health Center",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Cookie Policy | Perfect Health Center",
+    description:
+      "Information on cookies and browser storage compliance at Perfect Health Center.",
+  },
 };
 
 export default function CookiePolicyPage() {

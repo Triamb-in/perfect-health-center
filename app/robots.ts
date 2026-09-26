@@ -8,12 +8,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/studio", "/api/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "Googlebot",
-        allow: "/",
-        disallow: ["/studio", "/api/"],
+        allow: ["/", "/api/media/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "Google-Extended",
@@ -22,12 +22,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "GPTBot",
         allow: "/",
-        disallow: ["/studio", "/api/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "OAI-SearchBot",
         allow: "/",
-        disallow: ["/studio", "/api/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "ChatGPT-User",
@@ -36,7 +36,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "ClaudeBot",
         allow: "/",
-        disallow: ["/studio", "/api/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "Claude-SearchBot",
@@ -49,12 +49,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "PerplexityBot",
         allow: "/",
-        disallow: ["/studio", "/api/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "Applebot",
         allow: "/",
-        disallow: ["/studio", "/api/"],
+        disallow: ["/studio", "/api/book-appointment", "/api/contact"],
       },
       {
         userAgent: "Applebot-Extended",

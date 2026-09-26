@@ -9,6 +9,7 @@ import { YouTubeSection } from "@/components/YouTubeSection";
 import { GallerySection } from "@/components/GallerySection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { PatientInfo } from "@/components/PatientInfo";
+import { ArticlesSection } from "@/components/ArticlesSection";
 import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
@@ -57,10 +58,13 @@ export default async function HomePage() {
       {/* 8. Patient Stories & Testimonials Section */}
       <TestimonialsSection testimonials={clinicData.testimonials} />
 
-      {/* 9. Patient Guide, Consultation Process, Timings & FAQs */}
+      {/* 9. Health Guides & Clinical Articles Section */}
+      <ArticlesSection />
+
+      {/* 10. Patient Guide, Consultation Process, Timings & FAQs */}
       <PatientInfo clinicData={clinicData} />
 
-      {/* 10. Contact Us, Location Map & Request Form */}
+      {/* 11. Contact Us, Location Map & Request Form */}
       <ContactSection clinicData={clinicData} />
 
       {/* 10. FAQPage Structured Data (Rendered only on Homepage where FAQs are physically visible) */}
