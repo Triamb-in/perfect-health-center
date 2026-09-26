@@ -176,8 +176,14 @@ export async function getClinicData(): Promise<ClinicData> {
         // If there are no reviews in Sanity (or all reviews are deleted), return empty array so section on website is hidden
         return uniqueTestimonials.map((t: any) => {
           const avatarPhoto = t.photo ? urlFor(t.photo) : "";
-          const proofPhoto = t.proofImage ? urlFor(t.proofImage) : "";
+          const proofPhoto =
+            (t.image ? urlFor(t.image) : "") || (t.proofImage ? urlFor(t.proofImage) : "");
           const externalLink = (t.postOrImageUrl || "").trim();
+          const embedLink = (t.embedVideoOrImage || t.embedVideo || "").trim();
+          const isEmbedImg =
+            Boolean(embedLink) &&
+            (/\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i.test(embedLink) ||
+              embedLink.includes("cdn.sanity.io/images"));
           const isDirectImg =
             Boolean(externalLink) &&
             (/\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i.test(externalLink) ||
@@ -190,9 +196,9 @@ export async function getClinicData(): Promise<ClinicData> {
             comment: t.comment,
             rating: t.rating || 5,
             avatarUrl: avatarPhoto,
-            imageUrl: proofPhoto || (isDirectImg ? externalLink : ""),
+            imageUrl: proofPhoto || (isEmbedImg ? embedLink : (isDirectImg ? externalLink : "")),
             postUrl: !isDirectImg ? externalLink : "",
-            videoUrl: t.videoFileUrl || t.videoUrl || "",
+            videoUrl: !isEmbedImg && embedLink ? embedLink : (t.videoFileUrl || t.videoUrl || ""),
           };
         });
       })(),
@@ -213,7 +219,7 @@ export async function getClinicData(): Promise<ClinicData> {
           title: g.title,
           subtitle: g.subtitle || "",
           imageUrl: (g.image ? urlFor(g.image) : "") || g.imageUrl || "",
-          videoUrl: g.videoFileUrl || g.videoUrl || "",
+          videoUrl: g.embedVideo || g.videoFileUrl || g.videoUrl || "",
           altText: g.altText || g.title,
           category:
             g.category ||

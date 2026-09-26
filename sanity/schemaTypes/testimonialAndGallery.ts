@@ -49,6 +49,13 @@ export const testimonial = defineType({
         "Alternatively, paste an Instagram Post, Google Review, Facebook Post, or direct image URL (e.g. https://www.instagram.com/p/... or https://.../image.jpg)",
     }),
     defineField({
+      name: "embedVideoOrImage",
+      title: "Embed Video or Image",
+      type: "url",
+      description:
+        "Paste an embed video link or image link (YouTube, Instagram Reel, Facebook Video, etc.)",
+    }),
+    defineField({
       name: "videoFile",
       title: "Video Testimonial File (Optional)",
       type: "file",
@@ -125,6 +132,13 @@ export const galleryItem = defineType({
       type: "url",
       description:
         "Paste a link to an Instagram Reel / Post, Facebook Video, YouTube video, or cloud video link (e.g. https://www.instagram.com/reel/...)",
+    }),
+    defineField({
+      name: "embedVideo",
+      title: "Embed Video",
+      type: "url",
+      description:
+        "Paste an embed video link (YouTube, Instagram Reel, Facebook Video, etc.)",
     }),
     defineField({
       name: "altText",
