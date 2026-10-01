@@ -18,10 +18,9 @@ export const testimonial = defineType({
     }),
     defineField({
       name: "comment",
-      title: "Testimonial Comment / Review",
+      title: "Testimonial Comment / Review (Optional)",
       type: "text",
       rows: 4,
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "photo",

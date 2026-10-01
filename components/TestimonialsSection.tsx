@@ -217,10 +217,14 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
           )}
 
           {/* Quote Icon & Content */}
-          <Quote className="w-8 h-8 text-emerald-100 group-hover:text-emerald-200 transition-colors mb-2" />
-          <p className="text-sm sm:text-base text-stone-700 leading-relaxed italic mb-6">
-            &ldquo;{item.comment}&rdquo;
-          </p>
+          {item.comment && (
+            <>
+              <Quote className="w-8 h-8 text-emerald-100 group-hover:text-emerald-200 transition-colors mb-2" />
+              <p className="text-sm sm:text-base text-stone-700 leading-relaxed italic mb-6">
+                &ldquo;{item.comment}&rdquo;
+              </p>
+            </>
+          )}
         </div>
 
         {/* Author Info */}

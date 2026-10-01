@@ -48,7 +48,7 @@ export interface TestimonialItem {
   id: string;
   name: string;
   condition: string;
-  comment: string;
+  comment?: string;
   rating: number;
   avatarUrl?: string;
   imageUrl?: string;
