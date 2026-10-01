@@ -8,6 +8,7 @@ interface UniversalVideoEmbedProps {
   title?: string;
   poster?: string;
   className?: string;
+  aspectRatio?: "16/9" | "9/16" | "auto";
 }
 
 // Instagram SVG Icon
@@ -91,6 +92,7 @@ export function UniversalVideoEmbed({
   title = "Video",
   poster,
   className = "",
+  aspectRatio = "16/9",
 }: UniversalVideoEmbedProps) {
   if (!url) return null;
   let cleanUrl = url.trim();
@@ -101,6 +103,8 @@ export function UniversalVideoEmbed({
     cleanUrl = iframeSrcMatch[1];
   }
 
+  const is916 = aspectRatio === "9/16";
+
   // 1. YouTube Match
   const youtubeMatch = cleanUrl.match(
     /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
@@ -108,16 +112,21 @@ export function UniversalVideoEmbed({
   if (youtubeMatch && youtubeMatch[1]) {
     const videoId = youtubeMatch[1];
     const isShort = /shorts/i.test(cleanUrl);
+    const useVertical = is916 || isShort;
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs flex items-center justify-center ${className}`}>
+      <div
+        className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 shadow-xs flex items-center justify-center ${
+          useVertical ? "aspect-[9/16] w-full max-w-[320px] mx-auto" : "aspect-video w-full"
+        } ${className}`}
+      >
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
           title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-          className="h-full border-0 mx-auto"
+          className="w-full h-full border-0 mx-auto"
           style={{
-            aspectRatio: isShort ? "9 / 16" : "16 / 9",
+            aspectRatio: useVertical ? "9 / 16" : "16 / 9",
             height: "100%",
             maxWidth: "100%",
           }}
@@ -133,6 +142,7 @@ export function UniversalVideoEmbed({
   if (instagramMatch && instagramMatch[1]) {
     const igCode = instagramMatch[1];
     const isReel = /(?:reel|reels)/i.test(cleanUrl);
+    const useVertical = is916 || isReel;
     const embedUrl = isReel
       ? `https://www.instagram.com/reel/${igCode}/embed/`
       : `https://www.instagram.com/p/${igCode}/embed/`;
@@ -141,12 +151,16 @@ export function UniversalVideoEmbed({
       : `https://www.instagram.com/p/${igCode}/`;
 
     return (
-      <div className={`relative flex flex-col rounded-2xl overflow-hidden bg-stone-900 border border-stone-200/80 shadow-xs ${className}`}>
+      <div
+        className={`relative flex flex-col rounded-2xl overflow-hidden bg-stone-900 border border-stone-200/80 shadow-xs ${
+          useVertical ? "w-full max-w-[320px] mx-auto" : "w-full"
+        } ${className}`}
+      >
         {/* Top Instagram Branded Bar */}
-        <div className="flex items-center justify-between px-3.5 py-1.5 bg-gradient-to-r from-[#833ab4]/90 via-[#fd1d1d]/90 to-[#fcb045]/90 text-white text-xs font-semibold">
+        <div className="flex items-center justify-between px-3.5 py-1.5 bg-gradient-to-r from-[#833ab4]/90 via-[#fd1d1d]/90 to-[#fcb045]/90 text-white text-xs font-semibold flex-shrink-0">
           <div className="flex items-center gap-1.5">
             <InstagramIcon className="w-3.5 h-3.5" />
-            <span>{isReel ? "Instagram Reel" : "Instagram Video"}</span>
+            <span>{isReel || useVertical ? "Instagram Reel" : "Instagram Video"}</span>
           </div>
           <a
             href={watchUrl}
@@ -159,14 +173,18 @@ export function UniversalVideoEmbed({
           </a>
         </div>
 
-        {/* Instagram Embed Frame (Centered, Object-Contain Behavior without cropping) */}
-        <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
+        {/* Instagram Embed Frame */}
+        <div
+          className={`relative w-full ${
+            useVertical ? "aspect-[9/16]" : "aspect-video"
+          } bg-black flex items-center justify-center overflow-hidden`}
+        >
           <iframe
             src={embedUrl}
             title={title || "Instagram Testimonial"}
-            className="h-full border-0 mx-auto"
+            className="w-full h-full border-0 mx-auto"
             style={{
-              aspectRatio: isReel ? "9 / 16" : "1 / 1",
+              aspectRatio: useVertical ? "9 / 16" : "1 / 1",
               height: "100%",
               maxWidth: "100%",
             }}
@@ -196,16 +214,21 @@ export function UniversalVideoEmbed({
       }
     }
 
-    const { isVertical, aspectRatio } = detectAspectRatio(url);
+    const { isVertical: detectedVertical, aspectRatio: detectedAspect } = detectAspectRatio(url);
+    const useVertical = is916 || detectedVertical;
     const fbEmbedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(videoHref)}&show_text=0`;
 
     return (
-      <div className={`relative flex flex-col rounded-2xl overflow-hidden bg-black border border-stone-200/80 shadow-xs ${className}`}>
+      <div
+        className={`relative flex flex-col rounded-2xl overflow-hidden bg-black border border-stone-200/80 shadow-xs ${
+          useVertical ? "w-full max-w-[320px] mx-auto" : "w-full"
+        } ${className}`}
+      >
         {/* Facebook Header */}
-        <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1877F2] text-white text-xs font-semibold">
+        <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1877F2] text-white text-xs font-semibold flex-shrink-0">
           <div className="flex items-center gap-1.5">
             <FacebookIcon className="w-3.5 h-3.5" />
-            <span>{isVertical ? "Facebook Reel" : "Facebook Video"}</span>
+            <span>{useVertical ? "Facebook Reel" : "Facebook Video"}</span>
           </div>
           <a
             href={watchUrl}
@@ -218,14 +241,18 @@ export function UniversalVideoEmbed({
           </a>
         </div>
 
-        {/* Facebook Embed Frame (16:9 Landscape Container with object-contain behavior) */}
-        <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
+        {/* Facebook Embed Frame */}
+        <div
+          className={`relative w-full ${
+            useVertical ? "aspect-[9/16]" : "aspect-video"
+          } bg-black flex items-center justify-center overflow-hidden`}
+        >
           <iframe
             src={fbEmbedUrl}
             title={title || "Facebook Video"}
-            className="h-full border-0 mx-auto"
+            className="w-full h-full border-0 mx-auto"
             style={{
-              aspectRatio: aspectRatio || (isVertical ? "9 / 16" : "16 / 9"),
+              aspectRatio: useVertical ? "9 / 16" : detectedAspect || "16 / 9",
               height: "100%",
               maxWidth: "100%",
             }}
@@ -245,8 +272,13 @@ export function UniversalVideoEmbed({
     cleanUrl.startsWith("blob:");
 
   if (isDirectVideo) {
+    const useVertical = is916;
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-black aspect-video border border-stone-200/80 shadow-xs flex items-center justify-center ${className}`}>
+      <div
+        className={`relative overflow-hidden rounded-2xl bg-black ${
+          useVertical ? "aspect-[9/16] w-full max-w-[320px] mx-auto" : "aspect-video w-full"
+        } border border-stone-200/80 shadow-xs flex items-center justify-center ${className}`}
+      >
         <video
           src={cleanUrl}
           poster={poster}
@@ -262,16 +294,21 @@ export function UniversalVideoEmbed({
 
   // 5. Generic iframe embed if user passed an embed iframe or URL
   if (url.includes("<iframe") || cleanUrl.includes("/embed/")) {
-    const { isVertical, aspectRatio } = detectAspectRatio(url);
+    const { isVertical: detectedVertical, aspectRatio: detectedAspect } = detectAspectRatio(url);
+    const useVertical = is916 || detectedVertical;
     return (
-      <div className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 aspect-video shadow-xs flex items-center justify-center ${className}`}>
+      <div
+        className={`relative overflow-hidden rounded-2xl bg-black border border-stone-200/80 ${
+          useVertical ? "aspect-[9/16] w-full max-w-[320px] mx-auto" : "aspect-video w-full"
+        } shadow-xs flex items-center justify-center ${className}`}
+      >
         <iframe
           src={cleanUrl}
           title={title}
           allowFullScreen
-          className="h-full border-0 mx-auto"
+          className="w-full h-full border-0 mx-auto"
           style={{
-            aspectRatio: aspectRatio || (isVertical ? "9 / 16" : "16 / 9"),
+            aspectRatio: useVertical ? "9 / 16" : detectedAspect || "16 / 9",
             height: "100%",
             maxWidth: "100%",
           }}
